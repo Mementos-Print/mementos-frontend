@@ -14,3 +14,6 @@ function App() {
 }
 
 export default App
+
+// file for contents
+// create components, also for icons
