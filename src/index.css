@@ -5,6 +5,10 @@
 :root {
   --primary: #333431;
   --secondary: #C9EC81;
+  --disabled: #E0E0E0;
+  --disabledText: #BDBDBD;
+  --dropdown: #EAEAEA;
+  --shadow: #3334314b;
 }
 
 .kanit-semibold {

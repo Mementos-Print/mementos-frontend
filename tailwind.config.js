@@ -3,10 +3,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--primary)',
-        secondary: 'var(--secondary)',
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
+        disabled: "var(--disabled)",
+        disabledText: "var(--disabledText)",
+        dropdown: "var(--dropdown)",
+        shadow: "var(--shadow)",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant("child", "& > *");
+      addVariant("child-hover", "& > *:hover");
+    },
+  ],
 };
