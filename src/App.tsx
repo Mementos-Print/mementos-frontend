@@ -1,13 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Dashboard from './pages/(users)/Dashboard';
+import Blankprint from './pages/(users)/BlankPrint';
+import PhotoStripe from './pages/(users)/PhotoStripe';
+import Polaroid from './pages/(users)/Polariod';
+import GetStarted from './pages/(users)/GetStarted';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/blankprint" element={<Blankprint />} />
+        <Route path="/polaroid" element={<Polaroid />} />
+        <Route path="/photostripe" element={<PhotoStripe />} />
       </Routes>
     </Router>
   );
