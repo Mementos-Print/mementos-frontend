@@ -18,7 +18,6 @@ const Home = () => {
             <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover">
                 <BackgroundGradientsEllipses />
             </div>
-
             <Navbar />
             
             <motion.div
