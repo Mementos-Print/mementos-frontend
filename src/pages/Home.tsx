@@ -29,7 +29,7 @@ const Home = () => {
                 <div className="px-5 relative z-10 flex flex-col items-center justify-center text-center w-full h-fit">
                     {/* Main section */}
                     <div className="py-[70px]">
-                        <h1 className="text-[40px]">Mementos Print: </h1>
+                        <h1 className="text-[36px] kanit-semibold">Mementos Print: </h1>
                         <h2 className="text-3xl">Inking your memories</h2>
                     </div>
 
@@ -37,7 +37,7 @@ const Home = () => {
                         <p className="kanit-light">Select an option</p>
                         <div className="flex flex-col gap-4">
                             {optionsLists.map((options, index) => (
-                                <OptionsBox heading={options.heading} note={options.note} key={index} />
+                                <OptionsBox heading={options.heading} note={options.note} link={options.link} key={index} />
                             ))}
                         </div>
                     </div>

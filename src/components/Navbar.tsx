@@ -7,7 +7,7 @@ const Navbar = () => {
             <div>
             <LogoDark40 />
             </div>
-            <div>
+            <div className="z-[1000]">
                 <HamburgerDropdownMenu />
             </div>
         </div>
