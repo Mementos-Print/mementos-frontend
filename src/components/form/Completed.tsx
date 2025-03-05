@@ -1,6 +1,6 @@
 const Completed = () => (
     <div>
-        Completed
+       Images Uploaded
     </div>
   );
   

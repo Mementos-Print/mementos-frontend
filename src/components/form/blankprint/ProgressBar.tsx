@@ -1,5 +1,5 @@
-import { CheckIcon } from "../../assets/icons/Icon";
-import { ProgressBarProps } from "../../types/type";
+import { CheckIcon } from "../../../assets/icons/Icon";
+import { ProgressBarProps } from "../../../types/type";
 
 const ProgressBar = ({ setcurrentsection, activeSection, done }: ProgressBarProps) => {
     return (

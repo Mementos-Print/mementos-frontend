@@ -37,7 +37,7 @@ export interface InformationDataProps {
 }
 
 export type InformationProps = {
-    sectionData: NewUserDataProps;
+    // sectionData: NewUserDataProps;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
     handleNext: (e: React.FormEvent<HTMLFormElement>) => void
@@ -57,6 +57,9 @@ export type FormSectionDataProps = [
         saveInfo: Boolean;
         date_created: Date;
     },
+    {
+        files: File[]
+    }
 ]
 
 export type FormDataBlackPrint = {
@@ -66,6 +69,26 @@ export type FormDataBlackPrint = {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>, section: number) => void
     handleNext: (e: React.FormEvent<HTMLFormElement>) => void
     handlePrevious: () => void
+};
+
+export type FormDataUploadTab = {
+    // handlePrevious: () => void
+    Files: File[]
+    handleFilesChange: (files: File[]) => void
+    handleNext: (e: React.FormEvent<HTMLFormElement>) => void
+    handleSubmit: () => void
+};
+
+export type FormDataFileUpload = {
+    // sectionData: FormSectionDataProps[2]
+    handleFilesChange: (files: File[]) => void
+    handleNext: (e: React.FormEvent<HTMLFormElement>) => void
+    // handlePrevious: () => void
+};
+
+export type FormDataEdit = {
+    // handlePrevious: () => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 };
 
 

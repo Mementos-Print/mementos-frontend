@@ -1,4 +1,4 @@
-import { useState, ReactNode, FC, useEffect, useContext } from "react";
+import { useState, ReactNode, FC, useEffect } from "react";
 import { StoreContext } from "./StoreContext";
 
 var initialState = {

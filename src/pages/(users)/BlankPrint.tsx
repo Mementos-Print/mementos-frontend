@@ -3,28 +3,26 @@ import CompletedModal from "../../components/Modals/CompletedModal";
 import { FormEvent, useEffect, useState } from "react";
 import Completed from "../../components/form/Completed";
 import { FormSectionDataProps } from "../../types/type";
-import ProgressBar from "../../components/form/ProgressBar";
-import FileUpload from "../../components/form/FileUpload";
+import ProgressBar from "../../components/form/blankprint/ProgressBar";
 import useStoreContext from "../../useStoreContext";
 import Information from "../../components/form/information";
+import UploadTab from "../../components/form/blankprint/UploadTab";
 
 const Blackprint = () => {
     const [currentSection, setCurrentSection] = useState(2);
     const [done, setDone] = useState<number[]>([0]);
+    const [files, setFiles] = useState<File[]>([]);
 
     const { store, setStore } = useStoreContext();
-    const [isUserSaved, setIsUserSaved] = useState(false);
     useEffect(() => {
         // Check if user data is not empty
         if (store.user && Object.keys(store.user).length > 0) {
-            setIsUserSaved(true);
             setDone(prevDone => {
                 const updatedDone = [...prevDone];
                 updatedDone.push(1);
                 return updatedDone;
             });
         } else {
-            setIsUserSaved(false);
             setCurrentSection(1);
         }
     }, [store.user]);
@@ -38,7 +36,7 @@ const Blackprint = () => {
                 (updatedSectionData[0] as any)[name] = value;
             }
             if (saveInfo) {
-                updatedSectionData[0].saveInfo = saveInfo
+                (updatedSectionData[0] as any)[`saveInfo`] = saveInfo
             }
             return updatedSectionData as FormSectionDataProps;
         })
@@ -77,9 +75,9 @@ const Blackprint = () => {
         setCurrentSection(currentSection + 1);
     };
 
-    const handlePrevious = () => {
-        setCurrentSection(currentSection - 1);
-    };
+    // const handlePrevious = () => {
+    //     setCurrentSection(currentSection - 1);
+    // };
 
     const [formSectionsData, setFormSectionsData] = useState<FormSectionDataProps>([
         {
@@ -88,27 +86,28 @@ const Blackprint = () => {
             saveInfo: false,
             date_created: new Date(),
         },
+        {
+            files: [],
+        }
     ]);
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, section: number) => {
-        const { name, value } = e.target;
-        console.log(name, value, section);
-        console.log(formSectionsData);
-        const index = section - 1;
 
-        setFormSectionsData(prevSectionsData => {
-            const updatedSectionData = [...prevSectionsData];
-            if (name in updatedSectionData[index]) {
-                (updatedSectionData[index] as any)[name] = value;
-            }
-            return updatedSectionData as FormSectionDataProps;
-        })
-        console.log(formSectionsData);
-    }
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, section: number) => {
+    //     const { name, value } = e.target;
+    //     console.log(name, value, section);
+    //     console.log(formSectionsData);
+    //     const index = section - 1;
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // alert('Form submitted');
+    //     setFormSectionsData(prevSectionsData => {
+    //         const updatedSectionData = [...prevSectionsData];
+    //         if (name in updatedSectionData[index]) {
+    //             (updatedSectionData[index] as any)[name] = value;
+    //         }
+    //         return updatedSectionData as FormSectionDataProps;
+    //     })
+    //     console.log(formSectionsData);
+    // }
 
+    const handleSubmit = () => {
         // You can also clear the local storage if needed
         localStorage.removeItem('formSectionsData');
 
@@ -123,16 +122,29 @@ const Blackprint = () => {
         }, 3000); // 3 seconds delay
     };
 
+    const handleFileChange = (files: File[]) => {
+        setFiles(prevSectionsData => {
+            const updatedSectionData = [...prevSectionsData, ...files];
+            return updatedSectionData;
+        });
+
+        const name = 'files'
+        setFormSectionsData(prevSectionsData => {
+            const updatedSectionData = [...prevSectionsData];
+            (updatedSectionData[1] as any)[name] = files;
+            return updatedSectionData as FormSectionDataProps;
+        });
+    };
+
     const renderSection = () => {
         switch (currentSection) {
             case 1:
                 return (
-                    <Information sectionData={formSectionsData[0]} handleChange={handleInformationChange} handleNext={handleNext} handleSubmit={handleInformationSubmit} />
+                    <Information handleChange={handleInformationChange} handleNext={handleNext} handleSubmit={handleInformationSubmit} />
                 );
             case 2:
                 return (
-                    <FileUpload />
-
+                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} handleSubmit={handleSubmit}/> 
                 );
             case 3:
                 return (
@@ -144,7 +156,7 @@ const Blackprint = () => {
     };
 
     return (
-        <div className="kanit-medium h-screen bg-[#F5F5F5] ">
+        <div className="kanit-medium bg-[#F5F5F5] ">
             <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[88%]">
                 <ProgressBar activeSection={currentSection} done={done} setcurrentsection={handleSectionChange} />
 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 const Home = () => {
     return (
-        <div className="kanit-medium">
+        <div className="kanit-medium bg-[#F5F5F5] ">
             <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover md:object-fill">
                 <BackgroundGradientsEllipses />
             </div>

@@ -4,7 +4,7 @@ import { ArrowRight, CheckIcon } from "../../assets/icons/Icon";
 import { ChangeEvent, useState } from "react";
 import { InformationDataProps, InformationProps } from "../../types/type";
 
-const Information = ({ sectionData, handleChange, handleSubmit, handleNext }: InformationProps) => {
+const Information = ({ handleChange, handleSubmit, handleNext }: InformationProps) => {
     const [disabled, setDisabled] = useState(true)
     const {
         register,

@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FormDataFileUpload } from '../../../types/type';
 
-const FileUpload = () => {
+const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
     const [files, setFiles] = useState<File[]>([]);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files;
         if (selectedFiles) {
             setFiles(Array.from(selectedFiles));
         }
     };
+
+    useEffect(() => {
+        handleFilesChange(files);
+    }, [files, handleFilesChange]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -23,26 +28,27 @@ const FileUpload = () => {
         });
 
         console.log("Files ready to upload:", files);
-
+        handleNext(e);
     };
 
     return (
-        <div className="">
-            <h1 className="">File Uploads</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='flex flex-col w-full'>
+            <h1>File Uploads</h1>
 
+            <form onSubmit={handleSubmit}>
                 <input
                     type="file"
-                    onChange={handleFileChange}
+                    onChange={handleChange}
                     accept=".jpeg, .png, .jpg, .pdf"
                     multiple
+                    className='w-fit'
                 />
 
-                <div className="file-list">
+                <div>
                     {files.length > 0 && (
                         <ul className='flex flex-wrap'>
                             {files.map((file, index) => (
-                                <li key={index} className="file-item">
+                                <li key={index}>
                                     {file.name} ({(file.size / 1024).toFixed(2)} KB)
                                 </li>
                             ))}
