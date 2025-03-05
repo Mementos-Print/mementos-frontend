@@ -11,7 +11,7 @@ import UploadTab from "../../components/form/blankprint/UploadTab";
 const Blackprint = () => {
     const [currentSection, setCurrentSection] = useState(2);
     const [done, setDone] = useState<number[]>([0]);
-    const [files, setFiles] = useState<File[]>([]);
+    const [_files, setFiles] = useState<File[]>([]);
 
     const { store, setStore } = useStoreContext();
     useEffect(() => {
