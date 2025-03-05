@@ -1,16 +1,63 @@
 import { useNavigate } from "react-router-dom";
 import CompletedModal from "../../components/Modals/CompletedModal";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Completed from "../../components/form/Completed";
 import { FormSectionDataProps } from "../../types/type";
 import ProgressBar from "../../components/form/ProgressBar";
+import FileUpload from "../../components/form/FileUpload";
+import useStoreContext from "../../useStoreContext";
 import Information from "../../components/form/information";
-import Navbar from "../../components/Navbar";
-import { BackgroundGradientsEllipses } from "../../assets/icons/Icon";
 
 const Blackprint = () => {
-    const [currentSection, setCurrentSection] = useState(1);
+    const [currentSection, setCurrentSection] = useState(2);
     const [done, setDone] = useState<number[]>([0]);
+
+    const { store, setStore } = useStoreContext();
+    const [isUserSaved, setIsUserSaved] = useState(false);
+    useEffect(() => {
+        // Check if user data is not empty
+        if (store.user && Object.keys(store.user).length > 0) {
+            setIsUserSaved(true);
+            setDone(prevDone => {
+                const updatedDone = [...prevDone];
+                updatedDone.push(1);
+                return updatedDone;
+            });
+        } else {
+            setIsUserSaved(false);
+            setCurrentSection(1);
+        }
+    }, [store.user]);
+
+    const handleInformationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, saveInfo: Boolean = false) => {
+        const { name, value } = e.target;
+
+        setFormSectionsData(prevSectionsData => {
+            const updatedSectionData = [...prevSectionsData];
+            if (name in updatedSectionData[0]) {
+                (updatedSectionData[0] as any)[name] = value;
+            }
+            if (saveInfo) {
+                updatedSectionData[0].saveInfo = saveInfo
+            }
+            return updatedSectionData as FormSectionDataProps;
+        })
+    }
+
+    const handleInformationSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            setStore((prevStore: any) => ({
+                ...prevStore,
+                user: formSectionsData[0]
+            }));
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            console.log(formSectionsData[0], 'submitted');
+        }
+    }
 
     const navigate = useNavigate();
     const [showCompletedModal, setShowCompletedModal] = useState(false);
@@ -38,7 +85,8 @@ const Blackprint = () => {
         {
             name: '',
             email: '',
-            date_submitted: new Date(),
+            saveInfo: false,
+            date_created: new Date(),
         },
     ]);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, section: number) => {
@@ -79,11 +127,11 @@ const Blackprint = () => {
         switch (currentSection) {
             case 1:
                 return (
-                    <Information sectionData={formSectionsData[0]} activeSection={currentSection} handleChange={handleChange} handleNext={handleNext} />
+                    <Information sectionData={formSectionsData[0]} handleChange={handleInformationChange} handleNext={handleNext} handleSubmit={handleInformationSubmit} />
                 );
             case 2:
                 return (
-                    <div>2</div>
+                    <FileUpload />
 
                 );
             case 3:
@@ -96,19 +144,12 @@ const Blackprint = () => {
     };
 
     return (
-        <div  className="kanit-medium h-screen ">
-            <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover">
-                <BackgroundGradientsEllipses />
-            </div>
-            <Navbar />
-
-            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-fit">
+        <div className="kanit-medium h-screen bg-[#F5F5F5] ">
+            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[88%]">
                 <ProgressBar activeSection={currentSection} done={done} setcurrentsection={handleSectionChange} />
 
-                <div className="flex h-full ">
-                    <div className="w-full p-6">
-                        {renderSection()}
-                    </div>
+                <div className="flex h-full w-full pt-6">
+                    {renderSection()}
                 </div>
                 <CompletedModal isOpen={showCompletedModal} />
             </div>

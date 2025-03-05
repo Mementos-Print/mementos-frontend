@@ -1,3 +1,15 @@
+export interface NewUserDataProps {
+    name: string;
+    email: string;
+    saveInfo: Boolean;
+    date_created: Date;
+}
+
+export type NewUserDataInformation = {
+    // sectionData: NewUserDataProps;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+};
 export interface DropdownWithRadioProps {
     options: { value: string; label: string }[];
     defaultValue: string;
@@ -17,33 +29,35 @@ export interface DropdownWithImageProps {
 }
 
 // Form Type
-export type DataProps = {
-    id: string
-    name: string
-    email: string
-    date_submitted: Date
+export interface InformationDataProps {
+    name: string;
+    email: string;
+    saveInfo: Boolean;
+    date_created: Date;
 }
 
+export type InformationProps = {
+    sectionData: NewUserDataProps;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    handleNext: (e: React.FormEvent<HTMLFormElement>) => void
+};
+
 export type FormDataProps = {
-    name: string
-    email: string
-    date_submitted: Date
+    name: string;
+    email: string;
+    saveInfo: Boolean;
+    date_created: Date;
 }
 
 export type FormSectionDataProps = [
     {
-        name: string
-        email: string
-        date_submitted: Date
+        name: string;
+        email: string;
+        saveInfo: Boolean;
+        date_created: Date;
     },
 ]
-
-export type FormDataInformation = {
-    sectionData: FormSectionDataProps[0]
-    activeSection: number;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>, section: number) => void
-    handleNext: (e: React.FormEvent<HTMLFormElement>) => void;
-};
 
 export type FormDataBlackPrint = {
     // sectionData: FormSectionDataProps[5]
@@ -64,3 +78,7 @@ export type ProgressBarProps = {
 export type CompletedProps = {
     isOpen: boolean
 }
+
+export type StoreContextType = {
+    [key: string]: unknown;
+};
