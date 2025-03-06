@@ -39,7 +39,7 @@ const NewUser = () => {
             console.log(error);
             
         } finally {
-            console.log(NewUserData, 'submitted');
+            console.log('submitted');
         }
 
         // Navigate to another route after 3 seconds

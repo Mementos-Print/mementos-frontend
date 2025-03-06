@@ -19,8 +19,8 @@ const Home = () => {
             >
                 <div className="px-5 relative z-10 flex flex-col gap-7 items-center justify-center text-center w-full h-fit">
                     {/* Main section */}
-                    <div className="pt-[70px] pb-4">
-                        <h1 className="text-[36px] kanit-semibold">Mementos Print: </h1>
+                    <div className="pt-[60px] pb-4">
+                        <h1 className="text-[34px] kanit-semibold">Mementos Print: </h1>
                         <h2 className="text-2xl">Inking your memories</h2>
                     </div>
 

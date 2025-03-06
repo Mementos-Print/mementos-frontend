@@ -105,3 +105,4 @@ export type CompletedProps = {
 export type StoreContextType = {
     [key: string]: unknown;
 };
+

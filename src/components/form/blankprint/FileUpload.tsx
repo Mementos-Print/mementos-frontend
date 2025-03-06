@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FormDataFileUpload } from '../../../types/type';
+import { FileBox } from '../../../assets/icons/Icon';
 
 const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
     const [files, setFiles] = useState<File[]>([]);
@@ -12,7 +13,9 @@ const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
     };
 
     useEffect(() => {
-        handleFilesChange(files);
+        if (files.length > 0) {
+            handleFilesChange(files);
+        }
     }, [files, handleFilesChange]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,9 +26,14 @@ const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
         }
 
         const formData = new FormData();
-        files.forEach((file, index) => {
-            formData.append(`file${index + 1}`, file);
-        });
+        try {
+            files.forEach((file, index) => {
+                formData.append(`file${index + 1}`, file);
+            });
+            handleFilesChange(files);
+        } catch (error) {
+            console.log(error);
+        }
 
         console.log("Files ready to upload:", files);
         handleNext(e);
@@ -33,37 +41,19 @@ const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
 
     return (
         <div className='flex flex-col w-full'>
-            <h1>File Uploads</h1>
-
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="file"
-                    onChange={handleChange}
-                    accept=".jpeg, .png, .jpg, .pdf"
-                    multiple
-                    className='w-fit'
-                />
-
-                <div>
-                    {files.length > 0 && (
-                        <ul className='flex flex-wrap'>
-                            {files.map((file, index) => (
-                                <li key={index}>
-                                    {file.name} ({(file.size / 1024).toFixed(2)} KB)
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+            <form onSubmit={handleSubmit} className='flex flex-col items-center py-5'>
+                <div className='flex flex-col w-2/3 h-full justify-center items-center gap-4 py-14 border-2 border-primary'>
+                    <FileBox />
+                    <label htmlFor="browse" className='kanit-medium text-primary font-bold hover:underline bg-secondary px-5 py-2 text-center w-fit rounded-full'>Upload Images</label>
+                    <input
+                        type="file"
+                        onChange={handleChange}
+                        accept=".jpeg, .png, .jpg, .pdf"
+                        multiple
+                        hidden
+                        id="browse"
+                    />
                 </div>
-
-                <button
-                    type="submit"
-                    className="upload-button"
-                    disabled={files.length === 0}
-                >
-                    Upload
-                </button>
-
             </form>
         </div>
     );
