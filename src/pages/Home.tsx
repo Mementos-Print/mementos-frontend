@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion"
 import { BackgroundGradientsEllipses } from "../assets/icons/Icon"
-import Navbar from "../components/Navbar"
+// import Navbar from "../components/Navbar"
 import OptionsBox from "../components/ui/OptionsBox"
 import { optionsLists } from "../constants"
+import { NavLink } from "react-router-dom"
 
 // import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
@@ -18,7 +19,7 @@ const Home = () => {
             <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover">
                 <BackgroundGradientsEllipses />
             </div>
-            <Navbar />
+            {/* <Navbar /> */}
             
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -37,7 +38,9 @@ const Home = () => {
                         <p className="kanit-light">Select an option</p>
                         <div className="flex flex-col gap-4">
                             {optionsLists.map((options, index) => (
-                                <OptionsBox heading={options.heading} note={options.note} key={index} />
+                                <NavLink to={options.link}>
+                                    <OptionsBox heading={options.heading} note={options.note} key={index}/>
+                                </NavLink>
                             ))}
                         </div>
                     </div>

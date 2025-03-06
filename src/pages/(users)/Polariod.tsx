@@ -1,9 +1,7 @@
-const Polaroid = () => {
-    return (
-        <div>
-            <h1>Polaroid</h1>
-        </div>
-    )
-}
+import PolaroidIndex from "../../components/polaroid/Polaroid";
 
-export default Polaroid
+const Polaroid = () => {
+  return <PolaroidIndex />;
+};
+
+export default Polaroid;
