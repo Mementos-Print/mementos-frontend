@@ -17,8 +17,6 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
   const email = watch("email");
 
   // Disable the button if any required field is empty
-  const isDisabled = !name || !email;
-
   const [checked, setChecked] = useState(false)
 
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +75,7 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
           >
             <Checkbox.Indicator className="text-primary">
               <div className="bg-secondary">
-                <CheckIcon />
+                <CheckIcon color="white"/>
               </div>
             </Checkbox.Indicator>
           </Checkbox.Root>
