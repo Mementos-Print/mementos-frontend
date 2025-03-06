@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CompletedModal from "../../components/Modals/CompletedModal";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import Completed from "../../components/form/Completed";
 import { FormSectionDataProps } from "../../types/type";
 import ProgressBar from "../../components/form/blankprint/ProgressBar";
@@ -122,7 +122,7 @@ const Blackprint = () => {
         }, 3000); // 3 seconds delay
     };
 
-    const handleFileChange = (files: File[]) => {
+    const handleFileChange = useCallback((files: File[]) => {
         setFiles(prevSectionsData => {
             const updatedSectionData = [...prevSectionsData, ...files];
             return updatedSectionData;
@@ -134,7 +134,20 @@ const Blackprint = () => {
             (updatedSectionData[1] as any)[name] = files;
             return updatedSectionData as FormSectionDataProps;
         });
-    };
+
+        try {
+            setStore((prevStore: any) => ({
+                ...prevStore,
+                files: formSectionsData[1]
+            }));
+        } catch (error) {
+            console.log(error);
+
+        } finally {
+            console.log('saved');
+        }
+
+    }, []);
 
     const renderSection = () => {
         switch (currentSection) {
@@ -144,7 +157,7 @@ const Blackprint = () => {
                 );
             case 2:
                 return (
-                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} handleSubmit={handleSubmit}/> 
+                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} handleSubmit={handleSubmit} />
                 );
             case 3:
                 return (
@@ -157,10 +170,10 @@ const Blackprint = () => {
 
     return (
         <div className="kanit-medium bg-[#F5F5F5] ">
-            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[88%]">
+            <div className="relative z-10 flex flex-col w-full h-[88%]">
                 <ProgressBar activeSection={currentSection} done={done} setcurrentsection={handleSectionChange} />
 
-                <div className="flex h-full w-full pt-6">
+                <div className="flex h-[78vh] w-full">
                     {renderSection()}
                 </div>
                 <CompletedModal isOpen={showCompletedModal} />

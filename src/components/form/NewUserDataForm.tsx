@@ -25,7 +25,6 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
     e.preventDefault();
     handleChange(e, checked);
     setDisabled(!name || !email ? false : true);
-    console.log(isDisabled, disabled);
   }
 
   const handleSaveInfo = (check: boolean) => {

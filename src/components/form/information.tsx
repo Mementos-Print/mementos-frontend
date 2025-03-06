@@ -40,7 +40,7 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
     };
 
     return (
-        <form className="flex flex-col gap-7 h-fit justify-between" onSubmit={handleFormSubmit}>
+        <form className="flex flex-col px-5 gap-7 h-fit justify-between" onSubmit={handleFormSubmit}>
             <div>
                 <div className=' text-primary flex flex-col justify-start '>
                     <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-medium">Name <span className="text-red-700">*</span></label>
@@ -80,7 +80,7 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
                     >
                         <Checkbox.Indicator className="text-primary">
                             <div className="bg-secondary">
-                                <CheckIcon />
+                                <CheckIcon color="var(--primary)" />
                             </div>
                         </Checkbox.Indicator>
                     </Checkbox.Root>

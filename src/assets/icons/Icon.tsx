@@ -7,11 +7,20 @@ export const HamburgerMenuIcon = () => {
     )
 }
 
-export const CheckIcon = () => {
-
+export const CheckIcon = ({ color = "white" }: { color: string }) => {
     return (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.86339 10.5836L3.08339 7.80361L2.13672 8.74361L5.86339 12.4703L13.8634 4.47027L12.9234 3.53027L5.86339 10.5836Z" fill="white" />
+            <path d="M5.86339 10.5836L3.08339 7.80361L2.13672 8.74361L5.86339 12.4703L13.8634 4.47027L12.9234 3.53027L5.86339 10.5836Z" fill={color} />
+        </svg>
+    )
+}
+
+export const FileBox = () => {
+    return (
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="18.9863" y1="0.76001" x2="18.9863" y2="38" stroke="black" strokeWidth="2" />
+            <line x1="37.2402" y1="19.62" x2="0.000236511" y2="19.62" stroke="black" strokeWidth="2" />
+            <circle cx="19" cy="19" r="18" stroke="black" strokeWidth="2" />
         </svg>
     )
 }
@@ -74,6 +83,22 @@ export const ChevronUp = () => {
     )
 }
 
+export const ChevronLeft = () => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5 13L5.5 8L10.5 3" stroke="#FAFAFA" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export const ChevronRight = () => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.5 3L10.5 8L5.5 13" stroke="#FAFAFA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
 export const CloseSolid = () => {
     return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,6 +112,14 @@ export const Close = () => {
     return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M9.75 9.75L14.25 14.25M14.25 9.75L9.75 14.25M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export const CloseOutline = () => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.5 3L10.5 8L5.5 13" stroke="#FAFAFA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     )
 }
