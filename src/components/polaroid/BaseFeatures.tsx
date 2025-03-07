@@ -1,4 +1,5 @@
-import { useAppDispatch, useAppState } from "../../context/AppContext";
+import { useAppState } from "../../hooks/useAppState";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { headers } from "../../constants";
 const BaseFeatures = () => {
   const { activePolaroidBase } = useAppState();

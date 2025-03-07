@@ -4,7 +4,6 @@ import {
     ReactNode,
     useReducer,
     Reducer,
-    useContext,
   } from "react";
 import { headers } from "../constants";
   interface State {
@@ -20,8 +19,8 @@ import { headers } from "../constants";
     children: ReactNode;
   }
   const initialState = { activePolaroidBase: headers[0]?.name, onUpload: "" };
-  const AppStateContext = createContext<State | undefined>(undefined);
-  const AppDispathContext = createContext<Dispatch | undefined>(undefined);
+  export const AppStateContext = createContext<State | undefined>(undefined);
+  export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
   const DashboardReducer = (state: State, action: Action) => {
     const { type,payload } = action;
     switch (type) {
@@ -46,16 +45,3 @@ import { headers } from "../constants";
       </AppStateContext.Provider>
     );  
   };
-  export const useAppState = () => {
-    const context = useContext(AppStateContext);
-    if (!context)
-      throw new Error("useAppState must be used within a AppProvider");
-    return context;
-  };
-  export const useAppDispatch = () => {
-    const context = useContext(AppDispathContext);
-    if (!context)
-      throw new Error("useAppDispatch must be used within a AppProvider");
-    return context;
-  };
-  

@@ -1,7 +1,7 @@
-import { useRef,  } from "react";
+import { useRef } from "react";
 import { PolaroidUpload, UploadImageButton } from "../../assets/icons/Icon";
 import axios from "axios";
-import { useAppDispatch } from "../../context/AppContext";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const UploadImage = () => {
   const dispatch = useAppDispatch();
@@ -10,7 +10,7 @@ const UploadImage = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      uploadImage(file)
+      uploadImage(file);
     }
   };
 
@@ -20,15 +20,14 @@ const UploadImage = () => {
     }
   };
 
-  const uploadImage = async (file:File) => {
-    
+  const uploadImage = async (file: File) => {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "mementos");
     formData.append("cloud_name", "dt7jocfde");
     formData.append("folder", "mementos");
-    
+
     try {
       const response = await axios.post(
         "https://api.cloudinary.com/v1_1/dt7jocfde/image/upload",
@@ -36,7 +35,6 @@ const UploadImage = () => {
       );
       const imageUrl = response.data.secure_url;
       dispatch({ type: "SET_UPLOAD", payload: imageUrl });
-      console.log("Image Uploaded");
     } catch (error) {
       console.error("Upload Failed", error);
     }
