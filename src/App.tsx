@@ -4,21 +4,24 @@ import Blankprint from "./pages/(users)/BlankPrint";
 import PhotoStripe from "./pages/(users)/PhotoStripe";
 import Polaroid from "./pages/(users)/Polariod";
 import GetStarted from "./pages/(users)/GetStarted";
-import NaviationLayout from "./components/navigation";
+import Navigation from './components/Navbar';
+import NewUser from './pages/(users)/NewUser';
+
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<NaviationLayout />}>
+        <Route path="/" element={<Navigation />}>
           <Route index={true} element={<Home />} />
           <Route path="polaroid" element={<Polaroid />} />
+          <Route path="newUser" element={<NewUser />} />
           <Route path="blankprint" element={<Blankprint />} />
           <Route path="photostripe" element={<PhotoStripe />} />
           <Route path="get-started" element={<GetStarted />} />
         </Route>
       </Routes>
-    </Router>
+    </Router >
   );
 }
 
