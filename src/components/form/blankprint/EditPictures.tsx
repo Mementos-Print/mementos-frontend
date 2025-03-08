@@ -11,7 +11,7 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
       } else {
          setCurrentImage(selectedImages.length)
       }
-   }
+   } 
 
    const handleNextImage = () => {
       if (currentImage != selectedImages.length - 1) {
@@ -22,7 +22,7 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
       }
    }
 
-   const canvasRef = useRef<React.MutableRefObject<null> | null>(null);
+   const canvasRef = useRef<React.MutableRefObject<null>>(null);
    useEffect(() => {
       canvasRef.current = new fabric.Canvas('fabric-canvas');
     }, []);

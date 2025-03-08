@@ -85,7 +85,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, handleSubmit }: FormD
                             Border
                         </button>
                     </div>
-                    <button onClick={handleSubmit} className="bg-secondary py-1 px-4 text-xs text-primary rounded-full">
+                    <button onClick={handleSubmit} className="bg-secondary py-1 px-4 text-xs text-primary rounded-full absolute right-4">
                         Done
                     </button>
                 </div>
