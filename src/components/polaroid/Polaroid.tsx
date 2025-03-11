@@ -16,10 +16,6 @@ const PolaroidIndex = () => {
         ) : (
           <UploadImage />
         )}
-
-        {/* <SelectedImageLayout /> */}
-
-        {/* {onUpload && <img src={onUpload} />} */}
       </div>
       <BaseFeatures />
     </div>

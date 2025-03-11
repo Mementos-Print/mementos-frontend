@@ -43,14 +43,13 @@ const BaseFeatures = () => {
       <main>
         <div className="grid grid-cols-3 bg-white gap-0.5">
           {importedImages.map((img, idx) => (
-            <div className="relative">
+            <div className="relative" key={idx}>
               <img
                 src={img}
-                key={idx}
                 className="h-28  object-cover"
                 onClick={() => selectImage(idx)}
               />
-              <Selected className="absolute top-0 border-black"/>
+              <Selected className={`absolute top-0 border-black text-3xl` }/>
             </div>
           ))}
         </div>

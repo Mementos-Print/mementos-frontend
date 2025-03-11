@@ -456,4 +456,5 @@ export const BackgroundGradientsEllipses = () => {
 }
 import  PolaroidUpload  from "/upload_polaroid.svg";
 import  UploadImageButton from "/upload_image.svg"
-export {PolaroidUpload,UploadImageButton}
+import Cancel from "/cancel.svg"
+export {PolaroidUpload,UploadImageButton, Cancel}
