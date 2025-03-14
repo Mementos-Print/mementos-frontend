@@ -1,19 +1,13 @@
 import { useAppState } from "../../hooks/useAppState";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { headers } from "../../constants";
-import { Selected } from "../../assets/Logo";
-// import { images } from "./dummy";
+import Imports from "./Imports";
+import Border from "./Border";
+import { useSetOption } from "../../hooks/useSetOption";
 
 const BaseFeatures = () => {
-  const { activePolaroidBase, selectedImages, importedImages } = useAppState();
-  const dispatch = useAppDispatch();
+  const { activePolaroidBase, selectedImages } = useAppState();
+  const setOption = useSetOption();
 
-  const selectImage = (idx: number) => {
-    const updatedSelectedImages = [...selectedImages];
-    updatedSelectedImages.unshift(importedImages[idx]);
-
-    dispatch({ type: "SET_SELECTED", payload2: updatedSelectedImages });
-  };
   return (
     <div>
       <header className="flex justify-center relative gap-2 bg-white py-3 text-xs bg-[#FAFAFA]">
@@ -25,12 +19,7 @@ const BaseFeatures = () => {
               className={`rounded-md px-[6px] py-1 cursor-pointer ${
                 isActive ? "bg-[#333431] text-white" : "bg-[#F5F5F5] text-black"
               }`}
-              onClick={() =>
-                dispatch({
-                  type: "SET_POLAROID_BASE",
-                  payload: header.name,
-                })
-              }
+              onClick={() => setOption("activePolaroidBase", header.name)}
             >
               {header.name}
             </p>
@@ -41,18 +30,12 @@ const BaseFeatures = () => {
         </p>
       </header>
       <main>
-        <div className="grid grid-cols-3 bg-white gap-0.5">
-          {importedImages.map((img, idx) => (
-            <div className="relative" key={idx}>
-              <img
-                src={img}
-                className="h-28  object-cover"
-                onClick={() => selectImage(idx)}
-              />
-              <Selected className={`absolute top-0 border-black text-3xl` }/>
-            </div>
-          ))}
-        </div>
+        {activePolaroidBase == "Imports" && <Imports />}
+        {activePolaroidBase == "Grid" && <Imports />}
+        {selectedImages.length > 0 && activePolaroidBase == "Border" && (
+          <Border />
+        )}
+        {}
       </main>
     </div>
   );
