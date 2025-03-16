@@ -17,7 +17,7 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
     const email = watch("email");
 
     // Disable the button if any required field is empty
-    const isDisabled = !name || !email;
+    // const _isDisabled = !name || !email;
 
     const [checked, setChecked] = useState(false)
 
@@ -25,7 +25,6 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
         e.preventDefault();
         handleChange(e, checked);
         setDisabled(!name || !email ? false : true);
-        console.log(isDisabled, disabled);
     }
 
     const handleSaveInfo = (check: boolean) => {

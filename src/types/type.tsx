@@ -76,7 +76,7 @@ export type FormDataUploadTab = {
     Files: File[]
     handleFilesChange: (files: File[]) => void
     handleNext: (e: React.FormEvent<HTMLFormElement>) => void
-    handleSubmit: () => void
+    setShowUploadModal: (a: boolean) => void
 };
 
 export type FormDataFileUpload = {
@@ -102,7 +102,12 @@ export type CompletedProps = {
     isOpen: boolean
 }
 
+export type UploadProps = {
+    isOpen: boolean
+    handleNext: (e: React.MouseEvent<HTMLButtonElement>) => void
+    // handleSubmit: () => void
+}
+
 export type StoreContextType = {
     [key: string]: unknown;
 };
-

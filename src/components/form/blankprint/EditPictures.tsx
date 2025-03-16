@@ -1,53 +1,127 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "../../../assets/icons/Icon";
 import * as fabric from 'fabric';
+import { FabricImage } from 'fabric';
+import useStoreContext from "../../../useStoreContext";
 
 const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
-   const [currentImage, setCurrentImage] = useState(0)
+   const [currentImage, setCurrentImage] = useState(0);
+   const { borderColor, canvasRef } = useStoreContext();
 
    const handlePrevImage = () => {
-      if (currentImage != 0) {
-         setCurrentImage(currentImage - 1)
-      } else {
-         setCurrentImage(selectedImages.length)
-      }
-   } 
+      setCurrentImage((prev) => (prev === 0 ? selectedImages.length - 1 : prev - 1));
+   };
 
    const handleNextImage = () => {
-      if (currentImage != selectedImages.length - 1) {
-         setCurrentImage(currentImage + 1)
-      }
-      else {
-         setCurrentImage(0)
-      }
-   }
+      setCurrentImage((prev) => (prev === selectedImages.length - 1 ? 0 : prev + 1));
+   };
 
-   const canvasRef = useRef<React.MutableRefObject<null>>(null);
+   const canvasWidth = window.innerWidth * (3.5 / 5);
+   const canvasHeight = (window.innerHeight * (2 / 5)) + 50;
+
    useEffect(() => {
-      canvasRef.current = new fabric.Canvas('fabric-canvas');
-    }, []);
+      const canvas = new fabric.Canvas("canvas", {
+         width: canvasWidth,
+         height: canvasHeight,
+         backgroundColor: borderColor,
+      });
+      canvasRef.current = canvas;
+
+      return () => {
+         canvasRef.current?.dispose();
+      };
+   }, [borderColor, selectedImages]);
+
+   useEffect(() => {
+      if (canvasRef.current && selectedImages.length > 0) {
+         const canvas = canvasRef.current;
+         const imageUrl = URL.createObjectURL(selectedImages[currentImage]);
+
+         const imageWidth = canvasWidth - 30;
+         const imageHeight = canvasHeight - 45;
+
+         // Clear previous images from canvas
+         canvas.clear();
+
+         const rect = new fabric.Rect({
+            width: canvasWidth,
+            height: canvasHeight,
+            backgroundColor: borderColor,
+            fill: borderColor,
+            selectable: false,
+            hasControls: false, 
+            hasBorders: false,
+         })
+         canvas.add(rect);
+
+         const clipPath = new fabric.Rect({
+            left: 15,
+            top: 15,
+            width: imageWidth,
+            height: imageHeight,
+            absolutePositioned: true,
+         });
+ 
+         FabricImage.fromURL(imageUrl).then((img) => {
+            if (img) {
+               img.scaleToHeight(imageHeight);
+               img.scaleToWidth(imageWidth);
+
+               const scaleX = imageWidth / img.width!;
+               const scaleY = imageHeight / img.height!;
+               const scale = Math.max(scaleX, scaleY); // Ensures full coverage
+
+               img.set({
+                  scaleX: scale,
+                  scaleY: scale,
+                  left: (canvasWidth - img.width! * scale) / 2,
+                  top: (canvasHeight - img.height! * scale) / 2,
+                  selectable: false,
+                  hasControls: false,
+                  hasBorders: true,
+                  clipPath: clipPath,
+               });
+               canvas.add(img);
+               canvas.renderAll();
+               URL.revokeObjectURL(imageUrl); // Cleanup
+            }
+         }).catch((error) => {
+            console.error("Failed to load image:", error);
+         });
+      }
+   }, [currentImage, selectedImages, borderColor]);
 
    return (
-      <div className="h-full flex flex-col justify-center items-center align-middle">
-         {selectedImages.length == 0 ?
-            <div className="text-lg text-disabledText kanit-light">Select Images to print.</div> :
-            <div className="w-1/2 flex flex-row justify-center gap-6 items-center">
-               <img id="my-image" src={URL.createObjectURL(selectedImages[currentImage])} style={{display: 'none'}}/>
-               <canvas id="c" width="100%" height="60%"></canvas>
-               <div className="previous p-2 bg-gradient-to-r from-gradient_from to-disabled rounded-full w-fit h-fit cursor-pointer"
-                  onClick={() => handlePrevImage()}>
-                  <ChevronLeft />
+      <div className="h-2/3 px-3 my-3">
+         {selectedImages.length === 0 ? (
+            <div className="h-full text-lg text-disabledText kanit-light">Select Images to print.</div>
+         ) : (
+            <div className="w-full h-full flex flex-row justify-center gap-3 items-center align-middle">
+               <div
+                  className="previous w-1/12 h-fit cursor-pointer" 
+                  onClick={handlePrevImage}
+               >
+                  <div className="w-[30px] h-[30px] flex justify-center items-center bg-gradient-to-r from-gradient_from to-disabled rounded-full">
+                     <ChevronLeft />
+                  </div>
                </div>
 
-               {selectedImages && <img src={URL.createObjectURL(selectedImages[currentImage])} alt="img" />}
-
-               <div className="previous p-2 bg-gradient-to-r from-gradient_from to-disabled rounded-full w-fit h-fit cursor-pointer"
-                  onClick={() => handleNextImage()}>
-                  <ChevronRight />
+               <div className="w-4/5">
+                  <canvas id="canvas"></canvas>
                </div>
-            </div>}
+
+               <div
+                  className="previous  w-1/12  h-fit cursor-pointer "
+                  onClick={handleNextImage}
+               >
+                  <div className="w-[30px] h-[30px] flex justify-center items-center bg-gradient-to-r from-gradient_from to-disabled rounded-full">
+                     <ChevronRight />
+                  </div>
+               </div>
+            </div>
+         )}
       </div>
-   )
-}
+   );
+};
 
 export default EditPictures;
