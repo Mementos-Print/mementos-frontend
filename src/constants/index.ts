@@ -3,3 +3,8 @@ export const optionsLists = [
     { heading: "Polaroid Style", note: "Transform your memories with classic polaroid borders and customizable sets.", link: "/polaroid" },
     { heading: "Photo Strip", note: "Create stunning photo strips with fully customizable grids and borders.", link: "/photostripe" },
   ];
+export const headers = [
+  { name: "Imports" },
+  { name: "Grid" },
+  { name: "Border" },
+]
