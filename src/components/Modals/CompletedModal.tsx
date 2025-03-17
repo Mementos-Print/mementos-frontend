@@ -27,7 +27,7 @@ const CompletedModal = ({ isOpen }: CompletedProps) => {
                     <Button
                         variant="default"
                         onClick={() => handleHome()}
-                        className="py-4 px-6"
+                        className="py-4 px-6 w-full"
                     >
                         <div className="flex items-center gap-3">
                             <p className="text-white font-bold text-sm">Back to home</p>

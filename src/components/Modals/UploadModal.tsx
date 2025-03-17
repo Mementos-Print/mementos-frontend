@@ -11,7 +11,7 @@ const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         // Clear local storage if needed
-        localStorage.removeItem('formSectionsData');
+        localStorage.removeItem('store');
 
 
         const status: boolean = await SaveSelectedImages(borderColor, selectedToPrint);
@@ -38,7 +38,7 @@ const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
                     <Button
                         variant="default"
                         onClick={(e) => handleSubmit(e)}
-                        className="py-4 px-8"
+                        className="py-4 px-8 w-full"
                     >
                         <p className="text-white font-semibold text-lg">Upload Image(s)</p>
                     </Button>
