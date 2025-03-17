@@ -1,15 +1,19 @@
 import { Cancel } from "../../assets/icons/Icon";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+// import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppState } from "../../hooks/useAppState";
+import { useSetSelected } from "../../hooks/useSetSelected";
 
 const UpperSelected = () => {
   const { selectedImages } = useAppState();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const setSelected = useSetSelected();
 
   const removeSelected = (idx: number) => {
     const updatedSelected = [...selectedImages];
     updatedSelected.splice(idx, 1);
-    dispatch({type: "SET_SELECTED", payload2: updatedSelected})
+    // dispatch({type: "SET_SELECTED", payload2: updatedSelected})
+    setSelected("selectedImages", updatedSelected)
+
   };
   return (
     <div className="flex items-center gap-0.5 overflow-x-auto mb-12 scroll-bar">

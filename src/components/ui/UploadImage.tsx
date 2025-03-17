@@ -1,17 +1,31 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { PolaroidUpload, UploadImageButton } from "../../assets/icons/Icon";
-import axios from "axios";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+// import axios from "axios";
+import { useSetSelected } from "../../hooks/useSetSelected";
+import { useAppState } from "../../hooks/useAppState";
 
-const UploadImage = () => {
-  const dispatch = useAppDispatch();
+const UploadImage: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const setSelected = useSetSelected();
+  const {importedImages} = useAppState()
+
+  useEffect(()=>{
+    const savedImages = localStorage.getItem("importedImages");
+    if(savedImages){
+      setSelected("importedImages", JSON.parse(savedImages))
+    }
+  })
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      uploadImage(file);
-    }
+    if (!e.target.files) return;
+    const updatedImages = Array.from(e.target.files).map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    const newImageList = [... updatedImages, ...importedImages ]
+    setSelected("importedImages", newImageList);
+
+    localStorage.setItem("importedImages",JSON.stringify(newImageList))
   };
 
   const handleClick = () => {
@@ -20,31 +34,13 @@ const UploadImage = () => {
     }
   };
 
-  const uploadImage = async (file: File) => {
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "mementos");
-    formData.append("cloud_name", "dt7jocfde");
-    formData.append("folder", "mementos");
-
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dt7jocfde/image/upload",
-        formData
-      );
-      const imageUrl = response.data.secure_url;
-      dispatch({ type: "SET_UPLOAD", payload: imageUrl });
-    } catch (error) {
-      console.error("Upload Failed", error);
-    }
-  };
   return (
     <div className="flex justify-center">
       <div className="border-[1px] border-black flex flex-col items-center justify-center h-60 px-3 gap-y-4">
         <input
           type="file"
           ref={fileInputRef}
+          multiple
           accept="image/*"
           onChange={handleImageChange}
           className="hidden"

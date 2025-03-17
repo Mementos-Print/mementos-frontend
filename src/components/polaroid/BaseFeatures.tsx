@@ -10,7 +10,7 @@ const BaseFeatures = () => {
 
   return (
     <div>
-      <header className="flex justify-center relative gap-2 bg-white py-3 text-xs bg-[#FAFAFA]">
+      <header className="flex justify-center relative gap-2 bg-white py-3 text-xs">
         {headers.map((header, idx) => {
           const isActive = activePolaroidBase === header.name;
           return (
@@ -29,7 +29,7 @@ const BaseFeatures = () => {
           Done
         </p>
       </header>
-      <main>
+      <main className="bg-[#FAFAFA]">
         {activePolaroidBase == "Imports" && <Imports />}
         {activePolaroidBase == "Grid" && <Imports />}
         {selectedImages.length > 0 && activePolaroidBase == "Border" && (

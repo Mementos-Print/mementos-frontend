@@ -1,16 +1,19 @@
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+// import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppState } from "../../hooks/useAppState";
 import { Selected } from "../../assets/Logo";
+import { useSetSelected } from "../../hooks/useSetSelected";
 
 const Imports = () => {
   const { selectedImages, importedImages } = useAppState();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const setSelected = useSetSelected();
 
   const selectImage = (idx: number) => {
     const updatedSelectedImages = [...selectedImages];
     updatedSelectedImages.unshift(importedImages[idx]);
 
-    dispatch({ type: "SET_SELECTED", payload2: updatedSelectedImages });
+    // dispatch({ type: "SET_SELECTED", payload2: updatedSelectedImages });
+    setSelected("selectedImages", updatedSelectedImages)
   };
   
   return (

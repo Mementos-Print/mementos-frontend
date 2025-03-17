@@ -5,13 +5,13 @@ import SelectToPrint from "../ui/SelectToPrint";
 import SelectedImageLayout from "./SelectedImageLayout";
 
 const PolaroidIndex = () => {
-  const { onUpload, selectedImages } = useAppState();
+  const {selectedImages,importedImages } = useAppState();
   return (
     <div className="bg-[#F5F5F5]">
       <div className="py-10 px-4">
         {selectedImages.length > 0 ? (
           <SelectedImageLayout />
-        ) : onUpload ? (
+        ) : importedImages.length>0 ? (
           <SelectToPrint />
         ) : (
           <UploadImage />

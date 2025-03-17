@@ -1,9 +1,8 @@
 import { createContext, ReactNode, useReducer, Reducer, useMemo } from "react";
 import { headers } from "../constants";
-import { images } from "../components/polaroid/dummy";
+// import { images } from "../components/polaroid/dummy";
 export interface State {
   activePolaroidBase: string;
-  onUpload: string;
   selectedImages: string[];
   importedImages: string[];
   borderOption: string;
@@ -20,23 +19,20 @@ interface AppProviderProps {
 }
 const initialState = {
   activePolaroidBase: headers[0]?.name,
-  onUpload: "",
   selectedImages: [],
-  importedImages: images,
-  borderOption: "White"
+  importedImages: [],
+  borderOption: "White",
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
 const DashboardReducer = (state: State, action: Action) => {
-  const { type, payload, payload2,optionKey } = action;
+  const { type, payload, payload2, optionKey } = action;
   switch (type) {
     case "SET_OPTION":
-      return optionKey ? {...state, [optionKey]: payload || ""} : state
-      // { ...state, activePolaroidBase: payload || headers[0]?.name };
+      return optionKey ? { ...state, [optionKey]: payload || "" } : state;
     case "SET_UPLOAD":
-      return { ...state, onUpload: payload || "" };
     case "SET_SELECTED":
-      return { ...state, selectedImages: payload2 || [] };
+      return optionKey ? { ...state, [optionKey]: payload2 || [] } : state;
     default:
       return state;
   }
@@ -46,7 +42,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     DashboardReducer,
     initialState
   );
-  const memoizedState = useMemo(()=> state,[state])
+  const memoizedState = useMemo(() => state, [state]);
   return (
     <AppStateContext.Provider value={memoizedState}>
       <AppDispathContext.Provider value={dispatch}>
