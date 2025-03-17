@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import CompletedModal from "../../components/Modals/CompletedModal";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import Completed from "../../components/form/Completed";
 import { FormSectionDataProps } from "../../types/type";
@@ -7,6 +5,7 @@ import ProgressBar from "../../components/form/blankprint/ProgressBar";
 import useStoreContext from "../../useStoreContext";
 import Information from "../../components/form/information";
 import UploadTab from "../../components/form/blankprint/UploadTab";
+import UploadModal from "../../components/Modals/UploadModal";
 
 const Blackprint = () => {
     const [currentSection, setCurrentSection] = useState(2);
@@ -57,22 +56,22 @@ const Blackprint = () => {
         }
     }
 
-    const navigate = useNavigate();
     const [showCompletedModal, setShowCompletedModal] = useState(false);
+    const [showUploadModal, setShowUploadModal] = useState(false);
 
     const handleSectionChange = (a: number) => {
         setCurrentSection(a);
     };
 
-    const handleNext = (e: FormEvent<HTMLFormElement>) => {
+    const handleNext = (e: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setDone(prevDone => {
             const updatedDone = [...prevDone];
             updatedDone.push(currentSection);
             return updatedDone;
         });
-        console.log(done);
         setCurrentSection(currentSection + 1);
+        if (currentSection == 2) setShowCompletedModal(true);
     };
 
     // const handlePrevious = () => {
@@ -90,37 +89,6 @@ const Blackprint = () => {
             files: [],
         }
     ]);
-
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, section: number) => {
-    //     const { name, value } = e.target;
-    //     console.log(name, value, section);
-    //     console.log(formSectionsData);
-    //     const index = section - 1;
-
-    //     setFormSectionsData(prevSectionsData => {
-    //         const updatedSectionData = [...prevSectionsData];
-    //         if (name in updatedSectionData[index]) {
-    //             (updatedSectionData[index] as any)[name] = value;
-    //         }
-    //         return updatedSectionData as FormSectionDataProps;
-    //     })
-    //     console.log(formSectionsData);
-    // }
-
-    const handleSubmit = () => {
-        // You can also clear the local storage if needed
-        localStorage.removeItem('formSectionsData');
-
-        console.log('submittedd');
-        // Show Completed modal
-        setShowCompletedModal(true);
-
-        // Navigate to another route after 3 seconds
-        setTimeout(() => {
-            setShowCompletedModal(false);
-            navigate("/")
-        }, 3000); // 3 seconds delay
-    };
 
     const handleFileChange = useCallback((files: File[]) => {
         setFiles(prevSectionsData => {
@@ -157,11 +125,12 @@ const Blackprint = () => {
                 );
             case 2:
                 return (
-                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} handleSubmit={handleSubmit} />
+                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} setShowUploadModal={setShowUploadModal} />
                 );
             case 3:
+                
                 return (
-                    <Completed />
+                    <Completed isOpen={showCompletedModal} />
                 );
             default:
                 return null;
@@ -176,7 +145,7 @@ const Blackprint = () => {
                 <div className="flex h-[78vh] w-full">
                     {renderSection()}
                 </div>
-                <CompletedModal isOpen={showCompletedModal} />
+                <UploadModal isOpen={showUploadModal} handleNext={handleNext} />
             </div>
         </div >
     );
