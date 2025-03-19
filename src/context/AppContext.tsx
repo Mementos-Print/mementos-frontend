@@ -1,11 +1,11 @@
 import { createContext, ReactNode, useReducer, Reducer, useMemo } from "react";
 import { headers } from "../constants";
-// import { images } from "../components/polaroid/dummy";
 export interface State {
   activePolaroidBase: string;
   selectedImages: string[];
   importedImages: string[];
   borderOption: string;
+  visibleRange: number[]
 }
 interface Action {
   type: string;
@@ -22,6 +22,7 @@ const initialState = {
   selectedImages: [],
   importedImages: [],
   borderOption: "White",
+  visibleRange: [0,2]
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
@@ -43,6 +44,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     initialState
   );
   const memoizedState = useMemo(() => state, [state]);
+
   return (
     <AppStateContext.Provider value={memoizedState}>
       <AppDispathContext.Provider value={dispatch}>
