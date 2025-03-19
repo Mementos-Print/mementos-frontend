@@ -1,12 +1,12 @@
-import {  useRef } from "react";
-import { PolaroidUpload, UploadImageButton } from "../../assets/icons/Icon";
+import { useRef } from "react";
+import { UploadImageButton } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import { useAppState } from "../../hooks/useAppState";
 
-const UploadImage= () => {
+const UploadImage = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const setSelected = useSetSelected();
-  const {importedImages} = useAppState()
+  const { importedImages } = useAppState();
 
   // useEffect(()=>{
   //   const savedImages = localStorage.getItem("importedImages");
@@ -21,7 +21,7 @@ const UploadImage= () => {
       URL.createObjectURL(file)
     );
 
-    const newImageList = [... updatedImages, ...importedImages ]
+    const newImageList = [...updatedImages, ...importedImages];
     setSelected("importedImages", newImageList);
 
     // localStorage.setItem("importedImages",JSON.stringify(newImageList))
@@ -35,7 +35,7 @@ const UploadImage= () => {
 
   return (
     <div className="flex justify-center">
-      <div className="border-[1px] border-black flex flex-col items-center justify-center h-60 px-3 gap-y-4">
+      <div className="flex flex-col items-center justify-center h-60 px-3 gap-y-3">
         <input
           type="file"
           ref={fileInputRef}
@@ -44,8 +44,11 @@ const UploadImage= () => {
           onChange={handleImageChange}
           className="hidden"
         />
-        <img src={PolaroidUpload} alt="PolaroidUpload" />
         <img src={UploadImageButton} alt="UploadImage" onClick={handleClick} />
+        <div className="text-[#9E9E9E] text-xs leading-4 text-center">
+          <p>Select images to print</p>
+          <p>(Even selections only i.e 2, 4, 6 etc)</p>
+        </div>
       </div>
     </div>
   );

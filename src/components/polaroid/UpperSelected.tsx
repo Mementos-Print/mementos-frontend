@@ -16,13 +16,13 @@ const UpperSelected = () => {
 
   };
   return (
-    <div className="flex items-center gap-0.5 overflow-x-auto mb-12 scroll-bar">
+    <div className="flex items-center gap-0.5 overflow-x-auto mb-12 scroll-bar ">
       {selectedImages.map((img, idx) => (
         <div key={idx} className="relative">
           {/* selected-images */}
           <img
             src={img}
-            className="w-16 h-16 object-cover rounded-lg border-2 border-[#85995E]"
+            className="w-[74px] h-[74px] object-cover rounded-lg border-2 border-[#85995E]"
           />
 
           {/* cancel button */}
