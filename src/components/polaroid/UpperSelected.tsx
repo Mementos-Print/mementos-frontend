@@ -1,29 +1,26 @@
 import { Cancel } from "../../assets/icons/Icon";
-// import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppState } from "../../hooks/useAppState";
 import { useSetSelected } from "../../hooks/useSetSelected";
 
 const UpperSelected = () => {
   const { selectedImages } = useAppState();
-  // const dispatch = useAppDispatch();
   const setSelected = useSetSelected();
 
   const removeSelected = (idx: number) => {
     const updatedSelected = [...selectedImages];
     updatedSelected.splice(idx, 1);
-    // dispatch({type: "SET_SELECTED", payload2: updatedSelected})
     setSelected("selectedImages", updatedSelected)
 
   };
   return (
-    <div className="flex items-center gap-0.5 overflow-x-auto mb-12 scroll-bar ">
+    <div className="flex items-center gap-0.5 mb-5  overflow-x-auto scroll-bar">
       {selectedImages.map((img, idx) => (
-        <div key={idx} className="relative">
-          {/* selected-images */}
+        <div key={idx} className="relative shrink-0">
           <img
             src={img}
             className="w-[74px] h-[74px] object-cover rounded-lg border-2 border-[#85995E]"
           />
+          {/* selected-images */}
 
           {/* cancel button */}
           <img

@@ -1,8 +1,9 @@
 import { GridOptions } from "../../constants/index";
 import { useAppState } from "../../hooks/useAppState";
-import { useSetOption } from "../../hooks/useSetOption";
+import { useSetSelected } from "../../hooks/useSetSelected";
 const Border = () => {
-  const setOption = useSetOption();
+  const setSelected = useSetSelected();
+
   const { borderOption } = useAppState();
   return (
     <div className="flex flex-col items-center">
@@ -15,7 +16,7 @@ const Border = () => {
             <div
               key={idx}
               className="relative flex items-center gap-1.5"
-              onClick={() => setOption("borderOption", name)}
+              onClick={() => setSelected("borderOption", name)}
             >
               <img src={option} alt={name} />
               <p className={`text-xs ${!isActive? "text-[#9E9E9E]": "text-[#212121] "}`}>{name}</p>

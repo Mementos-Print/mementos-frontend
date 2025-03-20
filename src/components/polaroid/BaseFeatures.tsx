@@ -2,11 +2,11 @@ import { useAppState } from "../../hooks/useAppState";
 import { headers } from "../../constants";
 import Imports from "./Imports";
 import Border from "./Border";
-import { useSetOption } from "../../hooks/useSetOption";
+import { useSetSelected } from "../../hooks/useSetSelected";
 
 const BaseFeatures = () => {
   const { activePolaroidBase, selectedImages } = useAppState();
-  const setOption = useSetOption();
+  const setSelected = useSetSelected();
 
   return (
     <div>
@@ -19,7 +19,7 @@ const BaseFeatures = () => {
               className={`rounded-md px-[6px] py-1 cursor-pointer ${
                 isActive ? "bg-[#333431] text-white" : "bg-[#F5F5F5] text-black"
               }`}
-              onClick={() => setOption("activePolaroidBase", header.name)}
+              onClick={() => setSelected("activePolaroidBase", header.name)}
             >
               {header.name}
             </p>

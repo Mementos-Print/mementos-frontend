@@ -10,8 +10,8 @@ export interface State {
 interface Action {
   type: string;
   optionKey?: keyof State;
-  payload?: string;
-  payload2?: string[] | number[];
+  // payload?: string;
+  payload?: string[] | number[] | string; 
 }
 type Dispatch = (action: Action) => void;
 interface AppProviderProps {
@@ -27,13 +27,13 @@ const initialState = {
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
 const DashboardReducer = (state: State, action: Action) => {
-  const { type, payload, payload2, optionKey } = action;
+  const { type, payload, optionKey } = action;
   switch (type) {
     case "SET_OPTION":
       return optionKey ? { ...state, [optionKey]: payload || "" } : state;
     case "SET_UPLOAD":
     case "SET_SELECTED":
-      return optionKey ? { ...state, [optionKey]: payload2 || [] } : state;
+      return optionKey ? { ...state, [optionKey]: payload || [] } : state;
     default:
       return state;
   }
