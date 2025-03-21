@@ -6,12 +6,12 @@ export interface State {
   importedImages: string[];
   borderOption: string;
   visibleRange: number[];
+  isDone: boolean;
 }
 interface Action {
   type: string;
   optionKey?: keyof State;
-  // payload?: string;
-  payload?: string[] | number[] | string; 
+  payload?: string[] | number[] | string | boolean; 
 }
 type Dispatch = (action: Action) => void;
 interface AppProviderProps {
@@ -22,7 +22,8 @@ const initialState = {
   selectedImages: [],
   importedImages: [],
   borderOption: "White",
-  visibleRange: [0,1]
+  visibleRange: [0,1],
+  isDone: false,
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);

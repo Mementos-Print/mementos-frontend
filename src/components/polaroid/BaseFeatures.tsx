@@ -7,6 +7,11 @@ import { useSetSelected } from "../../hooks/useSetSelected";
 const BaseFeatures = () => {
   const { activePolaroidBase, selectedImages } = useAppState();
   const setSelected = useSetSelected();
+  const uploadImage = () =>{
+    if(selectedImages.length > 0){
+      setSelected("isDone", true);
+    }
+  }
 
   return (
     <div>
@@ -25,7 +30,7 @@ const BaseFeatures = () => {
             </p>
           );
         })}
-        <p className="absolute right-4 rounded-[60px] bg-[#C9EC81] py-1 px-4">
+        <p className="absolute right-4 rounded-[60px] bg-[#C9EC81] py-1 px-4" onClick={uploadImage}>
           Done
         </p>
       </header>

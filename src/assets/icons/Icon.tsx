@@ -459,4 +459,6 @@ import  UploadImageButton from "/upload_image.svg"
 import Cancel from "/cancel.svg"
 import RightArrow from "/right-arrow.svg"
 import LeftArrow from "/left-arrow.svg"
-export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow}
+import CancelUpload from "/cancel-upload.svg";
+import UploadForPrint from "/upload-for-print.svg";
+export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow,CancelUpload,UploadForPrint}
