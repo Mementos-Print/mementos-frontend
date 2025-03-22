@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import { LeftArrow, RightArrow } from "../../assets/icons/Icon";
 import { useAppState } from "../../hooks/useAppState";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import UploadOverlay from "../ui/UploadOverlay";
+import PolaroidGenerated from "../ui/PolaroidGenerated";
 
 const MainSelected = () => {
-  const { selectedImages, visibleRange, borderOption, isDone } = useAppState();
+  const { selectedImages, visibleRange, borderOption, isDone,isSuccessful } = useAppState();
   const setSelected = useSetSelected();
 
   const nextItems = () => {
@@ -19,9 +21,18 @@ const MainSelected = () => {
       setSelected("visibleRange", [start - 1, end - 1]);
     }
   };
+  useEffect(()=>{
+    if(isDone){
+      document.body.style.overflow = "hidden";  
+    }else{
+      document.body.style.overflow = "auto";
+    }
+  },[isDone]) 
   return (
     <>
       {isDone && <UploadOverlay />}
+      {isSuccessful && <PolaroidGenerated />}
+      
       <section className="flex items-center justify-center flex-col gap-y-4">
         <p className="text-center text-[#9E9E9E] text-xs leading-4">
           Select an even number of images for standard e.g 2, 4...
@@ -36,7 +47,7 @@ const MainSelected = () => {
                 }`}
                 key={idx}
               >
-                <img src={image} alt="" />
+                <img src={image} alt="img-selected"/>
               </div>
             ))}
         </div>

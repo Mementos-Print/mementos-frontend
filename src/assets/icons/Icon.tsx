@@ -461,4 +461,7 @@ import RightArrow from "/right-arrow.svg"
 import LeftArrow from "/left-arrow.svg"
 import CancelUpload from "/cancel-upload.svg";
 import UploadForPrint from "/upload-for-print.svg";
-export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow,CancelUpload,UploadForPrint}
+import GeneratedSuccess from "/success.svg"
+import ArrowRightGenerated from "/arrow-right.svg";
+import ProgressiveBar from "/progress-bar.svg"
+export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow,CancelUpload,UploadForPrint,GeneratedSuccess,ArrowRightGenerated,ProgressiveBar}

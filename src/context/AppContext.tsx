@@ -7,6 +7,7 @@ export interface State {
   borderOption: string;
   visibleRange: number[];
   isDone: boolean;
+  isSuccessful: boolean;
 }
 interface Action {
   type: string;
@@ -24,17 +25,15 @@ const initialState = {
   borderOption: "White",
   visibleRange: [0,1],
   isDone: false,
+  isSuccessful: false
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
 const DashboardReducer = (state: State, action: Action) => {
   const { type, payload, optionKey } = action;
   switch (type) {
-    case "SET_OPTION":
-      return optionKey ? { ...state, [optionKey]: payload || "" } : state;
-    case "SET_UPLOAD":
     case "SET_SELECTED":
-      return optionKey ? { ...state, [optionKey]: payload || [] } : state;
+      return optionKey ? { ...state, [optionKey]: payload } : state;
     default:
       return state;
   }
