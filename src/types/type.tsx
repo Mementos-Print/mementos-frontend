@@ -1,13 +1,26 @@
 export interface NewUserDataProps {
     name: string;
     email: string;
-    saveInfo: Boolean;
+    date_created: Date;
+}
+
+export interface AdminDataProps {
+    username: string;
+    email: string;
+    password: string;
+    isAdmin: Boolean;
     date_created: Date;
 }
 
 export type NewUserDataInformation = {
     // sectionData: NewUserDataProps;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+};
+
+export type AdminDataInformation = {
+    // sectionData: NewUserDataProps;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 };
 export interface DropdownWithRadioProps {

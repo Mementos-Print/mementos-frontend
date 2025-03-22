@@ -13,6 +13,7 @@ export const StoreContext = createContext<{
   AddSelectedImages: (file: File) => void;
   RemoveSelectedImages: (file: File) => void;
   RemoveAllSelectedImages: () => void;
+  admin: {username: string, email: string, password: string}[];
 }>({
   store: {
     user: {},
@@ -26,5 +27,6 @@ export const StoreContext = createContext<{
   setSelectedToPrint: () => {},
   AddSelectedImages: () => {},
   RemoveSelectedImages: () => {},
-  RemoveAllSelectedImages: () => {}
+  RemoveAllSelectedImages: () => {},
+  admin: [{username: '', email: '', password: ''}]
 });

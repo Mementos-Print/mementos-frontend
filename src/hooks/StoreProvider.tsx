@@ -2,13 +2,24 @@ import { useState, ReactNode, FC, useEffect, useRef } from "react";
 import { StoreContext } from "./StoreContext";
 import * as fabric from "fabric";
 
-var initialState = {
+const initialState = {
     user: {},
     files: []
 };
 
+const Admin = [
+    {
+        username: "Admin",
+        email: "example@gmail.com",
+        password: "admin123", 
+    },
+];
+
+
 const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [store, setStore] = useState(() => getLocalStorage("store", initialState));
+    const [admin, _setAdmin] = useState(() => getLocalStorage("admin", Admin));
+
     const [selectedToPrint, setSelectedToPrint] = useState<File[]>([])
 
     const [borderColor, setBorderColor] = useState<'white' | 'black'>('white')
@@ -69,7 +80,8 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             setSelectedToPrint,
             AddSelectedImages,
             RemoveSelectedImages,
-            RemoveAllSelectedImages        
+            RemoveAllSelectedImages,     
+            admin,  
         }}
     >
         {children}
