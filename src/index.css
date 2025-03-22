@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 
+* {
+  border: 0;
+}
+
 :root {
   --primary: #333431;
   --secondary: #C9EC81;
   --gray_: #EEEEEE;
+  --gray_2: #F5F5F5;
   --disabled: #E0E0E0;
   --disabledText: #BDBDBD;
   --dropdown: #EAEAEA;

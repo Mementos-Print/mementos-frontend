@@ -13,7 +13,7 @@ const ProgressBar = ({ setcurrentsection, activeSection, done }: ProgressBarProp
 
             <button className='flex flex-row gap-1 p-1' onClick={() => setcurrentsection(2)}>
                 <div className='rounded-full w-[16px] h-[16px] flex justify-center items-center text-white border-secondary border-2' style={{ backgroundColor: done.includes(2) ? 'var(--secondary)' : (activeSection === 2  ? 'var(--primary)' : 'white')}}>{
-                    done.includes(2) ? <div className="bg-primary"><CheckIcon color="white"/></div> : <span></span>
+                    done.includes(2) ? <div><CheckIcon color="white"/></div> : <span></span>
                 }</div>
                 <p className="text-[14px]" style={{ color: activeSection === 2 ? 'var(--primary)' : '#9E9E9E', fontWeight: activeSection === 2 ? '500' : '300' }}>Upload</p>
             </button>

@@ -1,16 +1,20 @@
-import { useState, ReactNode, FC, useEffect } from "react";
+import { useState, ReactNode, FC, useEffect, useRef } from "react";
 import { StoreContext } from "./StoreContext";
+import * as fabric from "fabric";
 
 var initialState = {
     user: {},
     files: []
-  };
+};
 
 const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    // const [store, setStore] = useState<StoreContextType>({});
     const [store, setStore] = useState(() => getLocalStorage("store", initialState));
+    const [selectedToPrint, setSelectedToPrint] = useState<File[]>([])
 
-    function setLocalStorage(key:string, value: any) {
+    const [borderColor, setBorderColor] = useState<'white' | 'black'>('white')
+    const canvasRef = useRef<fabric.Canvas | null>(null);
+
+    function setLocalStorage(key: string, value: any) {
         try {
             window.localStorage.setItem(key, JSON.stringify(value));
         } catch (e) {
@@ -33,7 +37,41 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setLocalStorage("store", store);
     }, [store]);
 
-    return <StoreContext.Provider value={{ store, setStore }}>
+    const AddSelectedImages = (file: File) => {
+        setSelectedToPrint(prevSelection => {
+            const updatedSelection = [...prevSelection];
+            if (!Object.values(selectedToPrint).includes(file)) {
+                updatedSelection.push(file);
+            }
+            // console.log(selectedToPrint);
+
+            return updatedSelection;
+        });
+    }
+
+    const RemoveSelectedImages = (file: File) => {
+        setSelectedToPrint(selectedToPrint => selectedToPrint.filter((item) => item !== file));
+    }
+
+    const RemoveAllSelectedImages = () => {
+        setSelectedToPrint([]);
+    }
+
+
+    return <StoreContext.Provider
+        value={{ 
+            store, 
+            setStore, 
+            borderColor, 
+            setBorderColor, 
+            canvasRef, 
+            selectedToPrint, 
+            setSelectedToPrint,
+            AddSelectedImages,
+            RemoveSelectedImages,
+            RemoveAllSelectedImages        
+        }}
+    >
         {children}
     </StoreContext.Provider>;
 };
