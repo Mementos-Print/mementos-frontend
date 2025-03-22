@@ -1,9 +1,18 @@
 import { useAppState } from "../../hooks/useAppState";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { headers } from "../../constants";
+import Imports from "./Imports";
+import Border from "./Border";
+import { useSetSelected } from "../../hooks/useSetSelected";
+
 const BaseFeatures = () => {
-  const { activePolaroidBase } = useAppState();
-  const dispatch = useAppDispatch();
+  const { activePolaroidBase, selectedImages } = useAppState();
+  const setSelected = useSetSelected();
+  const uploadImage = () => {
+    if (selectedImages.length > 0) {
+      setSelected("isDone", true);
+    }
+  };
+
   return (
     <div>
       <header className="flex justify-center relative gap-2 bg-white py-3 text-xs">
@@ -13,25 +22,28 @@ const BaseFeatures = () => {
             <p
               key={idx}
               className={`rounded-md px-[6px] py-1 cursor-pointer ${
-                isActive ? "bg-black text-white" : "bg-[#F5F5F5] text-black"
+                isActive ? "bg-[#333431] text-white" : "bg-[#F5F5F5] text-black"
               }`}
-              onClick={() =>
-                dispatch({
-                  type: "SET_POLAROID_BASE",
-                  payload: header.name,
-                })
-              }
+              onClick={() => setSelected("activePolaroidBase", header.name)}
             >
               {header.name}
             </p>
           );
         })}
-        <p className="absolute right-4 rounded-[60px] bg-[#C9EC81] py-2 px-4">
+        <p
+          className={`absolute right-4 rounded-[60px]   py-1 px-4 ${selectedImages.length >0? "bg-[#C9EC81]": "bg-[#E0E0E0] text-[#BDBDBD]"}`}
+          onClick={uploadImage}
+        >
           Done
         </p>
       </header>
-      <main>
-        
+      <main className="bg-[#FAFAFA]">
+        {activePolaroidBase == "Imports" && <Imports />}
+        {activePolaroidBase == "Grid" && <Imports />}
+        {selectedImages.length > 0 && activePolaroidBase == "Border" && (
+          <Border />
+        )}
+        {}
       </main>
     </div>
   );

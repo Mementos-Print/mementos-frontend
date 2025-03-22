@@ -456,4 +456,12 @@ export const BackgroundGradientsEllipses = () => {
 }
 import  PolaroidUpload  from "/upload_polaroid.svg";
 import  UploadImageButton from "/upload_image.svg"
-export {PolaroidUpload,UploadImageButton}
+import Cancel from "/cancel.svg"
+import RightArrow from "/right-arrow.svg"
+import LeftArrow from "/left-arrow.svg"
+import CancelUpload from "/cancel-upload.svg";
+import UploadForPrint from "/upload-for-print.svg";
+import GeneratedSuccess from "/success.svg"
+import ArrowRightGenerated from "/arrow-right.svg";
+import ProgressiveBar from "/progress-bar.svg"
+export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow,CancelUpload,UploadForPrint,GeneratedSuccess,ArrowRightGenerated,ProgressiveBar}
