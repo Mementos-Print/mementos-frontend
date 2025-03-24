@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 
-* {
+/* * {
   border: 0;
-}
+} */
 
 :root {
   --primary: #333431;
