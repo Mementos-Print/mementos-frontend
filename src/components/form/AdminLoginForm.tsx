@@ -32,7 +32,7 @@ const AdminLoginForm = ({ handleChange, handleSubmit }: AdminDataInformation) =>
     <form className="flex flex-col h-full justify-start" onSubmit={handleSubmit}>
       <div>
         <div className=' text-primary flex flex-col justify-start '>
-          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">Name <span className="text-red-700">*</span></label>
+          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">Username <span className="text-red-700">*</span></label>
           <input
             className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
             placeholder='Name'

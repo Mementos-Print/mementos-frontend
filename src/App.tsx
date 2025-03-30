@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import PostCard from "./pages/(users)/PostCard";
 import PhotoStripe from "./pages/(users)/PhotoStripe";
@@ -8,12 +8,15 @@ import Navigation from './components/Navbar';
 import NewUser from './pages/(users)/NewUser';
 import GetStartedAdmin from "./pages/admin/GetStarted";
 import LoginAdmin from "./pages/admin/AdminLogin";
-
+import AdminPostCardList from "./pages/admin/PostCard";
+import AdminPolariodList from "./pages/admin/Polariod";
+import AdminRoute from "./Routes/AdminRoute";
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* User Routes */}
         <Route path="/" element={<Navigation />}>
           <Route index={true} element={<Home />} />
           <Route path="polaroid" element={<Polaroid />} />
@@ -21,17 +24,21 @@ function App() {
           <Route path="postcard" element={<PostCard />} />
           <Route path="photostripe" element={<PhotoStripe />} />
           <Route path="get-started" element={<GetStarted />} />
-          <Route path="admin/get-started" element={<GetStartedAdmin />} />
-          <Route path="admin/login" element={<LoginAdmin />} />
-          <Route path="admin/postcard" element={<PostCard />} />
-          <Route path="admin/photostripe" element={<PhotoStripe />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="admin" element={<Navigation />}>
+          <Route path="login" element={<LoginAdmin />} />
+          <Route element={<AdminRoute />}>
+            <Route index element={<Navigate to="/admin/get-started" replace />} />
+            <Route path="get-started" element={<GetStartedAdmin />} />
+            <Route path="postcard" element={<AdminPostCardList />} />
+            <Route path="polaroid" element={<AdminPolariodList />} />
+          </Route>
         </Route>
       </Routes>
-    </Router >
+    </Router>
   );
 }
 
 export default App;
-
-// file for contents
-// create components, also for icons

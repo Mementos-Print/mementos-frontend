@@ -26,7 +26,7 @@ const PostCard = () => {
         }
     }, [store.user]);
 
-    const handleInformationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, saveInfo: Boolean = false) => {
+    const handleInformationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, saveInfo: boolean = false) => {
         const { name, value } = e.target;
 
         setFormSectionsData(prevSectionsData => {

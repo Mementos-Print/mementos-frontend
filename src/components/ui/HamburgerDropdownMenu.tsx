@@ -20,23 +20,19 @@ const HamburgerDropdownMenu = () => {
                     sideOffset={5}
                 >
                     <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary">
-                        Login Up
+                        Log In
                     </DropdownMenu.Item>
-                    <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary">
 
+                    <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
                         <Link to={'/newUser'} >
-                            <div className="">
-                                Sign Up
-                            </div>
+                            Sign Up
                         </Link>
                     </DropdownMenu.Item>
 
                     <DropdownMenu.Separator className="m-[5px] h-px bg-primary" />
-                    <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary">
+                    <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
                         <Link to={'/admin/login'} >
-                            <div className="">
-                                Login as Admin
-                            </div>
+                            Login as Admin
                         </Link>
                     </DropdownMenu.Item>
 

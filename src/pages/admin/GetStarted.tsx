@@ -18,14 +18,14 @@ const GetStartedAdmin = () => {
                 transition={{ duration: 0.8 }}
                 className="container relative z-10 px-4 mx-auto max-w-7xl"
             >
-                <div className="px-5 relative z-10 flex flex-col items-center justify-center text-center w-full h-fit">
+                <div className="relative z-10 flex flex-col items-center justify-center text-center w-full h-fit">
                     {/* Main section */}
-                    <div className="py-[50px]">
+                    <div className="py-[50px] px-5 ">
                         <h1 className="text-[36px] kanit-bold">Mementos Print</h1>
                         {/* <h2 className="text-3xl">Inking your memories</h2> */}
                     </div>
 
-                    <div className="flex flex-col gap-3  w-full">
+                    <div className="flex flex-col gap-3 w-full">
                         <p className="kanit-light">Select an option</p>
                         <div className="flex flex-col gap-4 ">
                             {adminOptionsLists.map((options, index) => (
