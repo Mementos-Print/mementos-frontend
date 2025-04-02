@@ -12,6 +12,8 @@ module.exports = {
         shadow: "var(--shadow)",
         gradient_from: "var(--gradient_from)",
         gray_2: "var(--gray_2)",
+        gray_1: "var(--gray_1)",
+        gray_3: "var(--gray_3)",
       },
     },
   },

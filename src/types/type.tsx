@@ -1,13 +1,26 @@
 export interface NewUserDataProps {
     name: string;
     email: string;
-    saveInfo: Boolean;
+    date_created: Date;
+}
+
+export interface AdminDataProps {
+    username: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
     date_created: Date;
 }
 
 export type NewUserDataInformation = {
     // sectionData: NewUserDataProps;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+};
+
+export type AdminDataInformation = {
+    // sectionData: NewUserDataProps;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 };
 export interface DropdownWithRadioProps {
@@ -32,13 +45,13 @@ export interface DropdownWithImageProps {
 export interface InformationDataProps {
     name: string;
     email: string;
-    saveInfo: Boolean;
+    saveInfo: boolean;
     date_created: Date;
 }
 
 export type InformationProps = {
     // sectionData: NewUserDataProps;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: Boolean) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>, saveInfo: boolean) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
     handleNext: (e: React.FormEvent<HTMLFormElement>) => void
 };
@@ -46,7 +59,7 @@ export type InformationProps = {
 export type FormDataProps = {
     name: string;
     email: string;
-    saveInfo: Boolean;
+    saveInfo: boolean;
     date_created: Date;
 }
 
@@ -54,7 +67,7 @@ export type FormSectionDataProps = [
     {
         name: string;
         email: string;
-        saveInfo: Boolean;
+        saveInfo: boolean;
         date_created: Date;
     },
     {
@@ -108,6 +121,43 @@ export type UploadProps = {
     // handleSubmit: () => void
 }
 
-export type StoreContextType = {
-    [key: string]: unknown;
+export type FilterProps = {
+    showFiltermodal: boolean;
+    onClose: () => void
+    onFilterChange: (filters: string[]) => void
+}
+export interface User {
+    id?: string;
+    name?: string;
+    email?: string;
+    // Add other user properties as needed
+}
+
+export interface AdminImageCardProps {
+    data: Item;
+    handleClickedImages: (item: Item) => void;
+    selectedImagesId: number[];
+}
+
+export type AdminPrintLayoutProps = {
+    // handlePrevious: () => void
+    type: string
+    setShowFiltermodal: React.Dispatch<React.SetStateAction<boolean>>
+    activeFilters:  string[]
 };
+export interface StoreState {
+    user: User;
+    files: File[];
+}
+
+export interface AdminProps {
+    username: string;
+    email: string;
+    password: string;
+}
+
+export interface Item {
+    id: number;
+    name: string;
+    image: string; // Array of paths to images in public/images
+  }

@@ -9,20 +9,16 @@ const NewUser = () => {
     const [NewUserData, setNewUserData] = useState<NewUserDataProps>({
         name: '',
         email: '',
-        saveInfo: false,
         date_created: new Date(),
     });
     const navigate = useNavigate();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, saveInfo: Boolean = false) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
         setNewUserData(prevData => {
             if (name in prevData) {
                 (prevData as any)[name] = value;
-            }
-            if (saveInfo) {
-                prevData.saveInfo = saveInfo
             }
             return prevData as NewUserDataProps;
         })
@@ -38,8 +34,6 @@ const NewUser = () => {
         } catch (error) {
             console.log(error);
             
-        } finally {
-            console.log('submitted');
         }
 
         // Navigate to another route after 3 seconds

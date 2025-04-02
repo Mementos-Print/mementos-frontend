@@ -5,6 +5,7 @@ import { ArrowRight, BackgroundGradientsEllipses } from "../assets/icons/Icon"
 import { Link } from "react-router-dom"
 
 const Home = () => {
+
     return (
         <div className="kanit-medium ">
             <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover md:object-fill">
@@ -17,14 +18,15 @@ const Home = () => {
                 transition={{ duration: 0.8 }}
                 className="container relative z-10 px-4 mx-auto max-w-7xl"
             >
-                <div className="px-5 relative z-10 flex flex-col gap-7 items-center justify-center text-center w-full h-fit">
+                <div className="px-5 relative z-10 flex flex-col gap-2 items-center justify-center text-center w-full h-fit">
                     {/* Main section */}
-                    <div className="pt-[60px] pb-4">
-                        <h1 className="text-[34px] kanit-semibold">Mementos Print: </h1>
-                        <h2 className="text-2xl">Inking your memories</h2>
+                    <div className="pt-2 pb-4">
+                        <h1 className="text-[34px]/9 kanit-semibold">Inking your memories</h1>
+                        {/* <h2 className="text-2xl"></h2> */}
                     </div>
 
-                    <div className="w-[80vw] h-[70vw] lg:w-[60vw] lg:h-[20vw] block bg-white">
+                    <div className="block mx-auto">
+                        <img src="/images/IMG_E2827.jpg" alt="Mementos print image" />;
                     </div>
 
                     <div className="w-full lg:w-1/2 py-2 px-4 bg-secondary rounded-full">

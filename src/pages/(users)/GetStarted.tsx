@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { BackgroundGradientsEllipses } from "../../assets/icons/Icon"
-import OptionsBox from "../../components/ui/OptionsBox"
+import { OptionsBox } from "../../components/ui/OptionsBox"
 import { optionsLists } from "../../constants"
 
 const GetStarted = () => {
@@ -20,9 +20,9 @@ const GetStarted = () => {
             >
                 <div className="px-5 relative z-10 flex flex-col items-center justify-center text-center w-full h-fit">
                     {/* Main section */}
-                    <div className="py-[70px]">
-                        <h1 className="text-[36px] kanit-semibold">Mementos Print: </h1>
-                        <h2 className="text-3xl">Inking your memories</h2>
+                    <div className="py-[50px]">
+                        <h1 className="text-[36px] kanit-bold">Mementos Print</h1>
+                        {/* <h2 className="text-3xl">Inking your memories</h2> */}
                     </div>
 
                     <div className="flex flex-col gap-3">
