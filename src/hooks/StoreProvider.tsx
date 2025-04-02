@@ -93,7 +93,6 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             if (!Object.values(selectedToPrint).includes(file)) {
                 updatedSelection.push(file);
             }
-            // console.log(selectedToPrint);
 
             return updatedSelection;
         });

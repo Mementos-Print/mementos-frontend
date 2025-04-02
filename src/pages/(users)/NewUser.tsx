@@ -34,8 +34,6 @@ const NewUser = () => {
         } catch (error) {
             console.log(error);
             
-        } finally {
-            console.log('submitted');
         }
 
         // Navigate to another route after 3 seconds
