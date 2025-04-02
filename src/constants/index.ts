@@ -26,6 +26,11 @@ export const adminOptionsLists = [
 
 export const headers = [
   { name: "Imports" },
-  { name: "Grid" },
   { name: "Border" },
 ];
+]
+export const GridOptions = [
+  {option: "/white.svg", name: "White"},
+  {option: "/black.svg", name: "Black"},
+]
+
