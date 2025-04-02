@@ -104,9 +104,10 @@ export const Logo = () => {
             </defs>
         </svg>
     )
+}
 
-export function Selected(props: SVGProps<SVGSVGElement>){
+export function Selected(props: SVGProps<SVGSVGElement>) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="#A1BD67" d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20" /><path fill="black" d="m10 17l-5-5l1.41-1.42L10 14.17l7.59-7.59L19 8" /></svg>
-      );
+      )
 }
