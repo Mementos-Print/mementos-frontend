@@ -1,10 +1,9 @@
-import { Checkbox } from "radix-ui";
 import { useForm } from "react-hook-form";
-import { ArrowRight, CheckIcon } from "../../assets/icons/Icon";
+import { ArrowRight } from "../../assets/icons/Icon";
 import { ChangeEvent, useState } from "react";
 import { InformationDataProps, InformationProps } from "../../types/type";
 
-const Information = ({ handleChange, handleSubmit, handleNext }: InformationProps) => {
+const Information = ({ handleSubmit, handleNext }: InformationProps) => {
     const [disabled, setDisabled] = useState(true)
     const {
         register,
@@ -19,18 +18,11 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
     // Disable the button if any required field is empty
     // const _isDisabled = !name || !email;
 
-    const [checked, setChecked] = useState(false)
 
     const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-        handleChange(e, checked);
         setDisabled(!name || !email ? false : true);
     }
-
-    const handleSaveInfo = (check: boolean) => {
-        setChecked(check);
-        setDisabled(!name || !email ? false : true);
-    };
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         console.log('continue with google');
@@ -39,12 +31,12 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
     };
 
     return (
-        <form className="flex flex-col px-5 gap-7 h-fit justify-between" onSubmit={handleFormSubmit}>
+        <form className="flex flex-col px-5 gap-7 w-full justify-start" onSubmit={handleFormSubmit}>
             <div>
                 <div className=' text-primary flex flex-col justify-start '>
                     <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-medium">Name <span className="text-red-700">*</span></label>
                     <input
-                        className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
+                        className="border border-solid p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
                         placeholder='Name'
                         {...register("name", { required: true })}
                         type="text"
@@ -58,7 +50,7 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
                 <div className='text-primary '>
                     <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-medium">Email <span className="text-red-700">*</span></label>
                     <input
-                        className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
+                        className="border border-solid p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
                         placeholder='Email'
                         {...register("email", { required: true })}
                         type="text"
@@ -70,7 +62,7 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
                     {errors.email && <span className="error-message">This field is required</span>}
                 </div>
 
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <Checkbox.Root
                         className="flex size-[25px] appearance-none items-center justify-center border border-secondary rounded outline-none hover:bg-secondary"
                         id="c1"
@@ -90,10 +82,10 @@ const Information = ({ handleChange, handleSubmit, handleNext }: InformationProp
                     >
                         Save my name and email on this website
                     </label>
-                </div>
+                </div> */}
             </div>
 
-            <div className="flex flex-col pt-10 items-end gap-3 justify-center text-[12px]">
+            <div className="flex flex-col pt-2 items-end gap-3 justify-center text-[12px]">
                 {/* Submit button: Disabled until required fields are filled */}
                 <button
                     type="submit"

@@ -2,6 +2,8 @@ import { useState, ReactNode, FC, useEffect, useRef, useMemo } from "react";
 import { StoreContext } from "./StoreContext";
 import * as fabric from "fabric";
 import { AdminProps, StoreState } from "../types/type";
+import { LoginRequest, LoginResponse } from "../types/auth";
+import { AdminLogin } from "../api/authService";
 
 const initialState: StoreState = {
     user: {},
@@ -23,7 +25,12 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [admin, _setAdmin] = useState<AdminProps[]>(() => getLocalStorage("admin", Admin));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    // const [user, setUser] = useState<LoginResponse | null>(null);
+    const [user, setUser] = useState<LoginResponse | null>(null);
 
     const [selectedToPrint, setSelectedToPrint] = useState<File[]>([])
 
@@ -37,21 +44,47 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
         return () => clearTimeout(timer);
     }, []);
 
-    const login = (username: string, password: string) => {
-        const foundAdmin = admin.find(
-            (a) => a.username === username && a.password === password
-        );
-        if (foundAdmin) {
+    // const login = (username: string, password: string) => {
+    //     const foundAdmin = admin.find(
+    //         (a) => a.username === username && a.password === password
+    //     );
+    //     if (foundAdmin) {
+    //         setIsAuthenticated(true);
+    //         setIsAdmin(true);
+    //     } else {
+    //         console.error("Invalid admin credentials");
+    //     }
+    // };
+
+    const login = async (credentials: LoginRequest) => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await AdminLogin(credentials);
+            setUser(response);
             setIsAuthenticated(true);
-            setIsAdmin(true);
-        } else {
-            console.error("Invalid admin credentials");
+            if (response.user.role == 'admin') {
+                setIsAdmin(true);
+            }
+
+            // store the token in localStorage
+            localStorage.setItem('authToken', response.token);
+            return response;
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Login failed';
+            setError(message);
+            throw err;
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const logout = () => {
         setIsAuthenticated(false);
         setIsAdmin(false);
+        setUser(null);
+        localStorage.removeItem('authToken');
     };
 
     const AddSelectedImages = (file: File) => {
@@ -91,6 +124,8 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             RemoveSelectedImages,
             RemoveAllSelectedImages,
             admin,
+            user,
+            error,
             isAuthenticated,
             isAdmin,
             isLoading,
@@ -118,5 +153,5 @@ function getLocalStorage<T>(key: string, initialValue: T): T {
     } catch (e) {
         return initialValue;
     }
-}7
+} 7
 export { StoreProvider };

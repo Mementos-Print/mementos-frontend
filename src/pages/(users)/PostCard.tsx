@@ -51,8 +51,6 @@ const PostCard = () => {
         } catch (error) {
             console.log(error);
 
-        } finally {
-            console.log(formSectionsData[0], 'submitted');
         }
     }
 

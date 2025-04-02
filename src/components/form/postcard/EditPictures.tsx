@@ -92,9 +92,11 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
    }, [currentImage, selectedImages, borderColor]);
 
    return (
-      <div className="h-2/3 px-3 my-3">
-         {selectedImages.length === 0 ? (
-            <div className="h-full text-lg text-disabledText kanit-light">Select Images to print.</div>
+      <div className="h-2/3 px-3 my-3 flex flcex-col justify-center items-center align-middle">
+         {selectedImages.length === 0 ? ( 
+            <div className=" text-lg text-disabledText kanit-light text-center">
+               Select Images to print.
+            </div>
          ) : (
             <div className="w-full h-full flex flex-row justify-center gap-3 items-center align-middle">
                <div

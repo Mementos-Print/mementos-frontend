@@ -9,7 +9,7 @@ const CompletedModal = ({ isOpen }: CompletedProps) => {
     if (!isOpen) return null;
 
     const handleHome = () => {
-        navigate("/")
+        navigate("/get-started")
     }
 
     return (

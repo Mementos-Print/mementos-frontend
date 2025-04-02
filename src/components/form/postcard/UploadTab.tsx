@@ -36,7 +36,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
 
     return (
         <div className="w-full h-full">
-            <div className={`${Files.length == 0 ? 'h-1/2' : 'h-3/4c'}`}>
+            <div className={`${selectedToPrint.length == 0 ? 'h-1/2' : ''}`}>
                 {Files.length == 0 ?
                     <FileUpload handleFilesChange={handleFilesChange} handleNext={handleNext} />
                     :
@@ -87,21 +87,25 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
 
                 {
                     tab == 'imports' ?
-                        <div className="imports flex flex-wrap">
+                        <div className="">
                             {Files.length > 0 && (
-                                <ul className='flex flex-wrap'>
+                                <div className='grid grid-cols-3 md:grid-cols-4 gap-0.5 px-1'>
                                     {Files.map((file, index) => (
-                                        <li key={index} className="w-1/3 border border-gray_ border-collapse hover:cursor-pointer" onClick={() => handleClickedImages(file)}>
-
-                                            {file && <div>
+                                        <div key={index} className=""
+                                            onClick={() => handleClickedImages(file)}
+                                        >
+                                            {file && <div className="relative overflow-hidden w-full aspect-square border border-gray_ border-collapse hover:cursor-pointer">
                                                 {Object.values(selectedToPrint).includes(file) ?
                                                     <div className="!z-10 -mb-8 ml-2 mt-2 relative left-0 float-left p-1 bg-secondary rounded-full w-fit ">
                                                         <CheckIcon color='var(--primary)' /></div> :
                                                     <span></span>}
-                                                <div className="-z-10"><img src={URL.createObjectURL(file)} alt="img" /></div></div>}
-                                        </li>
+                                                <div className="-z-10 w-full h-full">
+                                                    <img src={URL.createObjectURL(file)} alt="img" className="object-cover w-full h-full"/>
+                                                </div>
+                                            </div>}
+                                        </div>
                                     ))}
-                                </ul>
+                                </div>
                             )}
                         </div>
                         : <div className="borders flex flex-col items-center text-center gap-5 p-2 py-6">

@@ -121,6 +121,11 @@ export type UploadProps = {
     // handleSubmit: () => void
 }
 
+export type FilterProps = {
+    showFiltermodal: boolean;
+    onClose: () => void
+    onFilterChange: (filters: string[]) => void
+}
 export interface User {
     id?: string;
     name?: string;
@@ -128,6 +133,18 @@ export interface User {
     // Add other user properties as needed
 }
 
+export interface AdminImageCardProps {
+    data: Item;
+    handleClickedImages: (item: Item) => void;
+    selectedImagesId: number[];
+}
+
+export type AdminPrintLayoutProps = {
+    // handlePrevious: () => void
+    type: string
+    setShowFiltermodal: React.Dispatch<React.SetStateAction<boolean>>
+    activeFilters:  string[]
+};
 export interface StoreState {
     user: User;
     files: File[];
