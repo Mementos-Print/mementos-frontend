@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FilterProps } from "../../types/type";
 
-const filterList = ['Name', 'Pending', 'Modified'];
+const filterList = ['Name', 'Created'];
 
 const FilterModal = ({ showFiltermodal, onClose, onFilterChange }: FilterProps) => {
     const [checked, setChecked] = useState<number[]>([]);
@@ -10,7 +10,7 @@ const FilterModal = ({ showFiltermodal, onClose, onFilterChange }: FilterProps) 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-                onClose(); // Close the modal
+                onClose();
             }
         };
 

@@ -24,7 +24,7 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [admin, _setAdmin] = useState<AdminProps[]>(() => getLocalStorage("admin", Admin));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(true);
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
