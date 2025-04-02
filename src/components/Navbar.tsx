@@ -11,7 +11,7 @@ const Navigation = () => {
                         <Logo />
                     </div>
                 </Link>
-                <div className="z-[1000]">
+                <div className="!z-[1000]">
                     <HamburgerDropdownMenu />
                 </div>
             </div>
