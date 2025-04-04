@@ -3,17 +3,26 @@ import { CancelUpload, UploadForPrint } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import { uploadImage } from "../../pages/auth/auth";
 import { useAppState } from "../../hooks/useAppState";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
   const {borderOption,selectedImages, userCredentials} = useAppState();
+  const navigate = useNavigate();
 
   const handleSuccess=()=>{
-    setSelected("isDone" , false)
-    setSelected("isSuccessful" , true)
     uploadImage("polaroid", borderOption,selectedImages, JSON.stringify(userCredentials, null, 2))
-    .then(())
+    .then(()=>{
+      setSelected("isDone" , false)
+      navigate("/user/dashboard")
+      setSelected("isSuccessful" , true)
+    })
+    .catch(()=>{
+      toast("Something went wrong")
+    })
   }
 
   if (!portalRoot) return null;
@@ -37,6 +46,7 @@ const UploadOverlay = () => {
           onClick={() => setSelected("isDone", false)}
         />
       </div>
+      <ToastContainer />
     </div>,
     portalRoot
   );

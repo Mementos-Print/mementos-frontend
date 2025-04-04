@@ -16,7 +16,7 @@ export const uploadImage = async (
     formData.append("images", image);
   });
 
-  await axios.post(`${API_BASE_URL}/upload`, formData, {
+  await axios.post(`${API_BASE_URL}/images/upload`, formData, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "multipart/form-data",
