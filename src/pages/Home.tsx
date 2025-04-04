@@ -30,7 +30,7 @@ const Home = () => {
                     </div>
 
                     <div className="w-full lg:w-1/2 py-2 px-4 bg-secondary rounded-full">
-                        <Link to='/newUser' className="" >
+                        <Link to='/auth/user/signin' className="" >
                             <div className="w-full flex flex-row gap-6 items-center justify-center">
                                 <p className="text-[20px] kanit-regular">Get Started</p>
                                 <div className="">
