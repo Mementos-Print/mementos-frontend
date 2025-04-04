@@ -17,9 +17,7 @@ const UploadImage = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const updatedImages = Array.from(e.target.files).map((file) =>
-      URL.createObjectURL(file)
-    );
+    const updatedImages = Array.from(e.target.files)
 
     const newImageList = [...updatedImages, ...importedImages];
     setSelected("importedImages", newImageList);

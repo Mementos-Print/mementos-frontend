@@ -1,14 +1,19 @@
 import ReactDOM from "react-dom";
 import { CancelUpload, UploadForPrint } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
+import { uploadImage } from "../../pages/auth/auth";
+import { useAppState } from "../../hooks/useAppState";
 
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
+  const {borderOption,selectedImages, userCredentials} = useAppState();
 
   const handleSuccess=()=>{
     setSelected("isDone" , false)
     setSelected("isSuccessful" , true)
+    uploadImage("polaroid", borderOption,selectedImages, JSON.stringify(userCredentials, null, 2))
+    .then(())
   }
 
   if (!portalRoot) return null;

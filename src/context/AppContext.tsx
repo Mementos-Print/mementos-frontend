@@ -4,8 +4,8 @@ import {CredentialResponse} from "@react-oauth/google";
 
 export interface State {
   activePolaroidBase: string;
-  selectedImages: string[];
-  importedImages: string[];
+  selectedImages: File[];
+  importedImages: File[];
   borderOption: string;
   visibleRange: number[];
   isDone: boolean;
@@ -16,7 +16,7 @@ export interface State {
 interface Action {
   type: string;
   optionKey?: keyof State;
-  payload?: string[] | number[] | string | boolean | CredentialResponse | null; 
+  payload?: string[] | number[] | string | boolean | CredentialResponse | File[] | null; 
 }
 type Dispatch = (action: Action) => void;
 interface AppProviderProps {

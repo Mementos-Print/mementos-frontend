@@ -14,11 +14,7 @@ const GoogleAuth = () => {
   const setSelected = useSetSelected();
 
   const handleSuccess = (credentialResponse: CredentialResponse) => {
-    setSelected("userCredentials", credentialResponse);
-    // console.log(
-    //   "User Credentials",
-    //   JSON.stringify(credentialResponse, null, 2)
-    // );
+    setSelected("userCredentials", JSON.stringify(credentialResponse, null, 2));
     setSelected("isAuthenticated", true);
     navigate("/user/dashboard");
   };
