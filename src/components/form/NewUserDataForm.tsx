@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
-import { ArrowRight, GoogleIcon } from "../../assets/icons/Icon";
+import { ArrowRight} from "../../assets/icons/Icon";
 import { ChangeEvent, useState } from "react";
 import { NewUserDataInformation, NewUserDataProps } from "../../types/type";
+import GoogleAuth from "../../pages/auth/GoogleAuth";
+import { useAppState } from "../../hooks/useAppState";
+import { Navigate } from "react-router-dom";
 
 const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation) => {
   const [disabled, setDisabled] = useState(true)
@@ -10,6 +13,7 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
     watch,
     formState: { errors },
   } = useForm<NewUserDataProps>({ mode: "onChange" });
+  const {isAuthenticated} = useAppState();
 
   // Watching form fields
   const name = watch("name");
@@ -21,11 +25,11 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
     setDisabled(!name || !email ? false : true);
   }
 
-  const handleContinueWithGoogle = () => {
-    console.log('continue with google');
-  };
+  // const handleContinueWithGoogle = () => {
+  //   console.log('continue with google');
+  // };
 
-  return (
+  return !isAuthenticated ? (
     <form className="flex flex-col h-full justify-start" onSubmit={handleSubmit}>
       <div>
         <div className=' text-primary flex flex-col justify-start '>
@@ -75,13 +79,15 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
 
         <p className="text-gray_3 w-full text-center py-1">OR</p>
 
-        <button onClick={() => handleContinueWithGoogle()} className="bg-primary text-white px-4 py-2 rounded-full w-full flex flex-row gap-2 justify-center text-[16px]">
+        {/* google auth func */}
+        <GoogleAuth />
+        {/* <button onClick={() => handleContinueWithGoogle()} className="bg-primary text-white px-4 py-2 rounded-full w-full flex flex-row gap-2 justify-center text-[16px]">
           <GoogleIcon />
           <p>Continue with Google</p>
-        </button>
+        </button> */}
       </div>
     </form>
-  )
+  ): <Navigate to="/user/dashboard"/>;
 }
 
 export default NewUserDataForm;

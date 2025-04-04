@@ -21,10 +21,12 @@ const Imports = () => {
 
   return (
     <div className="grid grid-cols-3 bg-white gap-0.5">
-      {importedImages.map((img, idx) => (
+      {importedImages.map((img, idx) => {
+        const imageUrl = URL.createObjectURL(img);
+        return(
         <div className="relative" key={idx}>
           <img
-            src={img}
+            src={imageUrl}
             className="h-28  object-cover"
             onClick={() => selectImage(idx)}
           />
@@ -34,7 +36,8 @@ const Imports = () => {
             }`}
           />
         </div>
-      ))}
+        )
+})}
     </div>
   );
 };

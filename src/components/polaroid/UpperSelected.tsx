@@ -9,28 +9,30 @@ const UpperSelected = () => {
   const removeSelected = (idx: number) => {
     const updatedSelected = [...selectedImages];
     updatedSelected.splice(idx, 1);
-    setSelected("selectedImages", updatedSelected)
-
+    setSelected("selectedImages", updatedSelected);
   };
   return (
     <div className="flex items-center gap-0.5 mb-5  overflow-x-auto scroll-bar">
-      {selectedImages.map((img, idx) => (
-        <div key={idx} className="relative shrink-0">
-          <img
-            src={img}
-            className="w-[74px] h-[74px] object-cover rounded-lg border-2 border-[#85995E]"
-          />
-          {/* selected-images */}
+      {selectedImages.map((img, idx) => {
+        const imageUrl = URL.createObjectURL(img);
+        return (
+          <div key={idx} className="relative shrink-0">
+            <img
+              src={imageUrl}  
+              className="w-[74px] h-[74px] object-cover rounded-lg border-2 border-[#85995E]"
+            />
+            {/* selected-images */}
 
-          {/* cancel button */}
-          <img
-            className="absolute top-[2.25px] right-[2.25px]"
-            src={Cancel}
-            alt="Cancel Button"
-            onClick={() => removeSelected(idx)}
-          />
-        </div>
-      ))}
+            {/* cancel button */}
+            <img
+              className="absolute top-[2.25px] right-[2.25px]"
+              src={Cancel}
+              alt="Cancel Button"
+              onClick={() => removeSelected(idx)}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
