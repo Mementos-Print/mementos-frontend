@@ -43,8 +43,8 @@ const NewUser = () => {
     };
 
     return (
-        <div className="kanit-medium bg-[#F5F5F5] h-[88vh]">
-            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%]">
+        <div className="kanit-medium bg-[#F5F5F5] h-[80vh] pt-3">
+            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%] sm:max-w-[600px] sm:mx-auto sm:mt-10 sm:rounded-sm sm:shadow-lg sm:bg-white sm:pt-10">
                 <NewUserDataForm handleChange={handleChange} handleSubmit={handleSubmit} />
             </div>
         </div>

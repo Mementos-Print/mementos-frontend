@@ -22,11 +22,10 @@ const Home = () => {
                     {/* Main section */}
                     <div className="pt-2 pb-4">
                         <h1 className="text-[34px]/9 kanit-semibold">Inking your memories</h1>
-                        {/* <h2 className="text-2xl"></h2> */}
                     </div>
 
                     <div className="block mx-auto">
-                        <img src="/images/IMG_E2827.jpg" alt="Mementos print image" />;
+                        <img src="/images/LandingPageImage.jpg" alt="Mementos print image" />;
                     </div>
 
                     <div className="w-full lg:w-1/2 py-2 px-4 bg-secondary rounded-full">
