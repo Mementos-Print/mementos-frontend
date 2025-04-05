@@ -2,7 +2,7 @@ import { FormEvent, useCallback, useEffect, useState } from "react";
 import Completed from "../../components/form/Completed";
 import { FormSectionDataProps } from "../../types/type";
 import ProgressBar from "../../components/form/postcard/ProgressBar";
-import useStoreContext from "../../useStoreContext";
+import useStoreContext from "../../hooks/useStoreContext";
 import Information from "../../components/form/information";
 import UploadTab from "../../components/form/postcard/UploadTab";
 import UploadModal from "../../components/Modals/UploadModal";

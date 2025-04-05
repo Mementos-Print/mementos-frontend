@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "../../../assets/icons/Icon";
 import * as fabric from 'fabric';
 import { FabricImage } from 'fabric';
-import useStoreContext from "../../../useStoreContext";
+import useStoreContext from "../../../hooks/useStoreContext";
 
 const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
    const [currentImage, setCurrentImage] = useState(0);

@@ -1,5 +1,5 @@
 import { UploadProps } from "../../types/type";
-import useStoreContext from "../../useStoreContext";
+import useStoreContext from "../../hooks/useStoreContext";
 import { SaveSelectedImages } from "../SaveSelectedImages";
 import { Button } from "../ui/Button";
 

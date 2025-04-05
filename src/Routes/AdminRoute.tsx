@@ -1,4 +1,4 @@
-import useStoreContext from "../useStoreContext";
+import useStoreContext from "../hooks/useStoreContext";
 import { Navigate, Outlet } from "react-router-dom";
 
 const AdminRoute = () => {

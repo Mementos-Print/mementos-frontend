@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useStoreContext from "../../useStoreContext";
+import useStoreContext from "../../hooks/useStoreContext";
 import AdminLoginForm from "../../components/form/AdminLoginForm";
 
 const LoginAdmin = () => {

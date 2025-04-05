@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { NewUserDataProps } from "../../types/type";
 import { useNavigate } from "react-router-dom";
-import useStoreContext from "../../useStoreContext";
+import useStoreContext from "../../hooks/useStoreContext";
 import NewUserDataForm from "../../components/form/NewUserDataForm";
 
 const NewUser = () => {
@@ -38,7 +38,7 @@ const NewUser = () => {
 
         // Navigate to another route after 3 seconds
         setTimeout(() => {
-            navigate("/get-started")
+            navigate("/user/dashboard/get-started")
         }, 1000);
     };
 

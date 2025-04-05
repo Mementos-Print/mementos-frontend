@@ -3,7 +3,7 @@ import { FormDataUploadTab } from "../../../types/type";
 import EditPictures from "./EditPictures";
 import FileUpload from "./FileUpload";
 import { ArrowLeft, CheckIcon, Close } from "../../../assets/icons/Icon";
-import useStoreContext from "../../../useStoreContext";
+import useStoreContext from "../../../hooks/useStoreContext";
 
 const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }: FormDataUploadTab) => {
     const [tab, setTab] = useState<'imports' | 'border'>('imports')
