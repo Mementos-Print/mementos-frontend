@@ -41,7 +41,7 @@ const FileUpload = ({ handleFilesChange, handleNext, }: FormDataFileUpload) => {
     return (
         <div className='flex flex-col w-full'>
             <form onSubmit={handleSubmit} className='flex flex-col items-center py-5'>
-                <div className='flex flex-col w-2/3 h-full justify-center items-center gap-4 py-14 border-2 border-primary'>
+                <div className='flex flex-col w-2/3 h-full justify-center items-center gap-4 py-14'>
                     <label htmlFor="browse" className='kanit-medium text-primary font-bold hover:underline bg-secondary px-5 py-2 text-center w-full rounded-full'>Upload Images</label>
                     <input
                         type="file"
