@@ -11,8 +11,7 @@ export interface State {
   isDone: boolean;
   isSuccessful: boolean;
   isAuthenticated: boolean;
-  userCredentials?: CredentialResponse | null;
-  accessToken?: string | null;
+  accessToken: string;
 }
 interface Action {
   type: string;
@@ -32,6 +31,7 @@ const initialState = {
   isDone: false,
   isSuccessful: false,
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "false"),
+  accessToken: "",
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);

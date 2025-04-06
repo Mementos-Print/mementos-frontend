@@ -10,7 +10,7 @@ import { useState } from "react";
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const { borderOption, selectedImages, userCredentials } = useAppState();
+  const { borderOption, selectedImages,accessToken } = useAppState();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
 
@@ -19,7 +19,8 @@ const UploadOverlay = () => {
     uploadImage(
       borderOption,
       selectedImages,
-      JSON.stringify(userCredentials, null, 2)
+      accessToken
+      // userCredentials?.credential || ""
     )
       .then(() => {
         setSelected("isDone", false);
