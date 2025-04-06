@@ -12,6 +12,7 @@ export interface State {
   isSuccessful: boolean;
   isAuthenticated: boolean;
   userCredentials?: CredentialResponse | null;
+  accessToken?: string | null;
 }
 interface Action {
   type: string;

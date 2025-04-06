@@ -5,25 +5,34 @@ import { uploadImage } from "../../pages/auth/auth";
 import { useAppState } from "../../hooks/useAppState";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-
+import { useState } from "react";
 
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const {borderOption,selectedImages, userCredentials} = useAppState();
+  const { borderOption, selectedImages, userCredentials } = useAppState();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(Boolean);
 
-  const handleSuccess=()=>{
-    uploadImage("polaroid", borderOption,selectedImages, JSON.stringify(userCredentials, null, 2))
-    .then(()=>{
-      setSelected("isDone" , false)
-      navigate("/user/dashboard")
-      setSelected("isSuccessful" , true)
-    })
-    .catch(()=>{
-      toast("Something went wrong")
-    })
-  }
+  const handleSuccess = () => {
+    setLoading(true);
+    uploadImage(
+      borderOption,
+      selectedImages,
+      JSON.stringify(userCredentials, null, 2)
+    )
+      .then(() => {
+        setSelected("isDone", false);
+        navigate("/user/dashboard");
+        setSelected("isSuccessful", true);
+      })
+      .catch((err) => {
+        toast(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   if (!portalRoot) return null;
   return ReactDOM.createPortal(
@@ -33,12 +42,18 @@ const UploadOverlay = () => {
           <p className="font-medium">All set!</p>
           <p className="font-light">Upload Image(s) for printing</p>
         </div>
-        <img
-          src={UploadForPrint}
-          alt="upload-image"
-          className="absolute bottom-8"
-          onClick={handleSuccess}
-        />
+        {loading ? (
+          <p className="bg-[#333431] rounded-[60px] py-2 w-full text-center text-white text-xl absolute bottom-8 w-[80%]">
+            Loading...
+          </p>
+        ) : (
+          <img
+            src={UploadForPrint}
+            alt="upload-image"
+            className="absolute bottom-8"
+            onClick={handleSuccess}
+          />
+        )}
         <img
           src={CancelUpload}
           alt="cancel"

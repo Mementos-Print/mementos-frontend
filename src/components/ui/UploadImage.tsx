@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { UploadImageButton } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import { useAppState } from "../../hooks/useAppState";
 
@@ -17,7 +16,7 @@ const UploadImage = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const updatedImages = Array.from(e.target.files)
+    const updatedImages = Array.from(e.target.files);
 
     const newImageList = [...updatedImages, ...importedImages];
     setSelected("importedImages", newImageList);
@@ -42,7 +41,12 @@ const UploadImage = () => {
           onChange={handleImageChange}
           className="hidden"
         />
-        <img src={UploadImageButton} alt="UploadImage" onClick={handleClick} />
+        <button
+          className="rounded-[60px] bg-[#C9EC81] text-xl py-1 font-medium text-[#333431] px-8"
+          onClick={handleClick}
+        >
+          Upload Image
+        </button>
         <div className="text-[#9E9E9E] text-xs leading-4 text-center">
           <p>Select images to print</p>
           <p>(Even selections only i.e 2, 4, 6 etc)</p>
