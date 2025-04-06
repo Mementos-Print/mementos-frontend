@@ -20,7 +20,6 @@ const UploadOverlay = () => {
       borderOption,
       selectedImages,
       accessToken
-      // userCredentials?.credential || ""
     )
       .then(() => {
         setSelected("isDone", false);

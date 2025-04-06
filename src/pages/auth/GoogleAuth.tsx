@@ -1,7 +1,7 @@
   import {
     GoogleOAuthProvider,
     GoogleLogin,
-    CredentialResponse,
+    // CredentialResponse,
   } from "@react-oauth/google";
   import { useNavigate } from "react-router-dom";
   import { useSetSelected } from "../../hooks/useSetSelected";
@@ -13,8 +13,8 @@
     const navigate = useNavigate();
     const setSelected = useSetSelected();
 
-    const handleSuccess = (credentialResponse: CredentialResponse) => {
-      console.log(credentialResponse)
+    const handleSuccess = () => {
+      // console.log(credentialResponse)
       setSelected("isAuthenticated", true);
       navigate("/user/dashboard");
     };

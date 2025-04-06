@@ -9,7 +9,7 @@ import { login } from "../../pages/auth/auth";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import { toast, ToastContainer } from "react-toastify";
 
-const NewUserDataForm = ({ handleChange,handleSubmit }: NewUserDataInformation) => {
+const NewUserDataForm = ({ handleChange }: NewUserDataInformation) => {
   const setSelected = useSetSelected();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
@@ -32,8 +32,10 @@ const NewUserDataForm = ({ handleChange,handleSubmit }: NewUserDataInformation) 
     setDisabled(!name || !email ? false : true);
   };
   console.log(name, email);
+  
   // handle submit
-  handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     setLoading(true);
     if (!name || !email) return;
     login(email,name)
