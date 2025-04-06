@@ -1,19 +1,26 @@
 import { useForm } from "react-hook-form";
-import { ArrowRight} from "../../assets/icons/Icon";
+import { ArrowRight } from "../../assets/icons/Icon";
 import { ChangeEvent, useState } from "react";
 import { NewUserDataInformation, NewUserDataProps } from "../../types/type";
 import GoogleAuth from "../../pages/auth/GoogleAuth";
 import { useAppState } from "../../hooks/useAppState";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { login } from "../../pages/auth/auth";
+import { useSetSelected } from "../../hooks/useSetSelected";
+import { toast, ToastContainer } from "react-toastify";
 
-const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation) => {
-  const [disabled, setDisabled] = useState(true)
+const NewUserDataForm = ({ handleChange }: NewUserDataInformation) => {
+  const setSelected = useSetSelected();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(Boolean);
+
+  const [disabled, setDisabled] = useState(true);
   const {
     register,
     watch,
     formState: { errors },
   } = useForm<NewUserDataProps>({ mode: "onChange" });
-  const {isAuthenticated} = useAppState();
+  const { isAuthenticated } = useAppState();
 
   // Watching form fields
   const name = watch("name");
@@ -23,34 +30,61 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
     e.preventDefault();
     handleChange(e);
     setDisabled(!name || !email ? false : true);
-  }
-
-  // const handleContinueWithGoogle = () => {
-  //   console.log('continue with google');
-  // };
+  };
+  console.log(name, email);
+  
+  // handle submit
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true);
+    if (!name || !email) return;
+    login(email,name)
+      .then(({ accessToken }) => {
+        setSelected("isAuthenticated", true);
+        setSelected("accessToken", accessToken);
+        navigate("/user/dashboard");
+        console.log("Successfully logged in");
+      })
+      .catch((err) => {
+        console.log(err)
+        toast("Something went wrong");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return !isAuthenticated ? (
-    <form className="flex flex-col h-full justify-start" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col h-full justify-start"
+      onSubmit={handleSubmit}
+    >
       <div>
-        <div className=' text-primary flex flex-col justify-start '>
-          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">Name <span className="text-red-700">*</span></label>
+        <div className=" text-primary flex flex-col justify-start ">
+          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">
+            Name <span className="text-red-700">*</span>
+          </label>
           <input
             className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
-            placeholder='Name'
+            placeholder="Name"
             {...register("name", { required: true })}
             type="text"
             name="name"
             onChange={(e) => handleFieldChange(e)}
             required
           />
-          {errors.name && <span className="error-message">This field is required</span>}
+          {errors.name && (
+            <span className="error-message">This field is required</span>
+          )}
         </div>
 
-        <div className='text-primary '>
-          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">Email <span className="text-red-700">*</span></label>
+        <div className="text-primary ">
+          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">
+            Email <span className="text-red-700">*</span>
+          </label>
           <input
             className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
-            placeholder='Email'
+            placeholder="Email"
             {...register("email", { required: true })}
             type="text"
             name="email"
@@ -58,7 +92,9 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
             onChange={(e) => handleFieldChange(e)}
             required
           />
-          {errors.email && <span className="error-message">This field is required</span>}
+          {errors.email && (
+            <span className="error-message">This field is required</span>
+          )}
         </div>
       </div>
 
@@ -66,15 +102,18 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
         {/* Submit button: Disabled until required fields are filled */}
         <button
           type="submit"
+          // onClick={handleSubmit}
           className="px-4 py-2 rounded-full w-full flex flex-row justify-center text-[16px] gap-2"
           style={{
-            backgroundColor: disabled ? 'var(--disabled)' : 'var(--secondary)',
-            color: disabled ? 'var(--disabledText)' : 'var(--primary)',
+            backgroundColor: disabled ? "var(--disabled)" : "var(--secondary)",
+            color: disabled ? "var(--disabledText)" : "var(--primary)",
           }}
           disabled={disabled}
         >
-          <p>Get started</p>
-          <ArrowRight color={disabled ? 'var(--disabledText)' : 'var(--primary)'} />
+          {loading ? <p>Loading...</p> : <p>Get Started</p>}
+          <ArrowRight
+            color={disabled ? "var(--disabledText)" : "var(--primary)"}
+          />
         </button>
 
         <p className="text-gray_3 w-full text-center py-1">OR</p>
@@ -86,8 +125,11 @@ const NewUserDataForm = ({ handleChange, handleSubmit }: NewUserDataInformation)
           <p>Continue with Google</p>
         </button> */}
       </div>
+      <ToastContainer />
     </form>
-  ): <Navigate to="/user/dashboard"/>;
-}
+  ) : (
+    <Navigate to="/user/dashboard" />
+  );
+};
 
 export default NewUserDataForm;

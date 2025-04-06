@@ -1,5 +1,4 @@
 import { useAppState } from "../../hooks/useAppState";
-import { Selected } from "../../assets/Logo";
 import { useSetSelected } from "../../hooks/useSetSelected";
 
 const Imports = () => {
@@ -8,14 +7,9 @@ const Imports = () => {
 
   const selectImage = (idx: number) => {
     const image = importedImages[idx];
-    let updatedSelectedImages = [...selectedImages];
-
-    if (updatedSelectedImages.includes(image))
-      updatedSelectedImages = updatedSelectedImages.filter(
-        (img) => img !== image
-      );
-    else updatedSelectedImages.push(image);
-
+    
+    const updatedSelectedImages = [...selectedImages];
+    updatedSelectedImages.push(image);
     setSelected("selectedImages", updatedSelectedImages);
   };
 
@@ -23,21 +17,25 @@ const Imports = () => {
     <div className="grid grid-cols-3 bg-white gap-0.5">
       {importedImages.map((img, idx) => {
         const imageUrl = URL.createObjectURL(img);
-        return(
-        <div className="relative" key={idx}>
-          <img
-            src={imageUrl}
-            className="h-28  object-cover"
-            onClick={() => selectImage(idx)}
-          />
-          <Selected
-            className={`absolute top-0 border-black text-3xl ${
-              selectedImages.includes(img) ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        </div>
-        )
-})}
+        const count = selectedImages.filter(
+          (selectedImg) => selectedImg === img
+        ).length;
+        return (
+          <div className="relative" key={idx}>
+            <img
+              src={imageUrl}
+              className="h-28  object-cover"
+              onClick={() => selectImage(idx)}
+            />
+
+            {count > 0 && (
+              <p className="w-6 h-6 bg-[#A1BD67] absolute top-1 left-1 rounded-full text-center font-medium">
+                {count}
+              </p>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

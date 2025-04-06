@@ -8,7 +8,7 @@ import { useSetSelected } from "../../hooks/useSetSelected";
 import useStoreContext from "../../hooks/useStoreContext";
 // import { set } from "react-hook-form";
 
-const clientId: string = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
+  const clientId: string = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
 const GoogleAuth = () => {
   const navigate = useNavigate();
@@ -37,18 +37,17 @@ const GoogleAuth = () => {
     } else {
       console.log("Login Failed: No credential found");
     }
-    navigate("/user/dashboard");
+  }
+    return (
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+          onSuccess={handleSuccess}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
+      </GoogleOAuthProvider>
+    );
   };
-  return (
-    <GoogleOAuthProvider clientId={clientId}>
-      <GoogleLogin
-        onSuccess={handleSuccess}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      />
-    </GoogleOAuthProvider>
-  );
-};
 
-export default GoogleAuth;
+  export default GoogleAuth;
