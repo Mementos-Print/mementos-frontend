@@ -59,7 +59,6 @@ export type InformationProps = {
 export type FormDataProps = {
     name: string;
     email: string;
-    saveInfo: boolean;
     date_created: Date;
 }
 
@@ -67,7 +66,6 @@ export type FormSectionDataProps = [
     {
         name: string;
         email: string;
-        saveInfo: boolean;
         date_created: Date;
     },
     {
@@ -143,11 +141,15 @@ export type AdminPrintLayoutProps = {
     // handlePrevious: () => void
     type: string
     setShowFiltermodal: React.Dispatch<React.SetStateAction<boolean>>
-    activeFilters:  string[]
+    activeFilters: string[]
 };
 export interface StoreState {
     user: User;
-    files: File[];
+    selectedToPrint: File[];
+    importedImages: [],
+
+    border: string;
+    // isAuthenticated: boolean;
 }
 
 export interface AdminProps {
@@ -160,4 +162,4 @@ export interface Item {
     id: number;
     name: string;
     image: string; // Array of paths to images in public/images
-  }
+}

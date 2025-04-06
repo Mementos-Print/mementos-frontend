@@ -3,9 +3,12 @@ import { NewUserDataProps } from "../../types/type";
 import { useNavigate } from "react-router-dom";
 import useStoreContext from "../../hooks/useStoreContext";
 import NewUserDataForm from "../../components/form/NewUserDataForm";
+import { useSetSelected } from "../../hooks/useSetSelected";
 
 const NewUser = () => {
     const { setStore } = useStoreContext();
+    const setSelected = useSetSelected();
+
     const [NewUserData, setNewUserData] = useState<NewUserDataProps>({
         name: '',
         email: '',
@@ -31,14 +34,16 @@ const NewUser = () => {
                 ...prevStore,
                 user: NewUserData
             }));
+            setSelected("isAuthenticated", true);
+
         } catch (error) {
             console.log(error);
-            
+
         }
 
         // Navigate to another route after 3 seconds
         setTimeout(() => {
-            navigate("/user/dashboard/get-started")
+            navigate("/user/dashboard/")
         }, 1000);
     };
 

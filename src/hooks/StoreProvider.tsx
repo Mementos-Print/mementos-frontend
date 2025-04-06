@@ -7,7 +7,9 @@ import { AdminLogin } from "../api/authService";
 
 const initialState: StoreState = {
     user: {},
-    files: []
+    importedImages: [],
+    selectedToPrint: [],
+    border: "white",
 };
 
 const Admin: AdminProps[] = [
@@ -18,43 +20,44 @@ const Admin: AdminProps[] = [
     },
 ];
 
-
 const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
+    // Initialize the store with state from localStorage for persistence
     const [store, setStore] = useState<StoreState>(() => getLocalStorage("store", initialState));
 
     const [admin, _setAdmin] = useState<AdminProps[]>(() => getLocalStorage("admin", Admin));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAdmin, setIsAdmin] = useState(true);
-
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
-    // const [user, setUser] = useState<LoginResponse | null>(null);
     const [user, setUser] = useState<LoginResponse | null>(null);
-
-    const [selectedToPrint, setSelectedToPrint] = useState<File[]>([])
-
-    const [borderColor, setBorderColor] = useState<'white' | 'black'>('white')
     const canvasRef = useRef<fabric.Canvas | null>(null);
+
+    // // Initialize selected images from localStorage if available
+    // useEffect(() => {
+    //     const savedImages = localStorage.getItem('store');
+    //     if (savedImages) {
+    //         setStore(prevState => ({
+    //             ...prevState,
+    //             selectedToPrint: JSON.parse(savedImages)
+    //         }));
+    //     }
+    // }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setIsLoading(false); // Set loading to false after some time
+            setIsLoading(false);
         }, 1000); // Simulate a 1-second delay
         return () => clearTimeout(timer);
     }, []);
 
-    // const login = (username: string, password: string) => {
-    //     const foundAdmin = admin.find(
-    //         (a) => a.username === username && a.password === password
-    //     );
-    //     if (foundAdmin) {
-    //         setIsAuthenticated(true);
-    //         setIsAdmin(true);
-    //     } else {
-    //         console.error("Invalid admin credentials");
-    //     }
-    // };
+    // Update `selectedToPrint` in localStorage whenever it changes
+    useEffect(() => {
+        if (store.selectedToPrint.length > 0) {
+            localStorage.setItem('selectedToPrint', JSON.stringify(store.selectedToPrint));
+        } else {
+            localStorage.removeItem('selectedToPrint');
+        }
+    }, [store.selectedToPrint]);
 
     const login = async (credentials: LoginRequest) => {
         setIsLoading(true);
@@ -64,11 +67,9 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             const response = await AdminLogin(credentials);
             setUser(response);
             setIsAuthenticated(true);
-            if (response.user.role == 'admin') {
+            if (response.user.role === 'admin') {
                 setIsAdmin(true);
             }
-
-            // store the token in localStorage
             localStorage.setItem('authToken', response.token);
             return response;
         } catch (err) {
@@ -88,24 +89,37 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     };
 
     const AddSelectedImages = (file: File) => {
-        setSelectedToPrint(prevSelection => {
-            const updatedSelection = [...prevSelection];
-            if (!Object.values(selectedToPrint).includes(file)) {
+        setStore(prevStore => {
+            const updatedSelection = [...prevStore.selectedToPrint];
+            if (!updatedSelection.includes(file)) {
                 updatedSelection.push(file);
             }
-
-            return updatedSelection;
+            return { ...prevStore, selectedToPrint: updatedSelection };
         });
-    }
+    };
 
     const RemoveSelectedImages = (file: File) => {
-        setSelectedToPrint(selectedToPrint => selectedToPrint.filter((item) => item !== file));
-    }
+        setStore(prevStore => ({
+            ...prevStore,
+            selectedToPrint: prevStore.selectedToPrint.filter(item => item !== file),
+        }));
+    };
 
     const RemoveAllSelectedImages = () => {
-        setSelectedToPrint([]);
-    }
+        setStore(prevStore => ({
+            ...prevStore,
+            selectedToPrint: [],
+        }));
+    };
 
+    const setBorderColor = (color: 'white' | 'black') => {
+        setStore(prevStore => ({
+            ...prevStore,
+            border: color,
+        }));
+    };
+
+    // Update store in localStorage whenever the store changes
     useEffect(() => {
         setLocalStorage("store", store);
     }, [store]);
@@ -114,14 +128,11 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
         () => ({
             store,
             setStore,
-            borderColor,
-            setBorderColor,
             canvasRef,
-            selectedToPrint,
-            setSelectedToPrint,
             AddSelectedImages,
             RemoveSelectedImages,
             RemoveAllSelectedImages,
+            setBorderColor,
             admin,
             user,
             error,
@@ -131,7 +142,7 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             login,
             logout,
         }),
-        [store, borderColor, selectedToPrint, admin, isAuthenticated, isAdmin, isLoading]
+        [store, admin, isAuthenticated, isAdmin, isLoading]
     );
 
     return <StoreContext.Provider value={contextValue}>{children}</StoreContext.Provider>;
@@ -152,5 +163,6 @@ function getLocalStorage<T>(key: string, initialValue: T): T {
     } catch (e) {
         return initialValue;
     }
-} 7
+}
+
 export { StoreProvider };

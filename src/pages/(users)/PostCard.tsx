@@ -26,16 +26,13 @@ const PostCard = () => {
         }
     }, [store.user]);
 
-    const handleInformationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, saveInfo: boolean = false) => {
+    const handleInformationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
         setFormSectionsData(prevSectionsData => {
             const updatedSectionData = [...prevSectionsData];
             if (name in updatedSectionData[0]) {
                 (updatedSectionData[0] as any)[name] = value;
-            }
-            if (saveInfo) {
-                (updatedSectionData[0] as any)[`saveInfo`] = saveInfo
             }
             return updatedSectionData as FormSectionDataProps;
         })
@@ -80,7 +77,6 @@ const PostCard = () => {
         {
             name: '',
             email: '',
-            saveInfo: false,
             date_created: new Date(),
         },
         {
@@ -104,7 +100,7 @@ const PostCard = () => {
         try {
             setStore((prevStore: any) => ({
                 ...prevStore,
-                files: formSectionsData[1]
+                importedImages: formSectionsData[1]
             }));
         } catch (error) {
             console.log(error);

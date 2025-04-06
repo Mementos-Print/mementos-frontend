@@ -8,22 +8,25 @@ import useStoreContext from "../../../hooks/useStoreContext";
 const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }: FormDataUploadTab) => {
     const [tab, setTab] = useState<'imports' | 'border'>('imports')
     const {
-        borderColor,
-        setBorderColor,
-        selectedToPrint,
+        store,
         AddSelectedImages,
         RemoveSelectedImages,
         RemoveAllSelectedImages,
+        setBorderColor,
     } = useStoreContext();
 
 
     const handleClickedImages = (file: File) => {
-        if (!Object.values(selectedToPrint).includes(file)) {
-            AddSelectedImages(file)
-        } else {
-            RemoveSelectedImages(file)
+        if (!(file instanceof File)) {
+            console.error("Invalid file detected:", file);
+            return;
         }
-    }
+        if (!Object.values(store.selectedToPrint).includes(file)) {
+            AddSelectedImages(file); 
+        } else {
+            RemoveSelectedImages(file);
+        }
+    };
 
     const handleDone = () => {
         setShowUploadModal(true)
@@ -36,18 +39,18 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
 
     return (
         <div className="w-full h-full">
-            <div className={`${selectedToPrint.length == 0 ? 'h-1/2' : ''}`}>
-                {Files.length == 0 ?
+            <div className={`${store.selectedToPrint.length == 0 ? 'h-1/2' : ''}`}>
+                {store.importedImages.length == 0 ?
                     <FileUpload handleFilesChange={handleFilesChange} handleNext={handleNext} />
                     :
                     <div className="h-full flex flex-col justify-center align-middle">
-                        {selectedToPrint.length != 0 &&
+                        {store.selectedToPrint.length != 0 &&
                             <div className=" h-1/3  p-2">
                                 <div className="cursor-pointer pb-1" onClick={() => RemoveAllSelectedImages()}><ArrowLeft color="var(--primary)" /></div>
                                 <div
                                     className="flex min-w-full h-full overflow-x-auto gap-1 scroll-smooth " style={{ scrollbarWidth: 'none' }}
                                 >
-                                    {selectedToPrint.map((file, index) => (
+                                    {store.selectedToPrint.map((file, index) => (
                                         <div className="min-w-[70px] h-[70px] border-44 border-secondary rounded-xl" key={index}>
                                             <div className="!z-10 -mb-8 mr-2 mt-3 relative right-0 float-right bg-secondary  rounded-full w-fit cursor-pointer"
                                                 onClick={() => RemoveSelectedImages(file)}
@@ -59,7 +62,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                 </div>
                             </div>
                         }
-                        <EditPictures selectedImages={selectedToPrint} />
+                        <EditPictures selectedImages={store.selectedToPrint} />
                     </div>}
             </div>
 
@@ -95,7 +98,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                             onClick={() => handleClickedImages(file)}
                                         >
                                             {file && <div className="relative overflow-hidden w-full aspect-square border border-gray_ border-collapse hover:cursor-pointer">
-                                                {Object.values(selectedToPrint).includes(file) ?
+                                                {Object.values(store.selectedToPrint).includes(file) ?
                                                     <div className="!z-10 -mb-8 ml-2 mt-2 relative left-0 float-left p-1 bg-secondary rounded-full w-fit ">
                                                         <CheckIcon color='var(--primary)' /></div> :
                                                     <span></span>}
@@ -114,12 +117,12 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                 <button onClick={() => setBorderColor('white')}>
                                     <div className="flex flex-row gap-3 items-center ">
                                         <div>
-                                            {borderColor == 'white' ?
+                                            {store.border == 'white' ?
                                                 <div className="!z-200 -mt-2 -mr-2 right-0 float-right p-1 bg-secondary rounded-full w-fit ">
                                                     <CheckIcon color='var(--primary)' /></div> :
                                                 <span></span>}
                                             <div className="w-[40px] h-[40px] rounded-full bg-white shadow-[0px_6px_6px_rgba(0,0,0,0.08)]"
-                                                style={{ border: borderColor == 'white' ? '4px solid var(--primary)' : '4px solid white', }}
+                                                style={{ border: store.border == 'white' ? '4px solid var(--primary)' : '4px solid white', }}
                                             ></div>
                                         </div>
                                         <p className="text-disabledText text-lg kanit-light">white</p>
@@ -128,12 +131,12 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                 <button onClick={() => setBorderColor('black')}>
                                     <div className="flex flex-row gap-3 items-center ">
                                         <div>
-                                            {borderColor == 'black' ?
+                                            {store.border == 'black' ?
                                                 <div className="!z-200 -mt-2 -mr-2 right-0 float-right p-1 bg-secondary rounded-full w-fit ">
                                                     <CheckIcon color='var(--primary)' /></div> :
                                                 <span></span>}
                                             <div className="w-[40px] h-[40px] rounded-full bg-black"
-                                                style={{ border: borderColor == 'black' ? '4px solid var(--primary)' : '4px solid white', }}
+                                                style={{ border: store.border == 'black' ? '4px solid var(--primary)' : '4px solid white', }}
                                             ></div>
                                         </div>
                                         <p className="text-disabledText text-lg kanit-light">black</p>
