@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { ArrowRight, GoogleIcon } from "../../assets/icons/Icon";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, FormEvent } from "react";
 import { AdminDataInformation, AdminDataProps } from "../../types/type";
 
-const AdminLoginForm = ({ handleChange, handleSubmit }: AdminDataInformation) => {
+const AdminLoginForm = ({ handleChange, handleSubmit, loading }: AdminDataInformation) => {
   const [disabled, setDisabled] = useState(true)
 
   const {
@@ -13,7 +13,7 @@ const AdminLoginForm = ({ handleChange, handleSubmit }: AdminDataInformation) =>
   } = useForm<AdminDataProps>({ mode: "onChange" });
 
   // Watching form fields
-  const username = watch("username");
+  const name = watch("name");
   const email = watch("email");
   const password = watch("password");
 
@@ -21,28 +21,32 @@ const AdminLoginForm = ({ handleChange, handleSubmit }: AdminDataInformation) =>
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     handleChange(e);
-    setDisabled(!username || !email || !password ? false : true);
+    setDisabled(!name || !email || !password ? false : true);
   }
 
   const handleContinueWithGoogle = () => {
     console.log('continue with google');
   };
 
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(e, {name: name, email: email, password: password})
+  }
   return (
-    <form className="flex flex-col h-full justify-start" onSubmit={handleSubmit}>
+    <form className="flex flex-col h-full justify-start" onSubmit={submitForm}>
       <div>
         <div className=' text-primary flex flex-col justify-start '>
-          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">Username <span className="text-red-700">*</span></label>
+          <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">name <span className="text-red-700">*</span></label>
           <input
             className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
             placeholder='Name'
-            {...register("username", { required: true })}
+            {...register("name", { required: true })}
             type="text"
-            name="username"
+            name="name"
             onChange={(e) => handleFieldChange(e)}
             required
           />
-          {errors.username && <span className="error-message">This field is required</span>}
+          {errors.name && <span className="error-message">This field is required</span>}
         </div>
 
         <div className='text-primary '>
@@ -86,7 +90,7 @@ const AdminLoginForm = ({ handleChange, handleSubmit }: AdminDataInformation) =>
           }}
           disabled={disabled}
         >
-          <p>Login</p>
+          {loading ? <p>Loading...</p> : <p>Login</p>}
           <ArrowRight color={disabled ? 'var(--disabledText)' : 'var(--primary)'} />
         </button>
 

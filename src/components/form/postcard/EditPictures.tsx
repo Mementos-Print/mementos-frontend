@@ -6,7 +6,7 @@ import useStoreContext from "../../../hooks/useStoreContext";
 
 const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
    const [currentImage, setCurrentImage] = useState(0);
-   const { borderColor, canvasRef } = useStoreContext();
+   const { store, canvasRef } = useStoreContext();
 
    const handlePrevImage = () => {
       setCurrentImage((prev) => (prev === 0 ? selectedImages.length - 1 : prev - 1));
@@ -23,14 +23,14 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
       const canvas = new fabric.Canvas("canvas", {
          width: canvasWidth,
          height: canvasHeight,
-         backgroundColor: borderColor,
+         backgroundColor: store.border,
       });
       canvasRef.current = canvas;
 
       return () => {
          canvasRef.current?.dispose();
       };
-   }, [borderColor, selectedImages]);
+   }, [store.border, selectedImages]);
 
    useEffect(() => {
       if (canvasRef.current && selectedImages.length > 0) {
@@ -46,8 +46,8 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
          const rect = new fabric.Rect({
             width: canvasWidth,
             height: canvasHeight,
-            backgroundColor: borderColor,
-            fill: borderColor,
+            backgroundColor: store.border,
+            fill: store.border,
             selectable: false,
             hasControls: false, 
             hasBorders: false,
@@ -89,7 +89,7 @@ const EditPictures = ({ selectedImages }: { selectedImages: File[] }) => {
             console.error("Failed to load image:", error);
          });
       }
-   }, [currentImage, selectedImages, borderColor]);
+   }, [currentImage, selectedImages, store.border]);
 
    return (
       <div className="h-2/3 px-3 my-3 flex flcex-col justify-center items-center align-middle">

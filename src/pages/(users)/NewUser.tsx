@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import useStoreContext from "../../hooks/useStoreContext";
 import NewUserDataForm from "../../components/form/NewUserDataForm";
 import { useSetSelected } from "../../hooks/useSetSelected";
+import { loginUser } from '../../api/userAuth'
 
 const NewUser = () => {
     const { setStore } = useStoreContext();
     const setSelected = useSetSelected();
+    const [loading, setLoading] = useState(Boolean);
 
     const [NewUserData, setNewUserData] = useState<NewUserDataProps>({
         name: '',
@@ -27,30 +29,46 @@ const NewUser = () => {
         })
     }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>, formData: {name: string, email: string}) => {
         e.preventDefault();
+        
         try {
-            setStore((prevStore: any) => ({
-                ...prevStore,
-                user: NewUserData
-            }));
-            setSelected("isAuthenticated", true);
-
+          setLoading(true);
+          
+          // Call the imported login function
+          const authToken = await loginUser(formData);
+    
+          // Store the token and update state
+          localStorage.setItem('authToken', authToken);
+          setSelected("isAuthenticated", true);
+          setSelected("accessToken", authToken);
+    
+          // Update store with user data
+          setStore((prevStore: any) => ({
+            ...prevStore,
+            user: {
+              ...NewUserData,
+              name: formData.name,
+              email: formData.email
+            }
+          }));
+    
+          // Navigate to dashboard after a short delay
+          setTimeout(() => {
+            navigate("/user/dashboard");
+          }, 1000);
+    
         } catch (error) {
-            console.log(error);
-
+          console.error('Login failed:', error);
+        } finally {
+          setLoading(false);
         }
-
-        // Navigate to another route after 3 seconds
-        setTimeout(() => {
-            navigate("/user/dashboard/")
-        }, 1000);
-    };
+      };
 
     return (
         <div className="kanit-medium bg-[#F5F5F5] h-[80vh] pt-3">
             <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%] sm:max-w-[600px] sm:mx-auto sm:mt-10 sm:rounded-sm sm:shadow-lg sm:bg-white sm:pt-10">
-                <NewUserDataForm handleChange={handleChange} handleSubmit={handleSubmit} />
+                <NewUserDataForm handleChange={handleChange} handleSubmit={handleSubmit} loading={loading} />
             </div>
         </div>
     );

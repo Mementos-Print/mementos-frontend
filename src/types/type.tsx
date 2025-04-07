@@ -5,7 +5,7 @@ export interface NewUserDataProps {
 }
 
 export interface AdminDataProps {
-    username: string;
+    name: string;
     email: string;
     password: string;
     isAdmin: boolean;
@@ -15,14 +15,17 @@ export interface AdminDataProps {
 export type NewUserDataInformation = {
     // sectionData: NewUserDataProps;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>, formData:  { name: string, email: string}) => void;
+    loading: boolean
 };
 
 export type AdminDataInformation = {
     // sectionData: NewUserDataProps;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>, formData:  { name: string, email: string, password: string }) => void
+    loading: boolean
 };
+
 export interface DropdownWithRadioProps {
     options: { value: string; label: string }[];
     defaultValue: string;
@@ -153,7 +156,7 @@ export interface StoreState {
 }
 
 export interface AdminProps {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }

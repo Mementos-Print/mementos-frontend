@@ -1,19 +1,13 @@
 import { useForm } from "react-hook-form";
 import { ArrowRight } from "../../assets/icons/Icon";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, FormEvent } from "react";
 import { NewUserDataInformation, NewUserDataProps } from "../../types/type";
 import GoogleAuth from "../../pages/auth/GoogleAuth";
 import { useAppState } from "../../hooks/useAppState";
-import { Navigate, useNavigate } from "react-router-dom";
-import { login } from "../../pages/auth/auth";
-import { useSetSelected } from "../../hooks/useSetSelected";
-import { toast, ToastContainer } from "react-toastify";
+import { Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-const NewUserDataForm = ({ handleChange }: NewUserDataInformation) => {
-  const setSelected = useSetSelected();
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(Boolean);
-
+const NewUserDataForm = ({ handleChange, handleSubmit, loading }: NewUserDataInformation) => {
   const [disabled, setDisabled] = useState(true);
   const {
     register,
@@ -31,33 +25,17 @@ const NewUserDataForm = ({ handleChange }: NewUserDataInformation) => {
     handleChange(e);
     setDisabled(!name || !email ? false : true);
   };
-  console.log(name, email);
-  
-  // handle submit
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true);
-    if (!name || !email) return;
-    login(email,name)
-      .then(({ accessToken }) => {
-        setSelected("isAuthenticated", true);
-        setSelected("accessToken", accessToken);
-        navigate("/user/dashboard");
-        console.log("Successfully logged in");
-      })
-      .catch((err) => {
-        console.log(err)
-        toast("Something went wrong");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  // console.log(name, email);
+
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(e, {name: name, email: email})
+  }
 
   return !isAuthenticated ? (
     <form
       className="flex flex-col h-full justify-start"
-      onSubmit={handleSubmit}
+      onSubmit={submitForm}
     >
       <div>
         <div className=" text-primary flex flex-col justify-start ">

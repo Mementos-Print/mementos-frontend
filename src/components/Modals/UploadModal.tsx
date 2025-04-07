@@ -5,20 +5,19 @@ import { Button } from "../ui/Button";
 
 
 const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
-    const { borderColor, selectedToPrint, setSelectedToPrint } = useStoreContext();
+    const { store } = useStoreContext();
 
     if (!isOpen) return null;
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         // Clear local storage if needed
         localStorage.removeItem('store');
+        e.preventDefault();
 
-
-        const status: boolean = await SaveSelectedImages(borderColor, selectedToPrint);
+        const status: boolean = await SaveSelectedImages(store.border, store.selectedToPrint);
 
         if (status) {
             console.log('Submitted');
-            setSelectedToPrint([]);
             handleNext(e);
 
         } else {
