@@ -1,6 +1,6 @@
 // api/authService.ts
 import axios from 'axios';
-import { LoginRequest, LoginResponse } from '../types/auth';
+import { LoginRequest } from '../types/auth';
 import { toast } from 'react-toastify';
 
 // const API_BASE_URL = import.meta.env.API_BASE_URL
@@ -9,32 +9,48 @@ export const AdminLogin = async (userData: LoginRequest) => {
   try {
     const { email, password } = userData;
     
-    if (!password || !email) {
-      toast.error('Please provide both password and email');
+    if (!email?.trim() || !password?.trim()) {
+      toast.error('Please provide both email and password');
       throw new Error('Missing credentials');
     }
 
-    const response = await axios.post<LoginResponse>(
+    const response = await axios.post(
       `https://mementos-backend.onrender.com/staff/login`,
-      userData,
+      { email, password },
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
     );
 
-    if (!response.data.token) {
+    const token = response.data?.token || 
+                 response.data?.accessToken || 
+                 response.data?.data?.token;
+
+    if (!token) {
+      console.error('Login response:', response.data);
       throw new Error('No authentication token received');
     }
 
-    return response.data.token;
+    return token;
   } catch (error) {
-    console.error('Login error:', error);
+    let errorMessage = 'Login failed';
     
-    let errorMessage = 'Something went wrong';
     if (axios.isAxiosError(error)) {
-      errorMessage = error.response?.data?.message || error.message;
-    } else if (error instanceof Error) {
-      errorMessage = error.message;
+      errorMessage = error.response?.data?.message || 
+                   error.response?.data?.error || 
+                   error.message;
+      
+      // Handle specific HTTP status codes
+      if (error.response?.status === 401) {
+        errorMessage = 'Invalid email or password';
+      } else if (error.response?.status === 404) {
+        errorMessage = 'Staff login endpoint not found';
+      }
     }
-
+    
     toast.error(errorMessage);
-    throw error;
+    throw new Error(errorMessage);
   }
 };

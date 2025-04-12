@@ -84,6 +84,7 @@ const PostCard = () => {
         }
     ]);
 
+
     const handleFileChange = useCallback((files: File[]) => {
         setFiles(prevSectionsData => {
             const updatedSectionData = [...prevSectionsData, ...files];

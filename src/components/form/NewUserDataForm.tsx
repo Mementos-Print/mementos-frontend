@@ -1,44 +1,35 @@
 import { useForm } from "react-hook-form";
 import { ArrowRight } from "../../assets/icons/Icon";
-import { ChangeEvent, useState, FormEvent } from "react";
-import { NewUserDataInformation, NewUserDataProps } from "../../types/type";
-import GoogleAuth from "../../pages/auth/GoogleAuth";
+import { NewUserDataFormProps, NewUserDataProps } from "../../types/type";
 import { useAppState } from "../../hooks/useAppState";
 import { Navigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import GoogleAuth from "../../pages/auth/GoogleAuth";
 
-const NewUserDataForm = ({ handleChange, handleSubmit, loading }: NewUserDataInformation) => {
-  const [disabled, setDisabled] = useState(true);
+const NewUserDataForm = ({ onSubmit, loading }: NewUserDataFormProps) => {
   const {
     register,
-    watch,
-    formState: { errors },
+    handleSubmit,
+    formState: { errors, isValid },
   } = useForm<NewUserDataProps>({ mode: "onChange" });
+  
   const { isAuthenticated } = useAppState();
 
-  // Watching form fields
-  const name = watch("name");
-  const email = watch("email");
-
-  const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    handleChange(e);
-    setDisabled(!name || !email ? false : true);
+  const submitForm = (data: NewUserDataProps) => {
+    if (!data.name.trim() || !data.email.trim()) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+    onSubmit(data);
   };
-  // console.log(name, email);
-
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleSubmit(e, {name: name, email: email})
-  }
 
   return !isAuthenticated ? (
     <form
       className="flex flex-col h-full justify-start"
-      onSubmit={submitForm}
+      onSubmit={handleSubmit(submitForm)}
     >
       <div>
-        <div className=" text-primary flex flex-col justify-start ">
+        <div className="text-primary flex flex-col justify-start">
           <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">
             Name <span className="text-red-700">*</span>
           </label>
@@ -47,61 +38,56 @@ const NewUserDataForm = ({ handleChange, handleSubmit, loading }: NewUserDataInf
             placeholder="Name"
             {...register("name", { required: true })}
             type="text"
-            name="name"
-            onChange={(e) => handleFieldChange(e)}
-            required
+            autoComplete="name"
           />
           {errors.name && (
-            <span className="error-message">This field is required</span>
+            <span className="error-message text-red-400 text-xs font-light">This field is required</span>
           )}
         </div>
 
-        <div className="text-primary ">
+        <div className="text-primary">
           <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">
             Email <span className="text-red-700">*</span>
           </label>
           <input
             className="border p-2 mb-4 w-full rounded-md bg-[#F5F5F5] border-[#E0E0E0] text-[16px] font-light"
             placeholder="Email"
-            {...register("email", { required: true })}
-            type="text"
-            name="email"
-            // value={sectionData.name}
-            onChange={(e) => handleFieldChange(e)}
-            required
+            {...register("email", { 
+              required: true,
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Please enter a valid email"
+              }
+            })}
+            type="email"
+            autoComplete="email"
           />
           {errors.email && (
-            <span className="error-message">This field is required</span>
+            <span className="error-message text-red-400 text-xs font-light">
+              {errors.email.message || "This field is required"}
+            </span>
           )}
         </div>
       </div>
 
       <div className="flex flex-col pt-10 gap-3 justify-center text-[12px]">
-        {/* Submit button: Disabled until required fields are filled */}
         <button
           type="submit"
-          // onClick={handleSubmit}
           className="px-4 py-2 rounded-full w-full flex flex-row justify-center text-[16px] gap-2"
           style={{
-            backgroundColor: disabled ? "var(--disabled)" : "var(--secondary)",
-            color: disabled ? "var(--disabledText)" : "var(--primary)",
+            backgroundColor: !isValid ? "var(--disabled)" : "var(--secondary)",
+            color: !isValid ? "var(--disabledText)" : "var(--primary)",
           }}
-          disabled={disabled}
+          disabled={!isValid || loading}
         >
           {loading ? <p>Loading...</p> : <p>Get Started</p>}
           <ArrowRight
-            color={disabled ? "var(--disabledText)" : "var(--primary)"}
+            color={!isValid ? "var(--disabledText)" : "var(--primary)"}
           />
         </button>
 
         <p className="text-gray_3 w-full text-center py-1">OR</p>
-
-        {/* google auth func */}
         <GoogleAuth />
-        {/* <button onClick={() => handleContinueWithGoogle()} className="bg-primary text-white px-4 py-2 rounded-full w-full flex flex-row gap-2 justify-center text-[16px]">
-          <GoogleIcon />
-          <p>Continue with Google</p>
-        </button> */}
       </div>
       <ToastContainer />
     </form>

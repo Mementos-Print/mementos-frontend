@@ -81,9 +81,8 @@ const HamburgerDropdownMenu = () => {
                     </DropdownMenu.Item>
 
           <DropdownMenu.Separator className="my-[5px] mt-14 border-b-2 border-primary border-solid" />
-          <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center justify-end rounded-[3px] pr-[25px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
-            <p onClick={hanldeSignOut}>Sign Out</p>
-            {/* Sign Out */}
+          <DropdownMenu.Item onClick={hanldeSignOut} className="group relative flex h-[25px] select-none items-center justify-end rounded-[3px] pr-[25px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
+            <p >Sign Out</p>
           </DropdownMenu.Item>
 
           <DropdownMenu.Arrow className="fill-white" />

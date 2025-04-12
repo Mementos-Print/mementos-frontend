@@ -12,6 +12,7 @@ export interface State {
   isSuccessful: boolean;
   isAuthenticated: boolean;
   accessToken: string;
+  refreshToken: string;
 }
 interface Action {
   type: string;
@@ -32,6 +33,7 @@ const initialState = {
   isSuccessful: false,
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "false"),
   accessToken: "",
+  refreshToken: "",
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);

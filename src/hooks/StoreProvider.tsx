@@ -1,7 +1,7 @@
 import { useState, ReactNode, FC, useEffect, useRef, useMemo } from "react";
-import { StoreContext } from "./StoreContext";
 import * as fabric from "fabric";
 import { AdminProps, StoreState } from "../types/type";
+import { StoreContext } from "../context/StoreContext";
 
 const initialState: StoreState = {
     user: {},

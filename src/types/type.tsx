@@ -24,6 +24,7 @@ export type AdminDataInformation = {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>, formData:  { name: string, email: string, password: string }) => void
     loading: boolean
+    setLoading: (a: boolean) => void
 };
 
 export interface DropdownWithRadioProps {
@@ -166,3 +167,14 @@ export interface Item {
     name: string;
     image: string; // Array of paths to images in public/images
 }
+
+export interface AdminLoginFormProps {
+    onSubmit: (data: AdminDataProps) => void;
+    loading: boolean;
+}
+
+export interface NewUserDataFormProps {
+    onSubmit: (data: NewUserDataProps) => void;
+    loading: boolean;
+  }
+  
