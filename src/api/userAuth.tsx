@@ -20,7 +20,7 @@ export const loginUser = async (userData: UserData) => {
       { email, name }
     );
 
-    const token = response.data?.token
+    const token = response.data?.accessToken
 
     if (!token) {
       console.error('Login response:', response.data);
@@ -107,7 +107,7 @@ export const uploadBlankImages = async (files: File[], borderColor: string = 'bl
         }
       }
     );
-    console.log('Images uploaded:', response.data);
+    console.log('PostCard uploaded:', response.data);
     return response.data;
   } catch (error: any) {
     console.error('Upload failed:', error.response?.data || error.message);
