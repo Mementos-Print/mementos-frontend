@@ -24,8 +24,8 @@ const useTokenRefresh = () => {
     // Check immediately
     checkToken();
     
-    // Set up interval to check every 5 minutes
-    const interval = setInterval(checkToken, 5 * 60 * 1000);
+    // Set up interval to check every 3s minutes
+    const interval = setInterval(checkToken, 3 * 60 * 1000);
     
     return () => clearInterval(interval);
   }, []);

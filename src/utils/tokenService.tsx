@@ -1,5 +1,5 @@
 // utils/tokenService.ts
-const REFRESH_THRESHOLD = 14 * 60 * 1000; // 14 minutes (refresh before 15 min expiration)
+const REFRESH_THRESHOLD = 12 * 60 * 1000; // 12 minutes (refresh before 15 min expiration)
 
 export const getTokenExpiration = (token: string): number | null => {
   if (!token) return null;

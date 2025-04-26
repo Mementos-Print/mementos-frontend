@@ -3,11 +3,13 @@ import { Close, FilterIcon, SearchIcon } from "../../assets/icons/Icon";
 import dummyData from "../../data/DummyData";
 import { AdminPrintLayoutProps, Item } from "../../types/type";
 import AdminImageCard from "./AdminImageCard";
+import useStoreContext from "../../hooks/useStoreContext";
 
 const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrintLayoutProps) => {
     const [selectedImagesId, setSelectedImagesId] = useState<number[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [searchValue, setSearchValue] = useState<string>("");
+    const { adminImagesList } = useStoreContext()
 
     const handleClickFilter = () => {
         setShowFiltermodal(true);
@@ -20,6 +22,9 @@ const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrin
                 : [...prev, item.id]
         );
     };
+    
+    console.log(adminImagesList);
+    
 
     // Filter the data based on active filters
     const filteredData = dummyData.filter(item => {

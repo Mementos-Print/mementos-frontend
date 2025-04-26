@@ -13,6 +13,8 @@ export const StoreContext = createContext<{
   admin: { name: string, email: string, password: string }[];
   isAdmin: boolean,
   isLoading: boolean,
+  adminImagesList: File[],
+  setAdminImagesList: (files: File[]) => void
 }>({
   store: {
     user: {},
@@ -29,4 +31,6 @@ export const StoreContext = createContext<{
   admin: [{ name: '', email: '', password: '' }],
   isAdmin: false,
   isLoading: true,
+  adminImagesList: [],
+  setAdminImagesList: () => {}
 });

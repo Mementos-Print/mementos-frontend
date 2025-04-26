@@ -2,6 +2,8 @@ import { useState, ReactNode, FC, useEffect, useRef, useMemo } from "react";
 import * as fabric from "fabric";
 import { AdminProps, StoreState } from "../types/type";
 import { StoreContext } from "../context/StoreContext";
+import { fetchAdminImages } from "../api/adminAuth";
+import { toast } from "react-toastify";
 
 const initialState: StoreState = {
     user: {},
@@ -23,6 +25,7 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [store, setStore] = useState<StoreState>(() => getLocalStorage("store", initialState));
 
     const [admin, _setAdmin] = useState<AdminProps[]>(() => getLocalStorage("admin", Admin));
+    const [adminImagesList, setAdminImagesList] = useState<File[]>([]);
     const [isAdmin, _setIsAdmin] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const canvasRef = useRef<fabric.Canvas | null>(null);
@@ -53,6 +56,25 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             localStorage.removeItem('selectedToPrint');
         }
     }, [store.selectedToPrint]);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            if (store.user.role === 'admin') {
+                try {
+                    const images = await fetchAdminImages();
+                    console.log(images);
+                    
+                    setAdminImagesList(images);
+                } catch (error) {
+                    const err = error as Error;
+                    console.error('Fetching images failed:', err.message);
+                    toast.error('Fetching images failed');
+                }
+            }
+        };
+
+        fetchImages();
+    }, [store.user.role]);
 
     const AddSelectedImages = (file: File) => {
         setStore(prevStore => {
@@ -102,6 +124,8 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
             admin,
             isAdmin,
             isLoading,
+            adminImagesList,
+            setAdminImagesList,
         }),
         [store, admin, isAdmin, isLoading]
     );

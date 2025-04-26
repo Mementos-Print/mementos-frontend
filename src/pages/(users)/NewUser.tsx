@@ -25,7 +25,8 @@ const NewUser = () => {
         ...prevStore,
         user: {
           name: formData.name,
-          email: formData.email
+          email: formData.email,
+          role: 'user'
         }
       }));
 

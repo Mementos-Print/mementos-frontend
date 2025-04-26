@@ -26,7 +26,7 @@ const AdminLoginForm = ({ onSubmit, loading }: AdminLoginFormProps) => {
     };
 
     return (
-        <form className="flex flex-col h-full justify-start" onSubmit={handleSubmit(submitForm)}>
+        <form className="flex flex-col h-full justify-start w-full" onSubmit={handleSubmit(submitForm)}>
             <div>
                 <div className='text-primary flex flex-col justify-start'>
                     <label className="relative z-10 w-fit px-1 rounded-sm block text-[15px] font-normal text-gray_1">

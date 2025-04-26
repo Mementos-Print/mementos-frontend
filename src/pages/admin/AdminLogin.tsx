@@ -10,7 +10,7 @@ const LoginAdmin = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const setSelected = useSetSelected();
-    const { setStore } = useStoreContext();
+    const { setStore  } = useStoreContext();
 
     const handleSubmit = async (formData: AdminDataProps) => {
         try {
@@ -28,7 +28,8 @@ const LoginAdmin = () => {
                 ...prevStore,
                 user: {
                     email: formData.email,
-                    name: formData.name
+                    name: formData.name,
+                    role: 'admin'
                 }
             }));
 
@@ -43,8 +44,8 @@ const LoginAdmin = () => {
     };
 
     return (
-        <div className="kanit-medium bg-[#F5F5F5] h-[88vh]">
-            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%]">
+        <div className="kanit-medium bg-[#F5F5F5] h-[88vh] flex flex-col items-center justify-center">
+            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%] md:w-1/2 md:justify-center md:items-center">
                 <AdminLoginForm onSubmit={handleSubmit} loading={loading} />
             </div>
         </div>

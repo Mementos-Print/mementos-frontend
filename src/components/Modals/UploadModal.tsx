@@ -1,9 +1,9 @@
 import { UploadProps } from "../../types/type";
 import useStoreContext from "../../hooks/useStoreContext";
-import { SaveSelectedImages } from "../SaveSelectedImages";
+// import { SaveSelectedImages } from "../SaveSelectedImages";
 import { Button } from "../ui/Button";
 import { useState } from "react";
-import axios from "axios";
+import { uploadBlankImages } from "../../api/userAuth";
 
 
 const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
@@ -18,38 +18,18 @@ const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
             alert('Please select at least 2 images');
             return;
         }
-
         setIsUploading(true);
         
         try {
-            const formData = new FormData();
-            formData.append('borderColor', store.border);
-            
-            // Add each file to the form data
-            store.selectedToPrint.forEach((file: File) => {
-                formData.append('images', file);
-            });
-            const authToken = localStorage.getItem('token') || '';
-
-            const response = await axios.post(
-                'https://mementos-backend.onrender.com/images/upload',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Authorization': `Bearer ${authToken}`
-                    }
-                }
-            );
-
+            const response = await uploadBlankImages(store.selectedToPrint, store.border);
             console.log('Upload successful:');
             
             // Update your store with the response
             setStore(prevStore => ({
                 ...prevStore,
-                uploadedImages: response.data
+                uploadedImages: response
             }));
-            return response.data ? true : false;
+            return response ? true : false;
         } catch (error) {
             console.error('Upload failed:', error);
             // Handle error (show toast, etc.)
@@ -59,17 +39,14 @@ const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
     };
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        // Clear local storage if needed
-        localStorage.removeItem('store');
         e.preventDefault();
 
-        const status: boolean = await SaveSelectedImages(store.border, store.selectedToPrint);
         const uploadStatus = await handleUploadBlankImages();
+        // const status: boolean = await SaveSelectedImages(store.border, store.selectedToPrint);
 
-        if (status || uploadStatus) {
+        if (uploadStatus) {
             console.log('Submitted');
             handleNext(e);
-
         } else {
             console.log('error');
         }

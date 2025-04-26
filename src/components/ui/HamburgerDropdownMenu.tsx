@@ -5,9 +5,10 @@ import { useSetSelected } from "../../hooks/useSetSelected";
 import { useState } from "react";
 import useStoreContext from "../../hooks/useStoreContext";
 import { logoutUser } from '../../api/userAuth'
+import { logoutStaff } from "../../api/adminAuth";
 
 const HamburgerDropdownMenu = () => {
-  const { setStore } = useStoreContext();
+  const { setStore, store } = useStoreContext();
   const setSelected = useSetSelected();
   const navigate = useNavigate();
   const [_loading, setLoading] = useState(Boolean);
@@ -17,22 +18,31 @@ const HamburgerDropdownMenu = () => {
 
     try {
       setLoading(true);
-      
-      // Call the imported login function
-      const authToken = await logoutUser();
 
+      // Call the imported login function
+      let authToken
+      if (store.user.role = 'admin') {
+        authToken = await logoutStaff();
+      } else {
+        authToken = await logoutUser();
+      }
       // remove the token and update state
       setSelected("isAuthenticated", false);
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("authToken");
+      localStorage.removeItem("selectedToPrint");
+      localStorage.removeItem("store");
 
       setSelected("accessToken", authToken);
 
-      // Update store with user data
-      setStore((prevStore: any) => ({
-        ...prevStore,
-        user: {}
-      }));
+      // Reset store state
+      setStore({
+        user: {},
+        border: '',
+        selectedToPrint: [],
+        importedImages: [],
+        // uploadedImages: []
+      });
 
       // Navigate to dashboard after a short delay
       setTimeout(() => {
@@ -40,7 +50,7 @@ const HamburgerDropdownMenu = () => {
       }, 1000);
 
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Logut failed:', error);
     } finally {
       setLoading(false);
     }
@@ -75,10 +85,10 @@ const HamburgerDropdownMenu = () => {
 
           <DropdownMenu.Separator className="my-[5px] h-px bg-[#000000]/20" />
           <DropdownMenu.Item className="group relative p-[5px] flex h-[25px] select-none items-center justify-end rounded-[3px] pr-[25px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
-                        <Link to={'/admin/login'} >
-                            Login as Admin
-                        </Link>
-                    </DropdownMenu.Item>
+            <Link to={'/admin/login'} >
+              Login as Admin
+            </Link>
+          </DropdownMenu.Item>
 
           <DropdownMenu.Separator className="my-[5px] mt-14 border-b-2 border-primary border-solid" />
           <DropdownMenu.Item onClick={hanldeSignOut} className="group relative flex h-[25px] select-none items-center justify-end rounded-[3px] pr-[25px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 hover:bg-secondary cursor-pointer">
