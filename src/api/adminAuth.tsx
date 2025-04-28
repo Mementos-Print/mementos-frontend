@@ -118,8 +118,18 @@ export const logoutStaff = async () => {
 
 // FETCH IMAGES (Admin gallery)
 export const fetchAdminImages = async () => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    console.error('No auth token found in localStorage');
+    throw new Error('No auth token found');
+  }
+
   try {
-    const response = await api.get('/images/gallery');
+    const response = await api.get('/images/gallery', {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
     return response.data; 
   } catch (error: any) {
     console.error('Fetching images failed:', error.response?.data || error.message);

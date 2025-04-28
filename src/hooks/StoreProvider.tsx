@@ -2,7 +2,7 @@ import { useState, ReactNode, FC, useEffect, useRef, useMemo } from "react";
 import * as fabric from "fabric";
 import { AdminProps, StoreState } from "../types/type";
 import { StoreContext } from "../context/StoreContext";
-import { fetchAdminImages } from "../api/adminAuth";
+import { fetchImages, ImageProps } from "../utils/ImagesService";
 import { toast } from "react-toastify";
 
 const initialState: StoreState = {
@@ -25,21 +25,10 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [store, setStore] = useState<StoreState>(() => getLocalStorage("store", initialState));
 
     const [admin, _setAdmin] = useState<AdminProps[]>(() => getLocalStorage("admin", Admin));
-    const [adminImagesList, setAdminImagesList] = useState<File[]>([]);
+    const [adminImagesList, setAdminImagesList] = useState<ImageProps[]>([]);
     const [isAdmin, _setIsAdmin] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const canvasRef = useRef<fabric.Canvas | null>(null);
-
-    // // Initialize selected images from localStorage if available
-    // useEffect(() => {
-    //     const savedImages = localStorage.getItem('store');
-    //     if (savedImages) {
-    //         setStore(prevState => ({
-    //             ...prevState,
-    //             selectedToPrint: JSON.parse(savedImages)
-    //         }));
-    //     }
-    // }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -58,22 +47,18 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }, [store.selectedToPrint]);
 
     useEffect(() => {
-        const fetchImages = async () => {
+        const fetchImagesList = async () => {
             if (store.user.role === 'admin') {
                 try {
-                    const images = await fetchAdminImages();
-                    console.log(images);
-                    
+                    const images = await fetchImages();
                     setAdminImagesList(images);
                 } catch (error) {
-                    const err = error as Error;
-                    console.error('Fetching images failed:', err.message);
-                    toast.error('Fetching images failed');
+                    toast.error('Error fetching images');
                 }
             }
         };
 
-        fetchImages();
+        fetchImagesList();
     }, [store.user.role]);
 
     const AddSelectedImages = (file: File) => {

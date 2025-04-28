@@ -1,3 +1,5 @@
+import { ImageProps } from "../utils/ImagesService";
+
 export interface NewUserDataProps {
     name: string;
     email: string;
@@ -137,9 +139,10 @@ export interface User {
 }
 
 export interface AdminImageCardProps {
-    data: Item;
-    handleClickedImages: (item: Item) => void;
-    selectedImagesId: number[];
+    data: ImageProps;
+    handleClickedImages: (image: ImageProps) => void;
+    selectedImagesId: string[];
+    handleImageError: (id: string) => void
 }
 
 export type AdminPrintLayoutProps = {

@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 import { StoreState } from "../types/type";
 import * as fabric from "fabric";
+import { ImageProps } from "../utils/ImagesService";
 
 export const StoreContext = createContext<{
   store: StoreState;
@@ -13,8 +14,8 @@ export const StoreContext = createContext<{
   admin: { name: string, email: string, password: string }[];
   isAdmin: boolean,
   isLoading: boolean,
-  adminImagesList: File[],
-  setAdminImagesList: (files: File[]) => void
+  adminImagesList: ImageProps[],
+  setAdminImagesList: React.Dispatch<React.SetStateAction<ImageProps[]>>
 }>({
   store: {
     user: {},

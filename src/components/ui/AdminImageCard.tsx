@@ -1,8 +1,8 @@
 import { CheckIcon } from "../../assets/icons/Icon";
 import { AdminImageCardProps } from "../../types/type"
 
-const AdminImageCard = ({ data, handleClickedImages, selectedImagesId }: AdminImageCardProps) => {
-    const isSelected = selectedImagesId.includes(data.id);
+const AdminImageCard = ({ data, handleClickedImages, selectedImagesId, handleImageError }: AdminImageCardProps) => {
+    const isSelected = selectedImagesId.includes(data.imageid);
 
     return (
         <div
@@ -33,8 +33,9 @@ const AdminImageCard = ({ data, handleClickedImages, selectedImagesId }: AdminIm
             <div className="relative w-full h-full flex flex-col items-center justify-center text-center "
             >
                 <img
-                    src={data.image}
+                    src={data.imageurl}
                     alt={data.name}
+                    onError={() => handleImageError(data.imageid)}
                     className="inset-0 w-full h-4/5 object-top object-cover"
                     loading="lazy"
                 />

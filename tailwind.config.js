@@ -16,6 +16,18 @@ module.exports = {
         gray_3: "var(--gray_3)",
       },
     },
+    animation: {
+      shimmer: "shimmer 2s linear infinite",
+    },
+    keyframes: {
+      shimmer: {
+        "0%": { backgroundPosition: "-800px 0" },
+        "100%": { backgroundPosition: "800px 0" },
+      },
+    },
+    backgroundSize: {
+      "shimmer-size": "800px 104px",
+    },
   },
   plugins: [
     function ({ addVariant }) {
