@@ -15,7 +15,7 @@ const PostCard = () => {
     const { store, setStore } = useStoreContext();
     useEffect(() => {
         // Check if user data is not empty
-        if (store.user && Object.keys(store.user).length > 0) {
+        if (store.user && Object.keys(store.user)?.length > 0) {
             setDone(prevDone => {
                 const updatedDone = [...prevDone];
                 updatedDone.push(1);
