@@ -110,7 +110,7 @@ const PostCard = () => {
             console.log('saved');
         }
 
-    }, []);
+    }, [formSectionsData, setStore]);
 
     const renderSection = () => {
         switch (currentSection) {
@@ -119,11 +119,17 @@ const PostCard = () => {
                     <Information handleChange={handleInformationChange} handleNext={handleNext} handleSubmit={handleInformationSubmit} />
                 );
             case 2:
+                const files = formSectionsData[1]?.files ?? [];
                 return (
-                    <UploadTab Files={formSectionsData[1].files} handleFilesChange={handleFileChange} handleNext={handleNext} setShowUploadModal={setShowUploadModal} />
+                    <UploadTab
+                        Files={files}
+                        handleFilesChange={handleFileChange}
+                        handleNext={handleNext}
+                        setShowUploadModal={setShowUploadModal}
+                    />
                 );
             case 3:
-                
+
                 return (
                     <Completed isOpen={showCompletedModal} />
                 );
