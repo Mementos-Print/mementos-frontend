@@ -39,7 +39,7 @@ const StoreProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     // Update `selectedToPrint` in localStorage whenever it changes
     useEffect(() => {
-        if (store.selectedToPrint.length > 0) {
+        if (store.selectedToPrint?.length > 0) {
             localStorage.setItem('selectedToPrint', JSON.stringify(store.selectedToPrint));
         } else {
             localStorage.removeItem('selectedToPrint');
