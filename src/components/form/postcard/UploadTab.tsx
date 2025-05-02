@@ -22,7 +22,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
             return;
         }
         if (!Object.values(store.selectedToPrint).includes(file)) {
-            AddSelectedImages(file); 
+            AddSelectedImages(file);
         } else {
             RemoveSelectedImages(file);
         }
@@ -50,15 +50,22 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                 <div
                                     className="flex min-w-full h-full overflow-x-auto gap-1 scroll-smooth " style={{ scrollbarWidth: 'none' }}
                                 >
-                                    {store.selectedToPrint.map((file, index) => (
-                                        <div className="min-w-[70px] h-[70px] border-44 border-secondary rounded-xl" key={index}>
-                                            <div className="!z-10 -mb-8 mr-2 mt-3 relative right-0 float-right bg-secondary  rounded-full w-fit cursor-pointer"
-                                                onClick={() => RemoveSelectedImages(file)}
-                                            >
-                                                <Close /></div>
-                                            <img src={URL.createObjectURL(file)} alt="img" className="h-full w-full object-cover rounded-xl" />
-                                        </div>
-                                    ))}
+                                    {store.selectedToPrint.map((file, index) => {
+                                        if (!(file instanceof File)) {
+                                            console.error('Invalid file object:', file);
+                                            return null; // or handle this case appropriately
+                                        }
+                                        const url = URL.createObjectURL(file);
+                                        return (
+                                            <div className="min-w-[70px] h-[70px] border-44 border-secondary rounded-xl" key={index}>
+                                                <div className="!z-10 -mb-8 mr-2 mt-3 relative right-0 float-right bg-secondary  rounded-full w-fit cursor-pointer"
+                                                    onClick={() => RemoveSelectedImages(file)}
+                                                >
+                                                    <Close /></div>
+                                                <img src={url} alt="img" className="h-full w-full object-cover rounded-xl" />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         }
@@ -103,7 +110,7 @@ const UploadTab = ({ Files, handleFilesChange, handleNext, setShowUploadModal }:
                                                         <CheckIcon color='var(--primary)' /></div> :
                                                     <span></span>}
                                                 <div className="-z-10 w-full h-full">
-                                                    <img src={URL.createObjectURL(file)} alt="img" className="object-cover w-full h-full"/>
+                                                    <img src={URL.createObjectURL(file)} alt="img" className="object-cover w-full h-full" />
                                                 </div>
                                             </div>}
                                         </div>

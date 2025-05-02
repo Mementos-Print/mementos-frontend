@@ -1,26 +1,52 @@
 import { UploadProps } from "../../types/type";
 import useStoreContext from "../../hooks/useStoreContext";
-import { SaveSelectedImages } from "../SaveSelectedImages";
+// import { SaveSelectedImages } from "../SaveSelectedImages";
 import { Button } from "../ui/Button";
+import { useState } from "react";
+import { uploadBlankImages } from "../../api/userAuth";
 
 
 const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
-    const { borderColor, selectedToPrint, setSelectedToPrint } = useStoreContext();
+    const { store } = useStoreContext();
+    const [isUploading, setIsUploading] = useState(false);
+    const { setStore } = useStoreContext();
 
     if (!isOpen) return null;
 
+    const handleUploadBlankImages = async () => {
+        if (store.selectedToPrint.length < 2) {
+            alert('Please select at least 2 images');
+            return;
+        }
+        setIsUploading(true);
+        
+        try {
+            const response = await uploadBlankImages(store.selectedToPrint, store.border);
+            console.log('Upload successful:');
+            
+            // Update your store with the response
+            setStore(prevStore => ({
+                ...prevStore,
+                uploadedImages: response
+            }));
+            return response ? true : false;
+        } catch (error) {
+            console.error('Upload failed:', error);
+            // Handle error (show toast, etc.)
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        // Clear local storage if needed
-        localStorage.removeItem('store');
+        e.preventDefault();
 
+        const uploadStatus = await handleUploadBlankImages();
+        // const status: boolean = await SaveSelectedImages(store.border, store.selectedToPrint);
 
-        const status: boolean = await SaveSelectedImages(borderColor, selectedToPrint);
-
-        if (status) {
+        if (uploadStatus) {
             console.log('Submitted');
-            setSelectedToPrint([]);
             handleNext(e);
-
         } else {
             console.log('error');
         }
@@ -39,8 +65,9 @@ const UploadModal = ({ isOpen, handleNext }: UploadProps) => {
                         variant="default"
                         onClick={(e) => handleSubmit(e)}
                         className="py-4 px-8 w-full"
+                        disabled={isUploading || store.selectedToPrint.length < 2}
                     >
-                        <p className="text-white font-semibold text-lg">Upload Image(s)</p>
+                        <p className="text-white font-semibold text-lg">{isUploading ? 'Uploading...' : 'Upload Image(s)'}</p>
                     </Button>
                 </div>
             </div>

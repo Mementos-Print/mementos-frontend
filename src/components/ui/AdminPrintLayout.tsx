@@ -1,45 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Close, FilterIcon, SearchIcon } from "../../assets/icons/Icon";
-import dummyData from "../../data/DummyData";
-import { AdminPrintLayoutProps, Item } from "../../types/type";
-import AdminImageCard from "./AdminImageCard";
+import { AdminPrintLayoutProps } from "../../types/type";
+import useStoreContext from "../../hooks/useStoreContext";
+import { fetchImages, ImageProps } from "../../utils/ImagesService";
+import { toast } from "react-toastify";
+import ViewImages from "./ViewImages";
+import printJS from 'print-js';
+import { Button } from "./Button";
 
 const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrintLayoutProps) => {
-    const [selectedImagesId, setSelectedImagesId] = useState<number[]>([]);
+    const [selectedImagesId, setSelectedImagesId] = useState<string[]>([]);
     const [search, setSearch] = useState<boolean>(false);
     const [searchValue, setSearchValue] = useState<string>("");
+    const { adminImagesList, store, setAdminImagesList } = useStoreContext()
+    const [isLoadingImages, setIsLoadingImages] = useState(false)
 
     const handleClickFilter = () => {
         setShowFiltermodal(true);
     };
 
-    const handleClickedImages = (item: Item) => {
+    const handleClickedImages = (item: ImageProps) => {
         setSelectedImagesId(prev =>
-            prev.includes(item.id)
-                ? prev.filter(id => id !== item.id)
-                : [...prev, item.id]
+            prev.includes(item.imageid)
+                ? prev.filter(id => id !== item.imageid)
+                : [...prev, item.imageid]
         );
     };
 
-    // Filter the data based on active filters
-    const filteredData = dummyData.filter(item => {
-        if (activeFilters.length === 0) return true;
-
-        return activeFilters.some(filter => {
-            switch (filter) {
-                case 'Name':
-                    return item.name && item.name.length > 0;
-                // case 'Pending':
-                //     // Example: filter pending items
-                //     return item.status === 'pending';
-                // case 'Modified':
-                //     // Example: filter modified items
-                //     return item.isModified;
-                default:
-                    return true;
+    useEffect(() => {
+        const fetchImagesList = async () => {
+            if (store.user.role === 'admin') {
+                setIsLoadingImages(true);
+                try {
+                    const images = await fetchImages();
+                    setAdminImagesList(images);
+                } catch (error) {
+                    toast.error('Error fetching images');
+                } finally {
+                    setIsLoadingImages(false);
+                }
             }
-        });
-    });
+        };
+
+        fetchImagesList();
+    }, [store.user.role, setAdminImagesList]);
+
+
 
     const handleClickSearch = () => {
         setSearch(prev => !prev);
@@ -47,16 +53,30 @@ const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrin
 
     const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
-
-        // const value = e.target.value.toLowerCase();
-        // const filteredData = dummyData.filter(item =>
-        //     item.name.toLowerCase().includes(value)
-        // );
-        // setFilteredData(filteredData);
     }
 
+    const handlePrint = () => {
+        // Filter and map only selected images
+        const printableImages = adminImagesList
+            .filter(image => selectedImagesId.includes(image.imageid))
+            .map(image => image.imageurl)
+
+        if (printableImages.length === 0) {
+            alert('Please select at least one image to print');
+            return;
+        }
+
+        printJS({
+            printable: printableImages,
+            type: 'image',
+            header: 'Selected Images',
+            imageStyle: 'width:50%; margin-bottom:20px;',
+            onError: (error) => console.error('Print error:', error)
+        });
+    };
+
     return (
-        <div className="kanit-medium bg-[#F5F5F5]  py-3">
+        <div className="kanit-medium min-h-[80vh] h-screen bg-[#F5F5F5]  py-3">
             <div className="flex flex-row justify-between items-center px-6">
                 <div className="cursor-pointer" onClick={handleClickSearch}>
                     <SearchIcon color="var(--primary)" />
@@ -70,7 +90,7 @@ const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrin
                 <input
                     type="text"
                     className=" w-full bg-[#D9D9D9] text-sm font-normal  focus:border-none focus:outline-none"
-                    placeholder="Search Images"
+                    placeholder="Search Images..."
                     value={searchValue}
                     onChange={(e) => handleChangeSearch(e)}
                 />
@@ -78,21 +98,11 @@ const AdminPrintLayout = ({ type, setShowFiltermodal, activeFilters }: AdminPrin
                     <Close />
                 </div>
             </div>)}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-6 px-6">
-                {filteredData.map((photo) => (
-                    <div
-                        className=""
-                        onClick={() => handleClickedImages(photo)}
-                        key={photo.id}
-                    >
-                        <AdminImageCard
-                            data={photo}
-                            handleClickedImages={handleClickedImages}
-                            selectedImagesId={selectedImagesId}
-                        />
-                    </div>
-                ))}
-            </div>
+            <ViewImages isLoadingImages={isLoadingImages} activeFilters={activeFilters} selectedImagesId={selectedImagesId} searchValue={searchValue} handleClickedImages={handleClickedImages} />
+
+            <Button variant={'secondary'} onClick={handlePrint} className="fixed bottom-0 left-0 w-full p-4 text-center">
+                Print Images
+            </Button>
         </div>
     );
 };

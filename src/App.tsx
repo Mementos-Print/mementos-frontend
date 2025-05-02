@@ -17,8 +17,11 @@ import AdminPostCardList from "./pages/admin/PostCard";
 import AdminPolariodList from "./pages/admin/Polariod";
 import AdminRoute from "./Routes/AdminRoute";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
+import useTokenRefresh from './hooks/useTokenRefresh';
 
 function App() {
+  useTokenRefresh();
+  
   return (
     <Router>
       <Routes>

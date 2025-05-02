@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FilterProps } from "../../types/type";
 
-const filterList = ['Name', 'Created'];
+const filterList = ['Name', 'Pending', 'Date'];
 
 const FilterModal = ({ showFiltermodal, onClose, onFilterChange }: FilterProps) => {
     const [checked, setChecked] = useState<number[]>([]);
@@ -35,7 +35,6 @@ const FilterModal = ({ showFiltermodal, onClose, onFilterChange }: FilterProps) 
 
             const selectedFilters = updatedChecked.map(index => filterList[index]);
             onFilterChange(selectedFilters);
-            console.log(updatedChecked, 'checked');
 
             return updatedChecked;
         });

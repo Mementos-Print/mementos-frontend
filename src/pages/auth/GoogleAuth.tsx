@@ -16,7 +16,7 @@ const GoogleAuth = () => {
   const { setStore } = useStoreContext();
 
   const handleSuccess = (credentialResponse: CredentialResponse) => {
-    setSelected("userCredentials", JSON.stringify(credentialResponse, null, 2));
+    // setSelected("userCredentials", JSON.stringify(credentialResponse, null, 2));
     setSelected("isAuthenticated", true);
 
     if (credentialResponse?.credential) {

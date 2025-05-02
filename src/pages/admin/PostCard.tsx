@@ -12,7 +12,7 @@ const AdminPostCardList = () => {
 
     return (
         <div>
-            <AdminPrintLayout type="Postcard" setShowFiltermodal={setShowFiltermodal} activeFilters={activeFilters}/>
+            <AdminPrintLayout type="Postcard" setShowFiltermodal={setShowFiltermodal} activeFilters={activeFilters} />
             <div>
                 <FilterModal showFiltermodal={showFiltermodal} onClose={() => setShowFiltermodal(false)} onFilterChange={handleFilterChange} />
             </div>

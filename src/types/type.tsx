@@ -1,3 +1,5 @@
+import { ImageProps } from "../utils/ImagesService";
+
 export interface NewUserDataProps {
     name: string;
     email: string;
@@ -5,7 +7,7 @@ export interface NewUserDataProps {
 }
 
 export interface AdminDataProps {
-    username: string;
+    name: string;
     email: string;
     password: string;
     isAdmin: boolean;
@@ -15,14 +17,18 @@ export interface AdminDataProps {
 export type NewUserDataInformation = {
     // sectionData: NewUserDataProps;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>, formData:  { name: string, email: string}) => void;
+    loading: boolean
 };
 
 export type AdminDataInformation = {
     // sectionData: NewUserDataProps;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>, formData:  { name: string, email: string, password: string }) => void
+    loading: boolean
+    setLoading: (a: boolean) => void
 };
+
 export interface DropdownWithRadioProps {
     options: { value: string; label: string }[];
     defaultValue: string;
@@ -128,13 +134,15 @@ export interface User {
     id?: string;
     name?: string;
     email?: string;
+    role?: string;
     // Add other user properties as needed
 }
 
 export interface AdminImageCardProps {
-    data: Item;
-    handleClickedImages: (item: Item) => void;
-    selectedImagesId: number[];
+    data: ImageProps;
+    handleClickedImages: (image: ImageProps) => void;
+    selectedImagesId: string[];
+    handleImageError: (id: string) => void
 }
 
 export type AdminPrintLayoutProps = {
@@ -153,7 +161,7 @@ export interface StoreState {
 }
 
 export interface AdminProps {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }
@@ -163,3 +171,14 @@ export interface Item {
     name: string;
     image: string; // Array of paths to images in public/images
 }
+
+export interface AdminLoginFormProps {
+    onSubmit: (data: AdminDataProps) => void;
+    loading: boolean;
+}
+
+export interface NewUserDataFormProps {
+    onSubmit: (data: NewUserDataProps) => void;
+    loading: boolean;
+  }
+  

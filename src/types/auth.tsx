@@ -4,9 +4,9 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    token: string;
+    accessToken: string;
     user: {
-        id: string;
+        // id: string;
         email: string;
         name: string;
         role: string;

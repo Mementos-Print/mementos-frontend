@@ -1,53 +1,52 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useStoreContext from "../../hooks/useStoreContext";
 import AdminLoginForm from "../../components/form/AdminLoginForm";
+import { AdminLogin } from "../../api/adminAuth";
+import useStoreContext from "../../hooks/useStoreContext";
+import { useSetSelected } from "../../hooks/useSetSelected";
+import { AdminDataProps } from "../../types/type";
 
 const LoginAdmin = () => {
-    const {  login, isLoading, error } = useStoreContext();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const setSelected = useSetSelected();
+    const { setStore  } = useStoreContext();
 
-    const [formData, setFormData] = useState({
-        // username: "",
-        email: "",
-        password: "",
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = async (formData: AdminDataProps) => {
         try {
-            // for (let i = 0; i < admin.length; i++) {
-            //     if (
-            //         admin[i].username === formData.username &&
-            //         admin[i].email === formData.email &&
-            //         admin[i].password === formData.password
-            //     ) {
-            //         login(formData.username, formData.password);
-            //         navigate("/admin/get-started");
-            //         return;
-            //     }
-            // }
-            await login(formData);
-            navigate("/admin/get-started");
-            return;
+            setLoading(true);
+            const authToken = await AdminLogin({
+                email: formData.email.trim(),
+                password: formData.password.trim()
+            });
+
+            localStorage.setItem('authToken', authToken);
+            setSelected("isAuthenticated", true);
+            setSelected("accessToken", authToken);
+
+            setStore((prevStore: any) => ({
+                ...prevStore,
+                user: {
+                    email: formData.email,
+                    name: formData.name,
+                    role: 'admin'
+                }
+            }));
+
+            setTimeout(() => {
+                navigate("/admin/get-started");
+            }, 1000);
         } catch (error) {
-            console.error("Login error:", error);
+            console.error('Login failed:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="kanit-medium bg-[#F5F5F5] h-[88vh]">
-            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%]">
-                {error && <div className="text-red-500">{error}</div>}
-                {isLoading ? (
-                    <div>Loading...</div>
-                ) : (
-                    <AdminLoginForm handleChange={handleChange} handleSubmit={handleSubmit} />
-                )}
+        <div className="kanit-medium bg-[#F5F5F5] h-[88vh] flex flex-col items-center justify-center">
+            <div className="px-5 py-3 relative z-10 flex flex-col w-full h-[85%] md:w-1/2 md:justify-center md:items-center">
+                <AdminLoginForm onSubmit={handleSubmit} loading={loading} />
             </div>
         </div>
     );
