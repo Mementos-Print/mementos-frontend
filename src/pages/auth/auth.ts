@@ -1,8 +1,8 @@
 // api helper function
 import axios from "axios";
 
-const API_BASE_URL = "https://mementos-backend.onrender.com";
-export const uploadImage = async (
+const API_BASE_URL = "https://mementos-backend-jqdl.onrender.com";
+export const uploadPolaroid = async (
   borderColour: string,
   images: File[],
   accessToken: string

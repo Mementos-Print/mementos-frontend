@@ -6,7 +6,6 @@ import {
   //   ProgressiveBar,
 } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
-import { Link } from "react-router-dom";
 
 const PolaroidGenerated = () => {
   const portalRoot = document.getElementById("portal-root");
@@ -24,10 +23,10 @@ const PolaroidGenerated = () => {
             We are Inking your memory, it will only take a few minutes
           </p>
         </div>
-        <Link to="/" className="flex items-center justify-center py-2 text-white gap-2 bg-[#333431] w-[90%] absolute bottom-8 rounded-[60px]">
+        <a href="/" className="flex items-center justify-center py-2 text-white gap-2 bg-[#333431] w-[90%] absolute bottom-8 rounded-[60px]">
           <p className="text-xl">Back to home</p>
           <img src={ArrowRightGenerated} alt="arrow-right-generated" />
-        </Link>
+        </a>
 
         <img
           src={CancelUpload}
