@@ -26,7 +26,7 @@ const Border = () => {
                 className={`absolute top-0 right-1/2 ${
                   isActive ? "" : "hidden"
                 }`}
-                src="./selected-border.svg"
+                src="/selected-border.svg"
                 alt="selected-border"
               />
             </div>

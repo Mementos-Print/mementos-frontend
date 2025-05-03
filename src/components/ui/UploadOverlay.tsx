@@ -1,33 +1,31 @@
 import ReactDOM from "react-dom";
 import { CancelUpload, UploadForPrint } from "../../assets/icons/Icon";
 import { useSetSelected } from "../../hooks/useSetSelected";
-import { uploadImage } from "../../pages/auth/auth";
+import { uploadPolaroid } from "../../pages/auth/auth";
 import { useAppState } from "../../hooks/useAppState";
-import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const { borderOption, selectedImages,accessToken } = useAppState();
-  const navigate = useNavigate();
+  const { borderOption, selectedImages } = useAppState();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
+  const [error, setError] = useState("");
 
   const handleSuccess = () => {
+    const authToken = localStorage.getItem("authToken");
+    if (!authToken) return;
     setLoading(true);
-    uploadImage(
-      borderOption,
-      selectedImages,
-      accessToken
-    )
+
+    uploadPolaroid(borderOption, selectedImages, authToken)
       .then(() => {
         setSelected("isDone", false);
-        navigate("/user/dashboard");
         setSelected("isSuccessful", true);
       })
       .catch((err) => {
-        toast(err);
+        setError(err?.response?.data?.error || "An error occurred");
       })
       .finally(() => {
         setLoading(false);
@@ -42,6 +40,7 @@ const UploadOverlay = () => {
           <p className="font-medium">All set!</p>
           <p className="font-light">Upload Image(s) for printing</p>
         </div>
+        {error && <small className="text-red-600">{error}</small>}
         {loading ? (
           <p className="bg-[#333431] rounded-[60px] py-2 w-full text-center text-white text-xl absolute bottom-8 w-[80%]">
             Loading...
