@@ -7,7 +7,9 @@ const Border = () => {
   const { borderOption } = useAppState();
   return (
     <div className="flex flex-col items-center">
-      <p className="my-4 text-xs text-[#9E9E9E]">Select your preferred border</p>
+      <p className="my-4 text-xs text-[#9E9E9E]">
+        Select your preferred border
+      </p>
       <div className="grid grid-cols-2 gap-x-8">
         {GridOptions.map((grid, idx) => {
           const { option, name } = grid;
@@ -19,7 +21,13 @@ const Border = () => {
               onClick={() => setSelected("borderOption", name)}
             >
               <img src={option} alt={name} />
-              <p className={`text-xs ${!isActive? "text-[#9E9E9E]": "text-[#212121] "}`}>{name}</p>
+              <p
+                className={`text-xs ${
+                  !isActive ? "text-[#9E9E9E]" : "text-[#212121] "
+                }`}
+              >
+                {name.charAt(0).toUpperCase() + name.slice(1)}
+              </p>
 
               {/* indicator  */}
               <img
