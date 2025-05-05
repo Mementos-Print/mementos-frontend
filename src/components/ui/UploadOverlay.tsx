@@ -9,28 +9,28 @@ import { useState } from "react";
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const { selectedImages } = useAppState();
+  const { borderOption, selectedImages } = useAppState();
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
   const [error, setError] = useState("");
 
+  
   const handleSuccess = () => {
     const authToken = localStorage.getItem("authToken");
-    const borderOption = localStorage.getItem("borderOption");
-    if (!authToken || !borderOption) return;
+    if (!authToken) return;
     setLoading(true);
-    console.log(borderOption)
-
+    
     uploadPolaroid(borderOption, selectedImages, authToken)
-      .then(() => {
-        setSelected("isDone", false);
-        setSelected("isSuccessful", true);
-      })
-      .catch((err) => {
-        setError(err?.response?.data?.error || "An error occurred");
+    .then(() => {
+      setSelected("isDone", false);
+      setSelected("isSuccessful", true);
+    })
+    .catch((err) => {
+      setError(err?.response?.data?.error || "An error occurred");
       })
       .finally(() => {
         setLoading(false);
+        console.log(borderOption)
       });
   };
 

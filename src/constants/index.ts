@@ -30,7 +30,7 @@ export const headers = [
 ];
 
 export const GridOptions = [
-  {option: "/white.svg", name: "White"},
-  {option: "/black.svg", name: "Black"},
+  {option: "/white.svg", name: "white"},
+  {option: "/black.svg", name: "black"},
 ]
 

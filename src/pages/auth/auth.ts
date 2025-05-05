@@ -3,12 +3,12 @@ import axios from "axios";
 
 const API_BASE_URL = "https://mementos-backend-jqdl.onrender.com";
 export const uploadPolaroid = async (
-  borderColour: string,
+  borderColor: string,
   images: File[],
   accessToken: string
 ) => {
   const formData = new FormData();
-  formData.append("borderColour", borderColour);
+  formData.append("borderColor", borderColor);
   images.forEach((image) => {
     formData.append("images", image);
   });
