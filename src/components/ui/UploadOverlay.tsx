@@ -9,15 +9,17 @@ import { useState } from "react";
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const { borderOption, selectedImages } = useAppState();
+  const { selectedImages } = useAppState();
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
   const [error, setError] = useState("");
 
   const handleSuccess = () => {
     const authToken = localStorage.getItem("authToken");
-    if (!authToken) return;
+    const borderOption = localStorage.getItem("borderOption");
+    if (!authToken || !borderOption) return;
     setLoading(true);
+    console.log(borderOption)
 
     uploadPolaroid(borderOption, selectedImages, authToken)
       .then(() => {

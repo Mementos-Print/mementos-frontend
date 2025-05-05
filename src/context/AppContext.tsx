@@ -43,6 +43,8 @@ const DashboardReducer = (state: State, action: Action) => {
     case "SET_SELECTED":
       if(optionKey === "isAuthenticated"){
         localStorage.setItem("isAuthenticated", JSON.stringify(payload));
+      }if(optionKey === "borderOption"){
+        localStorage.setItem("borderOption", JSON.stringify(payload));
       }
       return optionKey ? { ...state, [optionKey]: payload } : state;
     default:

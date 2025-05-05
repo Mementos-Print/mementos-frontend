@@ -50,7 +50,7 @@ const MainSelected = () => {
                   }`}
                   key={idx}
                 >
-                  <img src={imageUrl} alt="img-selected" className="h-full"/>
+                  <img src={imageUrl} alt="img-selected" className="h-full w-full"/>
                 </div>
               );
             })}
