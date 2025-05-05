@@ -9,7 +9,7 @@ import { useState } from "react";
 const UploadOverlay = () => {
   const portalRoot = document.getElementById("portal-root");
   const setSelected = useSetSelected();
-  const {borderOption,  selectedImages } = useAppState();
+  const { borderOption, selectedImages } = useAppState();
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(Boolean);
   const [error, setError] = useState("");
@@ -17,7 +17,6 @@ const UploadOverlay = () => {
   
   const handleSuccess = () => {
     const authToken = localStorage.getItem("authToken");
-    // const borderOption = localStorage.getItem("borderOption");
     if (!authToken) return;
     setLoading(true);
     
@@ -31,6 +30,7 @@ const UploadOverlay = () => {
       })
       .finally(() => {
         setLoading(false);
+        console.log(borderOption)
       });
   };
 
