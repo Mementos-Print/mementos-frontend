@@ -27,7 +27,7 @@ const initialState = {
   activePolaroidBase: headers[0]?.name,
   selectedImages: [],
   importedImages: [],
-  borderOption: "White",
+  borderOption: "white",
   visibleRange: [0,1],
   isDone: false,
   isSuccessful: false,

@@ -46,7 +46,7 @@ const MainSelected = () => {
               return (
                 <div
                   className={`border-[10px] border-b-[46px] h-full ${
-                    borderOption == "White" ? "border-white" : "border-black"
+                    borderOption == "white" ? "border-white" : "border-black"
                   }`}
                   key={idx}
                 >
