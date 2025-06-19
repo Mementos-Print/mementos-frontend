@@ -369,13 +369,14 @@ export const ArrowLeft = ({ color = "#292D32" }: { color: string }) => {
         </svg>
     )
 }
-
-export const ArrowRight = ({ color = "#292D32" }: { color: string }) => {
+// color = "#292D32"
+export const ArrowRight = (props: SVGProps<SVGSVGElement>) => {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.4291 18.8191C14.2391 18.8191 14.0491 18.7491 13.8991 18.5991C13.6091 18.3091 13.6091 17.8291 13.8991 17.5391L19.4391 11.9991L13.8991 6.45914C13.6091 6.16914 13.6091 5.68914 13.8991 5.39914C14.1891 5.10914 14.6691 5.10914 14.9591 5.39914L21.0291 11.4691C21.3191 11.7591 21.3191 12.2391 21.0291 12.5291L14.9591 18.5991C14.8091 18.7491 14.6191 18.8191 14.4291 18.8191Z" fill={color} />
-            <path d="M20.33 12.75H3.5C3.09 12.75 2.75 12.41 2.75 12C2.75 11.59 3.09 11.25 3.5 11.25H20.33C20.74 11.25 21.08 11.59 21.08 12C21.08 12.41 20.74 12.75 20.33 12.75Z" fill={color} />
-        </svg>
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <path d="M14.7529 6.25391C14.8477 6.15917 15.0107 6.15917 15.1055 6.25391L21.1758 12.3232C21.2705 12.418 21.2705 12.582 21.1758 12.6768L15.1055 18.7461C15.0542 18.7974 14.9933 18.8203 14.9287 18.8203C14.8643 18.8202 14.8041 18.7973 14.7529 18.7461C14.6583 18.6513 14.6582 18.4883 14.7529 18.3936L20.6465 12.5L14.7529 6.60645C14.6582 6.51171 14.6582 6.34864 14.7529 6.25391Z" stroke="#333431"/>
+        <path d="M20.83 13.25H4C3.59 13.25 3.25 12.91 3.25 12.5C3.25 12.09 3.59 11.75 4 11.75H20.83C21.24 11.75 21.58 12.09 21.58 12.5C21.58 12.91 21.24 13.25 20.83 13.25Z" fill="#333431"/>
+    </svg>
+
     )
 }
 
@@ -491,4 +492,5 @@ import UploadForPrint from "/upload-for-print.svg";
 import GeneratedSuccess from "/success.svg"
 import ArrowRightGenerated from "/arrow-right.svg";
 import ProgressiveBar from "/progress-bar.svg"
+import { SVGProps } from "react"
 export {PolaroidUpload,UploadImageButton, Cancel,RightArrow,LeftArrow,CancelUpload,UploadForPrint,GeneratedSuccess,ArrowRightGenerated,ProgressiveBar}

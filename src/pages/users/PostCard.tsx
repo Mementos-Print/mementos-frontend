@@ -5,7 +5,7 @@ import ProgressBar from "../../components/form/postcard/ProgressBar";
 import useStoreContext from "../../hooks/useStoreContext";
 import Information from "../../components/form/information";
 import UploadTab from "../../components/form/postcard/UploadTab";
-import UploadModal from "../../components/Modals/UploadModal";
+import UploadModal from "../../components/modals/UploadModal";
 
 const PostCard = () => {
     const [currentSection, setCurrentSection] = useState(2);
