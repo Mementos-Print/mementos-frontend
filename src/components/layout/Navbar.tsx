@@ -4,8 +4,8 @@ import HamburgerDropdownMenu from "../ui/HamburgerDropdownMenu";
 
 const Navigation = () => {
   return (
-    <div>
-      <div className="flex-row flex justify-between items-center w-full px-4 pt-2 pb-2 bg-[#F5F5F5]">
+    <div className="max-w-[525px] mx-auto h-screen bg-[#F5F5F5] overflow-y-auto ">
+      <div className="flex-row flex justify-between items-center w-full px-4 pt-2 pb-2 bg-[#F5F5F5] ">
         <Link to={"/"}>
           <Logo />
         </Link>

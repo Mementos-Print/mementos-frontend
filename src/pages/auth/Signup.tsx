@@ -1,36 +1,29 @@
-import { ArrowRight } from "../../assets/icons/Icon";
+import {
+  FormBody,
+  FormFoot,
+  Input,
+  SubmitButton,
+} from "../../components/ui/Auth";
 
 const SignUp = () => {
   return (
-    <div className="py-9 px-4 bg-[#F5F5F5]">
-      <form className="font-mediu flex flex-col gap-6 text-sm tracking-[0.2px]">
-        <div className="flex flex-col gap-[4px]">
-          <label htmlFor="email" className="text-[#212121]">
-            Email <span className="text-[#C9EC81]">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="focus:outline-[#C9EC81] p-2 rounded-lg border-[#E0E0E0] border bg-[#F5F5F5]"
-          />
-        </div>
-        <div className="flex flex-col gap-[4px]">
-          <label htmlFor="password" className="text-[#212121]">
-            Password <span className="text-[#C9EC81]">*</span>
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="focus:outline-[#C9EC81] p-2 rounded-lg border-[#E0E0E0] border bg-[#F5F5F5]"
-          />
-        </div>
-        <p className="text-right">Forgot Password?</p>
-        <div className="bg-[#C9EC81] rounded-[60px] py-2 text-lg flex items-center justify-center gap-focus:outline-[#C9EC81] 2">
-          <button type="submit">Login </button>
-          <ArrowRight />
-        </div>
-      </form>
-    </div>
+    <FormBody>
+      <Input type="name" id="name" label="Name" />
+      <Input type="email" id="email" label="Email" />
+      <Input type="password" id="password" label="Password" />
+      <div>
+        <input type="checkbox" className="mr-1" />
+        <span className="mb-11 text-sm">
+          Save my email and pasword on this website
+        </span>
+      </div>
+      <SubmitButton type="Create Account" />
+      <FormFoot
+        ques="Have an account?"
+        option="Login"
+        linkTo="/auth/signin"
+      />
+    </FormBody>
   );
 };
 
