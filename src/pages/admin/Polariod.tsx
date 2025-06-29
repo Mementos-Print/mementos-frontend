@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AdminPrintLayout from "../../components/ui/AdminPrintLayout";
-import FilterModal from "../../components/Modals/FilterModal";
+import FilterModal from "../../components/modals/FilterModal";
 
 const AdminPolariodList = () => {
     const [showFiltermodal, setShowFiltermodal] = useState(false);

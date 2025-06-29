@@ -47,7 +47,7 @@ const DashboardReducer = (state: State, action: Action) => {
       return optionKey ? { ...state, [optionKey]: payload } : state;
     default:
       return state;
-  }
+  } 
 };
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<State, Action>>(

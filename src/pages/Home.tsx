@@ -8,7 +8,7 @@ const Home = () => {
 
     return (
         <div className="kanit-medium ">
-            <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover md:object-fill">
+            <div className="absolute inset-0 w-full  child:w-full -z-10 object-cover md:object-fill">
                 <BackgroundGradientsEllipses />
             </div>
 

@@ -5,23 +5,25 @@ import {
   Navigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import PostCard from "./pages/(users)/PostCard";
-import PhotoStripe from "./pages/(users)/PhotoStripe";
-import Polaroid from "./pages/(users)/Polariod";
-import GetStarted from "./pages/(users)/GetStarted";
-import Navigation from "./components/Navbar";
-import NewUser from "./pages/(users)/NewUser";
+import PostCard from "./pages/users/PostCard";
+import PhotoStripe from "./pages/users/PhotoStripe";
+import Polaroid from "./pages/users/Polariod";
+import GetStarted from "./pages/users/GetStarted";
+import Navigation from "./components/layout/Layout";
+// import NewUser from "./pages/users/NewUser";
 import GetStartedAdmin from "./pages/admin/GetStarted";
 import LoginAdmin from "./pages/admin/AdminLogin";
 import AdminPostCardList from "./pages/admin/PostCard";
 import AdminPolariodList from "./pages/admin/Polariod";
 import AdminRoute from "./Routes/AdminRoute";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
-import useTokenRefresh from './hooks/useTokenRefresh';
+import useTokenRefresh from "./hooks/useTokenRefresh";
+import SignUp from "./pages/auth/Signup";
+import SignIn from "./pages/auth/Signin";
 
 function App() {
   useTokenRefresh();
-  
+
   return (
     <Router>
       <Routes>
@@ -29,7 +31,8 @@ function App() {
         <Route path="/" element={<Navigation />}>
           <Route index={true} element={<Home />} />
           <Route path="/auth/user/">
-            <Route path="signin" element={<NewUser />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
           </Route>
           <Route path="/user/dashboard" element={<ProtectedRoute />}>
             <Route index={true} element={<GetStarted />} />
@@ -38,11 +41,6 @@ function App() {
             <Route path="photostripe" element={<PhotoStripe />} />
             <Route path="get-started" element={<GetStarted />} />
           </Route>
-          {/* <Route path="polaroid" element={<Polaroid />} />
-          <Route path="newUser" element={<NewUser />} />
-          <Route path="postcard" element={<PostCard />} />
-          <Route path="photostripe" element={<PhotoStripe />} />
-          <Route path="get-started" element={<GetStarted />} /> */}
         </Route>
 
         {/* Admin Routes */}

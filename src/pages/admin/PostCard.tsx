@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FilterModal from "../../components/Modals/FilterModal";
+import FilterModal from "../../components/modals/FilterModal";
 import AdminPrintLayout from "../../components/ui/AdminPrintLayout";
 
 const AdminPostCardList = () => {
