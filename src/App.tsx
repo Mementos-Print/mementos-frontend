@@ -19,7 +19,7 @@ import AdminRoute from "./Routes/AdminRoute";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import useTokenRefresh from "./hooks/useTokenRefresh";
 import SignUp from "./pages/auth/Signup";
-import SignIn from "./pages/auth/Signin";
+import SignIn from "./pages/auth/SignIn";
 
 function App() {
   useTokenRefresh();

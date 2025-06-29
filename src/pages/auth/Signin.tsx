@@ -1,4 +1,9 @@
-import { FormBody, FormFoot, Input, SubmitButton } from "../../components/ui/Auth";
+import {
+  FormBody,
+  FormFoot,
+  Input,
+  SubmitButton,
+} from "../../components/ui/Auth";
 
 const SignIn = () => {
   return (
@@ -10,7 +15,8 @@ const SignIn = () => {
       <FormFoot
         ques="Don't have an account?"
         option="Create Account"
-        linkTo="/auth/user/signup" />
+        linkTo="/auth/user/signup"
+      />
     </FormBody>
   );
 };
