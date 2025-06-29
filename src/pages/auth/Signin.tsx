@@ -10,7 +10,7 @@ const SignIn = () => {
       <FormFoot
         ques="Don't have an account?"
         option="Create Account"
-        linkTo="/auth/signup" />
+        linkTo="/auth/user/signup" />
     </FormBody>
   );
 };

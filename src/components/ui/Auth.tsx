@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight } from "../../assets/icons/Icon";
 
 interface FormBodyProps {
@@ -37,8 +37,12 @@ interface SubmitButtonProps {
   type: string;
 }
 export const SubmitButton = ({ type }: SubmitButtonProps) => {
+  const navigate = useNavigate();
+  const handleAuth =()=>{
+    navigate('/user/dashboard')
+  }
   return (
-    <div className="bg-[#C9EC81] rounded-[60px] py-2 text-lg flex items-center justify-center gap-focus:outline-[#C9EC81]">
+    <div onClick={handleAuth} className="bg-[#C9EC81] rounded-[60px] py-2 text-lg flex items-center justify-center gap-focus:outline-[#C9EC81]">
       <button type="submit">{type} </button>
       <ArrowRight />
     </div>
@@ -55,7 +59,7 @@ export const FormFoot = ({ ques, option, linkTo }: FormFootProps) => {
     <>
       <p className="text-base font-normal text-center">
         {ques}{" "}
-        <Link to={linkTo}>
+        <Link to={linkTo}>  
           <span className="font-medium">{option}</span>
         </Link>
       </p>

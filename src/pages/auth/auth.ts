@@ -6,7 +6,7 @@ export const uploadPolaroid = async (
   borderColor: string,
   images: File[],
   accessToken: string
-) => {
+) => {  
   const formData = new FormData();
   formData.append("borderColor", borderColor);
   images.forEach((image) => {

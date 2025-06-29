@@ -21,7 +21,7 @@ const SignUp = () => {
       <FormFoot
         ques="Have an account?"
         option="Login"
-        linkTo="/auth/signin"
+        linkTo="/auth/user/signin"
       />
     </FormBody>
   );

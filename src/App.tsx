@@ -9,7 +9,7 @@ import PostCard from "./pages/users/PostCard";
 import PhotoStripe from "./pages/users/PhotoStripe";
 import Polaroid from "./pages/users/Polariod";
 import GetStarted from "./pages/users/GetStarted";
-import Navigation from "./components/layout/Navbar";
+import Navigation from "./components/layout/Layout";
 // import NewUser from "./pages/users/NewUser";
 import GetStartedAdmin from "./pages/admin/GetStarted";
 import LoginAdmin from "./pages/admin/AdminLogin";
