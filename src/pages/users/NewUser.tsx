@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { NewUserDataProps } from "../../types/type";
 import { useNavigate } from "react-router-dom";
-import useStoreContext from "../../hooks/useStoreContext";
+// import useStoreContext from "../../hooks/useStoreContext";
 import NewUserDataForm from "../../components/form/NewUserDataForm";
 import { useSetSelected } from "../../hooks/useSetSelected";
 import { loginUser } from '../../api/userAuth'
 
 const NewUser = () => {
-  const { setStore } = useStoreContext();
+  // const { setStore } = useStoreContext();
   const setSelected = useSetSelected();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -21,14 +21,14 @@ const NewUser = () => {
       setSelected("isAuthenticated", true);
       setSelected("accessToken", authToken);
 
-      setStore((prevStore: any) => ({
-        ...prevStore,
-        user: {
-          name: formData.name,
-          email: formData.email,
-          role: 'user'
-        }
-      }));
+      // setStore((prevStore: any) => ({
+      //   ...prevStore,
+      //   user: {
+      //     name: formData.name,
+      //     email: formData.email,
+      //     role: 'user'
+      //   }
+      // }));
 
       setTimeout(() => {
         navigate("/user/dashboard");

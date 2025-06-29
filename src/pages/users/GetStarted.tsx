@@ -8,7 +8,7 @@ import { optionsLists } from "../../constants"
 const GetStarted = () => {
     return (
         <div className="kanit-medium">
-            <div className="absolute inset-0 w-full h-full child:w-full -z-10 object-cover">
+            <div className="absolute  inset-0 w-full h-full child:w-full -z-10 object-cover">
                 <BackgroundGradientsEllipses />
             </div>
             
