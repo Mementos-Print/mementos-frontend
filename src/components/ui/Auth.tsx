@@ -3,7 +3,7 @@ import { ArrowRight } from "../../assets/icons/Icon";
 
 interface FormBodyProps {
   children: React.ReactNode;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 export const FormBody = ({ children, onSubmit }: FormBodyProps) => {
   return (
@@ -22,7 +22,7 @@ interface InputProps {
   type: string;
   id: string;
   label: string;
-  value?: string;
+  value: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const Input = ({ type, id, label, value, onChange }: InputProps) => {
@@ -45,7 +45,7 @@ export const Input = ({ type, id, label, value, onChange }: InputProps) => {
 interface SubmitButtonProps {
   type: string;
   clickEvent?: () => void;
-  isLoading?: boolean;
+  isLoading: boolean;
 }
 export const SubmitButton = ({
   type,
