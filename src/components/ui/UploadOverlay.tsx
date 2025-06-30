@@ -30,7 +30,6 @@ const UploadOverlay = () => {
       })
       .finally(() => {
         setLoading(false);
-        console.log(borderOption)
       });
   };
 

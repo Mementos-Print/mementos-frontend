@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import PostCard from "./pages/users/PostCard";
@@ -11,15 +10,11 @@ import Polaroid from "./pages/users/Polariod";
 import GetStarted from "./pages/users/GetStarted";
 import Navigation from "./components/layout/Layout";
 // import NewUser from "./pages/users/NewUser";
-import GetStartedAdmin from "./pages/admin/GetStarted";
-import LoginAdmin from "./pages/admin/AdminLogin";
-import AdminPostCardList from "./pages/admin/PostCard";
-import AdminPolariodList from "./pages/admin/Polariod";
-import AdminRoute from "./Routes/AdminRoute";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
 import useTokenRefresh from "./hooks/useTokenRefresh";
 import SignUp from "./pages/auth/Signup";
-import SignIn from "./pages/auth/SignIn";
+import SignIn from "./pages/auth/Signin";
+import NotFound from "./pages/NotFound";
 
 function App() {
   useTokenRefresh();
@@ -42,20 +37,7 @@ function App() {
             <Route path="get-started" element={<GetStarted />} />
           </Route>
         </Route>
-
-        {/* Admin Routes */}
-        <Route path="admin" element={<Navigation />}>
-          <Route path="login" element={<LoginAdmin />} />
-          <Route element={<AdminRoute />}>
-            <Route
-              index
-              element={<Navigate to="/admin/get-started" replace />}
-            />
-            <Route path="get-started" element={<GetStartedAdmin />} />
-            <Route path="postcard" element={<AdminPostCardList />} />
-            <Route path="polaroid" element={<AdminPolariodList />} />
-          </Route>
-        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
