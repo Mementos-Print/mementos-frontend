@@ -32,7 +32,7 @@ function App() {
           <Route path="/user/dashboard" element={<ProtectedRoute />}>
             <Route index={true} element={<GetStarted />} />
             <Route path="polaroid" element={<Polaroid />} />
-            {/* <Route path="postcard" element={<PostCard />} /> */}
+            {/* <Route path="postcard" element={<PostCard />}  /> */}
             <Route path="photostripe" element={<PhotoStripe />} />
             <Route path="get-started" element={<GetStarted />} />
           </Route>
