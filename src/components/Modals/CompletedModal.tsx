@@ -19,7 +19,7 @@ const CompletedModal = ({ isOpen }: CompletedProps) => {
                     <div className=' rounded-full flex justify-center items-center mb-3'>
                         <SuccessCheckIcon color="var(--primary)" />
                     </div>
-                    <h2 className="font-extrabold text-xl text-[var(--primary)]">Postcard Generated!</h2>
+                    <h2 className="font-extrabold text-xl text-[var(--primary)]">Postcard Generated !</h2>
                     <p className="text-[12px] w-3/4 font-normal">We are Inking your memory, it will only take a few minutes</p>
                 </div>
 
