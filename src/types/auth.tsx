@@ -10,7 +10,7 @@ export interface LoginResponse {
         email: string;
         name: string;
         role: string;
-    };
+    };  
 }
 
 export interface ApiError {

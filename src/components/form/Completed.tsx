@@ -1,5 +1,5 @@
 import { CompletedProps } from "../../types/type";
-import CompletedModal from "../modals/CompletedModal";
+import CompletedModal from "../Modals/CompletedModal";
 
 const Completed = ({ isOpen }: CompletedProps) => (
    <div>
