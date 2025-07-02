@@ -15,6 +15,7 @@ import useTokenRefresh from "./hooks/useTokenRefresh";
 import SignUp from "./pages/auth/Signup";
 import SignIn from "./pages/auth/Signin";
 import NotFound from "./pages/NotFound";
+import AuthRoute from "./pages/auth/AuthRoute";
 
 function App() {
   useTokenRefresh();
@@ -25,7 +26,7 @@ function App() {
         {/* User Routes */}
         <Route path="/" element={<Navigation />}>
           <Route index={true} element={<Home />} />
-          <Route path="/auth/user/">
+          <Route path="/auth/user/" element={<AuthRoute />}>
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
           </Route>

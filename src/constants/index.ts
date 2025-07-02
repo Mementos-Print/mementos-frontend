@@ -2,7 +2,7 @@ export const optionsLists = [
   {
     heading: "Postcard Style",
     note: "Classic full-frame print with a smooth finish",
-    link: "/user/dashboard/postcard",
+    link: "",
   },
   {
     heading: "Polaroid Style",
