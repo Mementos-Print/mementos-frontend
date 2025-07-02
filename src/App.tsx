@@ -4,10 +4,10 @@ import {
   Route,
 } from "react-router-dom";
 import Home from "./pages/Home";
-// import PostCard from "./pages/users/PostCard";
-import PhotoStripe from "./pages/users/PhotoStripe";
-import Polaroid from "./pages/users/Polariod";
-import GetStarted from "./pages/users/GetStarted";
+import PostCard from "./pages/(users)/PostCard";
+import PhotoStripe from "./pages/(users)/PhotoStripe";
+import Polaroid from "./pages/(users)/Polariod";
+import GetStarted from "./pages/(users)/GetStarted";
 import Navigation from "./components/layout/Layout";
 // import NewUser from "./pages/users/NewUser";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
@@ -32,7 +32,7 @@ function App() {
           <Route path="/user/dashboard" element={<ProtectedRoute />}>
             <Route index={true} element={<GetStarted />} />
             <Route path="polaroid" element={<Polaroid />} />
-            {/* <Route path="postcard" element={<PostCard />}  /> */}
+            <Route path="postcard" element={<PostCard />}  />
             <Route path="photostripe" element={<PhotoStripe />} />
             <Route path="get-started" element={<GetStarted />} />
           </Route>
