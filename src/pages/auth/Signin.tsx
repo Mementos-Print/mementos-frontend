@@ -52,7 +52,7 @@ const SignIn = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <p className="text-right mb-11">Forgot Password?</p>
+        {/* <p className="text-right mb-11">Forgot Password?</p> */}
         <SubmitButton type="Login" isLoading={loading} />
         <FormFoot
           ques="Don't have an account?"

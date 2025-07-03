@@ -7,7 +7,7 @@ interface FormBodyProps {
 }
 export const FormBody = ({ children, onSubmit }: FormBodyProps) => {
   return (
-    <div className="py-9 px-4 bg-[#F5F5F5]">
+    <div className="py-9 px-4 bg-[#F5F5F5] h-screen">
       <form
         onSubmit={onSubmit}
         className="flex flex-col gap-6 text-sm tracking-[0.2px]"
