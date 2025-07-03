@@ -32,7 +32,7 @@ const initialState = {
   isDone: false,
   isSuccessful: false,
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "false"),
-  accessToken: "",
+  accessToken: JSON.parse(localStorage.getItem("accessToken") || "null"),
   refreshToken: "",
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
@@ -44,6 +44,9 @@ const DashboardReducer = (state: State, action: Action) => {
       if(optionKey === "isAuthenticated"){
         localStorage.setItem("isAuthenticated", JSON.stringify(payload));
       }
+      if(optionKey === "accessToken"){
+        localStorage.setItem("accessToken", JSON.stringify(payload))
+      } 
       return optionKey ? { ...state, [optionKey]: payload } : state;
     default:
       return state;
