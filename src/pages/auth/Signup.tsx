@@ -9,7 +9,7 @@ import { signup } from "./auth";
 import { ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSetSelected } from "../../hooks/useSetSelected";
+// import { useSetSelected } from "../../hooks/useSetSelected";
 
 const SignUp = () => {
   const [name, setName] = useState<string>("");
@@ -17,7 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState(Boolean);
   const navigate = useNavigate();
-  const setSelected = useSetSelected();
+  // const setSelected = useSetSelected();
 
   const handleAuth = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ const SignUp = () => {
     signup(email, name, password)
       .then(() => {
         navigate("/user/dashboard");
-        setSelected("isAuthenticated", true);
+        // setSelected("isAuthenticated", true);
       })
       .catch((err) => {
         toast.error(err.response?.data.Error);

@@ -26,7 +26,7 @@ const SignIn = () => {
         const accessToken = res.accessToken;
         setSelected("accessToken", accessToken);
         navigate("/user/dashboard");
-        setSelected("isAuthenticated", true);
+        // setSelected("isAuthenticated", true);
       })
       .catch((err) => {
         toast.error(err.response?.data.Error);

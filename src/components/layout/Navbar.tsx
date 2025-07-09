@@ -6,7 +6,7 @@ import { useAppState } from "../../hooks/useAppState";
 const Navbar = () => {
   const isonHome = useMatch("/");
   const isOnDashboard = useMatch("/user/dashboard");
-  const { isAuthenticated } = useAppState();
+  const { accessToken } = useAppState();
   return (
     <div
       className={`flex-row flex justify-between items-center w-full px-4 pt-2 pb-2 ${
@@ -16,7 +16,7 @@ const Navbar = () => {
       <Link to={"/"}>
         <Logo />
       </Link>
-      {isAuthenticated && (
+      {accessToken && (
         <div className="!z-[1000]">
           <HamburgerDropdownMenu />
         </div>

@@ -11,14 +11,14 @@ import GetStarted from "./pages/(users)/GetStarted";
 import Navigation from "./components/layout/Layout";
 // import NewUser from "./pages/users/NewUser";
 import ProtectedRoute from "./pages/auth/ProtectedRoute";
-import useTokenRefresh from "./hooks/useTokenRefresh";
 import SignUp from "./pages/auth/Signup";
 import SignIn from "./pages/auth/Signin";
 import NotFound from "./pages/NotFound";
 import AuthRoute from "./pages/auth/AuthRoute";
+import useRefreshToken from "./hooks/useRefreshToken";
 
 function App() {
-  useTokenRefresh();
+  useRefreshToken()
 
   return (
     <Router>

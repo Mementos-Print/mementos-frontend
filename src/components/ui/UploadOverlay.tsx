@@ -16,7 +16,6 @@ const UploadOverlay = () => {
 
   
   const handleSuccess = () => {
-    // const authToken = localStorage.getItem("authToken");
     if (!accessToken) return;
     setLoading(true);
     

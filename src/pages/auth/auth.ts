@@ -1,7 +1,8 @@
 // api helper function
-import axios from "axios";
+import API from "../../utils/api";
 
-const API_BASE_URL = "https://mementos-backend-jqdl.onrender.com";
+
+// const API_BASE_URL = "https://mementos-backend-jqdl.onrender.com";
 export const uploadPolaroid = async (
   borderColor: string,
   images: File[],
@@ -13,7 +14,7 @@ export const uploadPolaroid = async (
     formData.append("images", image);
   });
 
-  await axios.post(`${API_BASE_URL}/images/uploadPolaroid`, formData, {
+  await API.post(`images/uploadPolaroid`, formData, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "multipart/form-data",
@@ -22,17 +23,26 @@ export const uploadPolaroid = async (
 };
 
 export const login = async(email:string, password:string)=>{
-  const response = await axios.post(`${API_BASE_URL}/users/loginUser`, {
+  const response = await API.post(`users/loginUser`, {
     email,
     password
   });
   return response.data;
 }
 export const signup = async(email:string, name:string,password: string)=>{
-  const response = await axios.post(`${API_BASE_URL}/users/signupUser`, {
+  const response = await API.post(`users/signupUser`, {
     email,
     name,
     password,
+  });
+  return response.data;
+}
+export const logout = async(accessToken: string)=>{
+  const response = await API.delete(`tokens/logoutUser`,{
+    headers:{
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "multipart/form-data"
+    }
   });
   return response.data;
 }
