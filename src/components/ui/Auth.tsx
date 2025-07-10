@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "../../assets/icons/Icon";
+import { ArrowRight, GoogleIcon } from "../../assets/icons/Icon";
+
 
 interface FormBodyProps {
   children: React.ReactNode;
@@ -72,13 +73,36 @@ interface FormFootProps {
 }
 export const FormFoot = ({ ques, option, linkTo }: FormFootProps) => {
   return (
-    <>
+    <div className="flex flex-col items-center gap-8 mb-2">
       <p className="text-base font-normal text-center">
         {ques}{" "}
         <Link to={linkTo}>
           <span className="font-medium">{option}</span>
         </Link>
       </p>
-    </>
+      <div className="flex items-center w-full max-w-xs gap-2">
+        <div className="flex-1 h-px bg-gray-300" />
+        <span className="text-sm text-gray-500">OR</span>
+        <div className="flex-1 h-px bg-gray-300" />
+      </div>
+    </div>
+  );
+};
+export const AuthGoogle = () => {
+
+
+  const handleGoogle = () => {
+  // window.location.href = "https://mementos-backend-jqdl.onrender.com/users/auth/google"
+  };
+  return (
+    <div
+      className="bg-[#333431] flex items-center gap-2 rounded-[60px] justify-center py-4 text-xl"
+      onClick={handleGoogle}
+    >
+      <GoogleIcon />
+      <p className="text-[#FAFAFA] leading-6 tracking-normal">
+        Continue with Google
+      </p>
+    </div>
   );
 };

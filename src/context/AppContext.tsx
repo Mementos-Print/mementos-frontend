@@ -13,6 +13,7 @@ export interface State {
   isAuthenticated: boolean;
   accessToken: string | null;
   refreshToken: string;
+  authLoading: boolean
 }
 interface Action {
   type: string;
@@ -32,8 +33,10 @@ const initialState = {
   isDone: false,
   isSuccessful: false,
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "false"),
-  accessToken: JSON.parse(localStorage.getItem("accessToken") || "null"),
+  // accessToken: "",
+  accessToken: "",
   refreshToken: "",
+  authLoading: true
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
@@ -44,9 +47,9 @@ const DashboardReducer = (state: State, action: Action) => {
       if(optionKey === "isAuthenticated"){
         localStorage.setItem("isAuthenticated", JSON.stringify(payload));
       }
-      if(optionKey === "accessToken"){
-        localStorage.setItem("accessToken", JSON.stringify(payload))
-      } 
+      // if(optionKey === "accessToken"){
+      //   localStorage.setItem("accessToken", JSON.stringify(payload))
+      // }  
       return optionKey ? { ...state, [optionKey]: payload } : state;
     default:
       return state;

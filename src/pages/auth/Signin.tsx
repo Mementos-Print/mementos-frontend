@@ -1,4 +1,5 @@
 import {
+  AuthGoogle,
   FormBody,
   FormFoot,
   Input,
@@ -26,7 +27,7 @@ const SignIn = () => {
         const accessToken = res.accessToken;
         setSelected("accessToken", accessToken);
         navigate("/user/dashboard");
-        setSelected("isAuthenticated", true);
+        // setSelected("isAuthenticated", true);
       })
       .catch((err) => {
         toast.error(err.response?.data.Error);
@@ -52,13 +53,14 @@ const SignIn = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <p className="text-right mb-11">Forgot Password?</p> */}
+        {/* <p className="text-riaught mb-11">Forgot Password?</p> */}
         <SubmitButton type="Login" isLoading={loading} />
         <FormFoot
           ques="Don't have an account?"
           option="Create Account"
           linkTo="/auth/user/signup"
         />
+        <AuthGoogle />
       </FormBody>
       <ToastContainer />
     </>

@@ -2,15 +2,30 @@ import { DropdownMenu } from "radix-ui";
 import { HamburgerMenuIcon } from "../../assets/icons/Icon";
 import { useNavigate } from "react-router-dom";
 import { useSetSelected } from "../../hooks/useSetSelected";
+import { logout } from "../../pages/auth/auth";
+import { toast, ToastContainer } from "react-toastify";
+import { useAppState } from "../../hooks/useAppState";
 
 const HamburgerDropdownMenu = () => {
   const setSelected = useSetSelected();
   const navigate = useNavigate();
+  const {accessToken} = useAppState();
+
 
   const hanldeSignOut = async () => {
-    setSelected("isAuthenticated", false);
-    localStorage.clear();
-    navigate("/");
+    if(!accessToken) return;
+    logout(accessToken)
+      .then(() => {
+        setSelected("accessToken", "");
+        setSelected("authLoading", false)
+        navigate("/");
+      })
+      .catch((err) => {
+        toast(err?.response?.data?.error);
+      });
+    // setSelected("isAuthenticated", false);
+    // localStorage.clear();
+    // navigate("/");
   };
 
   return (
@@ -56,6 +71,7 @@ const HamburgerDropdownMenu = () => {
           <DropdownMenu.Arrow className="fill-white" />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
+      <ToastContainer />
     </DropdownMenu.Root>
   );
 };

@@ -2,8 +2,13 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAppState } from "../../hooks/useAppState";
 
 const ProtectedRoute = () => {
-  const { isAuthenticated } = useAppState();
-  return isAuthenticated ? <Outlet /> : <Navigate to="/auth/user/signin" />;
+  const { accessToken, authLoading } = useAppState();
+  if (authLoading) return(
+    <div>
+      <img src="/Logo_Mementos.svg" alt="logo" />
+    </div>
+  ) 
+  return accessToken ? <Outlet /> : <Navigate to="/auth/user/signin" />;
 };
 
 export default ProtectedRoute;
