@@ -46,3 +46,7 @@ export const logout = async(accessToken: string)=>{
   });
   return response.data;
 }
+export const authGoogle = async()=>{
+  const response = await API.get('users/auth/google',{})
+  return response.data
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  AuthGoogle,
   FormBody,
   FormFoot,
   Input,
@@ -71,6 +72,7 @@ const SignUp = () => {
           option="Login"
           linkTo="/auth/user/signin"
         />
+        <AuthGoogle />
       </FormBody>
       <ToastContainer />
     </>

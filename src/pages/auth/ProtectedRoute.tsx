@@ -4,7 +4,7 @@ import { useAppState } from "../../hooks/useAppState";
 const ProtectedRoute = () => {
   const { accessToken, authLoading } = useAppState();
   if (authLoading) return(
-    <div className="">
+    <div>
       <img src="/Logo_Mementos.svg" alt="logo" />
     </div>
   ) 
