@@ -20,7 +20,7 @@ const GetStarted = () => {
       >
         <div className="px-5 relative z-10 flex flex-col items-center justify-center text-center w-full h-fit">
           <div className="py-[50px]">
-            <h1 className="text-[36px] kanit-bold">Mementos Print</h1>
+            <h1 className="text-[36px] kanit-bold">Mementos Print </h1>
           </div>
 
           <div className="flex flex-col gap-3">
