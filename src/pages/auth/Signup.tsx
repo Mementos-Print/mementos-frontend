@@ -26,7 +26,7 @@ const SignUp = () => {
     setLoading(true);
     signup(email, name, password)
       .then(() => {
-        navigate("/user/dashboard");
+        navigate("/dashboard");
         // setSelected("isAuthenticated", true);
       })
       .catch((err) => {

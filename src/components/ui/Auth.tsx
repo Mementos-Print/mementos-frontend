@@ -92,7 +92,7 @@ export const AuthGoogle = () => {
 
 
   const handleGoogle = () => {
-  // window.location.href = "https://mementos-backend-jqdl.onrender.com/users/auth/google"
+  window.location.href = "https://mementos-backend-jqdl.onrender.com/users/auth/google"
   };
   return (
     <div

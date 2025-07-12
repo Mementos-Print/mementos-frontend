@@ -33,7 +33,7 @@ const GoogleAuth = () => {
       }));
 
       // Navigate to the user dashboard
-      navigate("/user/dashboard");
+      navigate("/dashboard");
     } else {
       console.log("Login Failed: No credential found");
     }

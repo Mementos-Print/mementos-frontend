@@ -8,7 +8,7 @@ const ProtectedRoute = () => {
       <img src="/Logo_Mementos.svg" alt="logo" />
     </div>
   ) 
-  return accessToken ? <Outlet /> : <Navigate to="/auth/user/signin" />;
+  return accessToken ? <Outlet /> : <Navigate to="/auth/user/signin"/>;
 };
 
 export default ProtectedRoute;

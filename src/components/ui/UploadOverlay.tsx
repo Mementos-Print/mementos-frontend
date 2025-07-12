@@ -25,7 +25,7 @@ const UploadOverlay = () => {
       setSelected("isSuccessful", true);
     })
     .catch((err) => {
-      setError(err?.response?.data?.error || "An error occurred");
+      setError(erpr?.response?.data?.error || "An error occurred");
       })
       .finally(() => {
         setLoading(false);

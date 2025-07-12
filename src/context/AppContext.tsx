@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useReducer, Reducer, useMemo } from "react";
 import { headers } from "../constants";
-import {CredentialResponse} from "@react-oauth/google";
+import { CredentialResponse } from "@react-oauth/google";
 
 export interface State {
   activePolaroidBase: string;
@@ -13,12 +13,20 @@ export interface State {
   isAuthenticated: boolean;
   accessToken: string | null;
   refreshToken: string;
-  authLoading: boolean
+  authLoading: boolean;
+  activeNav: boolean;
 }
 interface Action {
   type: string;
   optionKey?: keyof State;
-  payload?: string[] | number[] | string | boolean | CredentialResponse | File[] | null; 
+  payload?:
+    | string[]
+    | number[]
+    | string
+    | boolean
+    | CredentialResponse
+    | File[]
+    | null;
 }
 type Dispatch = (action: Action) => void;
 interface AppProviderProps {
@@ -29,14 +37,17 @@ const initialState = {
   selectedImages: [],
   importedImages: [],
   borderOption: "white",
-  visibleRange: [0,1],
+  visibleRange: [0, 1],
   isDone: false,
   isSuccessful: false,
-  isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated") || "false"),
+  activeNav: false,
+  isAuthenticated: JSON.parse(
+    localStorage.getItem("isAuthenticated") || "false"
+  ),
   // accessToken: "",
   accessToken: "",
   refreshToken: "",
-  authLoading: true
+  authLoading: true,
 };
 export const AppStateContext = createContext<State | undefined>(undefined);
 export const AppDispathContext = createContext<Dispatch | undefined>(undefined);
@@ -44,16 +55,13 @@ const DashboardReducer = (state: State, action: Action) => {
   const { type, payload, optionKey } = action;
   switch (type) {
     case "SET_SELECTED":
-      if(optionKey === "isAuthenticated"){
+      if (optionKey === "isAuthenticated") {
         localStorage.setItem("isAuthenticated", JSON.stringify(payload));
       }
-      // if(optionKey === "accessToken"){
-      //   localStorage.setItem("accessToken", JSON.stringify(payload))
-      // }  
       return optionKey ? { ...state, [optionKey]: payload } : state;
     default:
       return state;
-  } 
+  }
 };
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<State, Action>>(

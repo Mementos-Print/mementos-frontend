@@ -92,7 +92,7 @@ const NewUserDataForm = ({ onSubmit, loading }: NewUserDataFormProps) => {
       <ToastContainer />
     </form>
   ) : (
-    <Navigate to="/user/dashboard" />
+    <Navigate to="/dashboard" />
   );
 };
 

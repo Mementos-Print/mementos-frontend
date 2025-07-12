@@ -1,27 +1,35 @@
-import { Link, useMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { HamburgerMenuIcon, NotifyIcon } from "../../assets/icons/Icon";
 import { Logo } from "../../assets/Logo";
-import HamburgerDropdownMenu from "../ui/HamburgerDropdownMenu";
 import { useAppState } from "../../hooks/useAppState";
+import { useSetSelected } from "../../hooks/useSetSelected";
+import { DashboardHeader } from "../ui/Dashboard";
 
 const Navbar = () => {
-  const isonHome = useMatch("/");
-  const isOnDashboard = useMatch("/user/dashboard");
   const { accessToken } = useAppState();
+  const setSelected = useSetSelected();
+  const handleSidebar = () => {
+    setSelected("activeNav", true);
+  };
   return (
-    <div
-      className={`flex-row flex justify-between items-center w-full px-4 pt-2 pb-2 ${
-        !isOnDashboard && !isonHome ? "bg-[#F5F5F5]" : ""
-      }`}
-    >
-      <Link to={"/"}>
-        <Logo />
-      </Link>
+    <DashboardHeader className="flex justify-between">
+      <div className="flex gap-2 items-center">
+        {accessToken && <HamburgerMenuIcon onClick={handleSidebar} />}
+        <Link to="/">
+          <Logo />
+        </Link>
+      </div>
       {accessToken && (
-        <div className="!z-[1000]">
-          <HamburgerDropdownMenu />
+        <div className="flex items-center gap-4">
+          <NotifyIcon />
+          <img
+            src="/image_8.jpg"
+            alt="profile"
+            className="w-6 h-6 rounded-full"
+          />
         </div>
       )}
-    </div>
+    </DashboardHeader>
   );
 };
 

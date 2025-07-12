@@ -11,7 +11,7 @@ const AuthCallback = () => {
     if (token) {
       setSelected("accessToken", token);
       console.log(token)
-      navigate("/user/dashboard");
+      navigate("/dashboard");
     } else {
       console.log("No access token received");
       navigate("/");
