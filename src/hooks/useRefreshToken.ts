@@ -18,7 +18,7 @@ const useRefreshToken = () => {
     mutationFn: refreshToken,
     onSuccess: (newToken) => {
       setSelected("accessToken", newToken);
-      setSelected("authLoading",false)
+      // setSelected("authLoading",false)
       // console.log("Refresh succes", newToken);
     },
     onError: (error) => {
@@ -28,7 +28,7 @@ const useRefreshToken = () => {
 
   useEffect(() => {
     // if (!accessToken) {
-      setSelected("authLoading",true)
+      // setSelected("authLoading",true)
     mutate();
     // }
   }, [accessToken]);
