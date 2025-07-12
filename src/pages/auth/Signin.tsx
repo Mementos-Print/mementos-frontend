@@ -26,7 +26,7 @@ const SignIn = () => {
       .then((res) => {
         const accessToken = res.accessToken;
         setSelected("accessToken", accessToken);
-        navigate("/user/dashboard");
+        navigate("/dashboard");
         // setSelected("isAuthenticated", true);
       })
       .catch((err) => {

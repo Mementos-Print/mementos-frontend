@@ -2,12 +2,12 @@ export const optionsLists = [
   {
     heading: "Postcard Style",
     note: "Classic full-frame print with a smooth finish",
-    link: "/user/dashboard/postcard",
+    link: "/dashboard/postcard",
   },
   {
     heading: "Polaroid Style",
     note: "Transform your memories with classic polaroid borders and customizable sets.",
-    link: "/user/dashboard/polaroid",
+    link: "/dashboard/polaroid",
   },
   // { heading: "Photo Strip", note: "Create stunning photo strips with fully customizable grids and borders.", link: "/photostripe" },
 ];

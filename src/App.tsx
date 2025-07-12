@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import AuthRoute from "./pages/auth/AuthRoute";
 import useRefreshToken from "./hooks/useRefreshToken";
 import AuthCallback from "./pages/auth/AuthCallback";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   useRefreshToken();
@@ -28,8 +29,9 @@ function App() {
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
           </Route>
-          <Route path="/user/dashboard" element={<ProtectedRoute />}>
-            <Route index={true} element={<GetStarted />} />
+          <Route path="/dashboard" element={<ProtectedRoute />}>
+            <Route index={true} element={<Dashboard />} />
+            <Route path="upload" element={<GetStarted />} />
             <Route path="polaroid" element={<Polaroid />} />
             <Route path="postcard" element={<PostCard />} />
             <Route path="photostripe" element={<PhotoStripe />} />
