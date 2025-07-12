@@ -17,7 +17,7 @@ const HamburgerDropdownMenu = () => {
     logout(accessToken)
       .then(() => {
         setSelected("accessToken", "");
-        setSelected("authLoading", false)
+        // setSelected("authLoading", false)
         navigate("/");
       })
       .catch((err) => {

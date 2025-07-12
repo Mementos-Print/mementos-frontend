@@ -74,7 +74,7 @@ export const Profile = () => {
     logout(accessToken)
       .then(() => {
         setSelected("accessToken", "");
-        setSelected("authLoading", false);
+        // setSelected("authLoading", false);
         setSelected("activeNav", false);
         navigate("/");
       })
